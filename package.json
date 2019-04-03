@@ -1,6 +1,6 @@
 {
  "name": "@19h47/radios",
- "version": "1.0.0",
+ "version": "1.0.2",
  "description": "Custom radios elements with accessibility in mind",
  "main": "dist/main.js",
  "scripts": {
@@ -13,7 +13,8 @@
   "url": "git+https://github.com/19h47/19h47-radios.git"
  },
  "keywords": [
-  "checkbox",
+  "radio",
+  "radios",
   "ES6"
  ],
  "author": "Jérémy Levron <jeremylevron@19h47.fr> (http://19h47.fr)",

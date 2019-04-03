@@ -10,7 +10,7 @@
 	<div class="js-radios" role="radiogroup" aria-labelledby="radio-label">
 		<h1 id="radio-label">Radio group</h1>
 
-		<div class="js-radio is-active" aria-checked="true" tabindex="0" role="radio">
+		<div class="js-radio is-selected" aria-checked="true" tabindex="0" role="radio">
 			<span>Option 1</span>
 			<input type="radio" id="option_1" name="option" value="option_1" checked style="display: none;">
 		</div>
@@ -32,6 +32,11 @@
 		<div class="js-condition-option-1 is-off">
 			<label for="option_2_3">Option 2 3</label>
 			<input id="option_2_3" type="text" name="option_2_3" placeholder="ex. Option 2 3">
+		</div>
+
+		<div class="js-radio" aria-checked="false" tabindex="-1" role="radio">
+			<span>Option 3</span>
+			<input type="radio" id="option_3" name="option" value="option_3" style="display: none;">
 		</div>
 
 	</div>

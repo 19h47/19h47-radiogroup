@@ -28,7 +28,7 @@ export default class Radios {
 			// Click.
 			this.elements[i].addEventListener('click', () => {
 				this.deactivateAll();
-				Radios.toggle(this.elements[i], input, this.elements[i].classList.contains('is-active'));
+				Radios.toggle(this.elements[i], input, 'true' === this.elements[i].getAttribute('aria-checked'));
 			});
 
 			// Focus
@@ -46,25 +46,38 @@ export default class Radios {
 				if ('keydown' !== event.type) return false;
 
 				let flag = false;
+				let $current = null;
 
 				switch (event.keyCode) {
 				case KEYCODE.DOWN:
 				case KEYCODE.RIGHT:
+					$current = this.elements[i + 1] ? this.elements[i + 1] : this.elements[0];
+
 					this.deactivateAll();
 					Radios.blur(this.elements[i]);
-					Radios.focus(this.elements[i + 1] ? this.elements[i + 1] : this.elements[0]);
+					Radios.focus($current);
+					Radios.activate(
+						$current,
+						$current.querySelector('input'),
+						false,
+					);
 					flag = true;
 
 					break;
 
 				case KEYCODE.UP:
 				case KEYCODE.LEFT:
+					$current = this.elements[i - 1]
+						? this.elements[i - 1]
+						: this.elements[this.elements.length - 1];
+
 					this.deactivateAll();
 					Radios.blur(this.elements[i]);
-					Radios.focus(
-						this.elements[i - 1]
-							? this.elements[i - 1]
-							: this.elements[this.elements.length - 1],
+					Radios.focus($current);
+					Radios.activate(
+						$current,
+						$current.querySelector('input'),
+						false,
 					);
 					flag = true;
 
@@ -72,10 +85,10 @@ export default class Radios {
 
 				case KEYCODE.SPACE:
 					this.deactivateAll();
-					Radios.toggle(
+					Radios.activate(
 						this.elements[i],
 						this.elements[i].querySelector('input'),
-						this.elements[i].classList.contains('is-active'),
+						false,
 					);
 					flag = true;
 
@@ -128,7 +141,7 @@ export default class Radios {
 
 		const radio = input;
 
-		element.classList.add('is-active');
+		element.classList.add('is-selected');
 		element.setAttribute('aria-checked', 'true');
 		element.setAttribute('tabindex', 0);
 
@@ -160,7 +173,7 @@ export default class Radios {
 		const conditionalEls = document.querySelectorAll(`.${conditionClass}`) || [];
 		const radio = input;
 
-		element.classList.remove('is-active');
+		element.classList.remove('is-selected');
 		element.setAttribute('aria-checked', 'false');
 		element.setAttribute('tabindex', -1);
 
