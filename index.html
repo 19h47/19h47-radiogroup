@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Radios</title>
+</head>
+<body>
+	<div class="js-radios" role="radiogroup" aria-labelledby="radio-label">
+		<h1 id="radio-label">Radio group</h1>
+
+		<div class="js-radio is-active" aria-checked="true" tabindex="0" role="radio">
+			<span>Option 1</span>
+			<input type="radio" id="option_1" name="option" value="option_1" checked style="display: none;">
+		</div>
+
+		<div class="js-radio" aria-checked="false" tabindex="-1" role="radio" data-condition-class="js-condition-option-1">
+			<span>Option 2</span>
+			<input type="radio" id="option_2" name="option" value="option_2" style="display: none;">
+		</div>
+
+		<div class="js-condition-option-1 is-off">
+			<label for="option_2_1">Label 2 1</label>
+			<input id="option_2_1" type="text" name="option_2_1" placeholder="ex. Option 2 1">
+		</div>
+		<div class="js-condition-option-1 is-off">
+			<label for="option_2_2">Label 2 2</label>
+			<input id="option_2_2" name="option_2_2" type="text" placeholder="ex. Option 2 2">
+		</div>
+
+		<div class="js-condition-option-1 is-off">
+			<label for="option_2_3">Option 2 3</label>
+			<input id="option_2_3" type="text" name="option_2_3" placeholder="ex. Option 2 3">
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="dist/main.js"></script>
+	<script type="text/javascript">
+		const element = document.querySelector('.js-radios');
+		const radios = new Radios.default(element);
+
+		radios.init();
+	</script>
+</body>
+</html>
