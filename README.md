@@ -28,3 +28,20 @@ const radios = new Radios(element);
 radios.init();
 
 ```
+
+## Keyboard Support
+
+| Key   | Function                            |
+| ----- | ----------------------------------- |
+| Tab   | Moves keyboard focus to radiogroup. |
+| Arrow | Moves up and down radio options.    |
+
+## ARIA Roles, Properties and States
+
+| Role            | Property/State | Usage                                   |
+| --------------- | -------------- | --------------------------------------- |
+| Radiogroup      |                | Identify div as a contatiner for radios |
+| Radio           | aria-checked   | Indicate state of radio:                |
+|                 |                |  - Checked (e.g. aria-checked=true)     |
+|                 |                |  - Unchecked (e.g. aria-checked=false)  |
+| aria-labelledby |                | Used to identify radio group            |
