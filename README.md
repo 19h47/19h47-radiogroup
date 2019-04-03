@@ -38,10 +38,10 @@ radios.init();
 
 ## ARIA Roles, Properties and States
 
-| Role            | Property/State | Usage                                   |
-| --------------- | -------------- | --------------------------------------- |
-| Radiogroup      |                | Identify div as a contatiner for radios |
-| Radio           | aria-checked   | Indicate state of radio:                |
-|                 |                |  - Checked (e.g. aria-checked=true)     |
-|                 |                |  - Unchecked (e.g. aria-checked=false)  |
-| aria-labelledby |                | Used to identify radio group            |
+| Role            | Property/State | Usage                                      |
+| --------------- | -------------- | ------------------------------------------ |
+| Radiogroup      |                | Identify div as a contatiner for radios    |
+| Radio           | aria-checked   | Indicate state of radio:                   |
+|                 |                | <br>- Checked (e.g. aria-checked=true)     |
+|                 |                | <br>- Unchecked (e.g. aria-checked=false)  |
+| aria-labelledby |                | Used to identify radio group               |
