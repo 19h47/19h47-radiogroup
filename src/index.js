@@ -148,6 +148,8 @@ export default class Radios {
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
 			conditionalEls[i].classList.remove('is-off');
+			conditionalEls[i].setAttribute('tabIndex', 0);
+			conditionalEls[i].removeAttribute('disabled');
 		}
 
 		radio.setAttribute('checked', true);
@@ -180,6 +182,7 @@ export default class Radios {
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
 			conditionalEls[i].classList.add('is-off');
+			conditionalEls[i].setAttribute('tabIndex', -1);
 		}
 
 		radio.removeAttribute('checked');

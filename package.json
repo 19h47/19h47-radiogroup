@@ -1,6 +1,6 @@
 {
  "name": "@19h47/radios",
- "version": "1.0.2",
+ "version": "1.0.6",
  "description": "Custom radios elements with accessibility in mind",
  "main": "dist/main.js",
  "scripts": {
