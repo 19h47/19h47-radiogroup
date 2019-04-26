@@ -1,12 +1,13 @@
 {
  "name": "@19h47/radios",
- "version": "1.0.6",
+ "version": "1.0.8",
  "description": "Custom radios elements with accessibility in mind",
  "main": "dist/main.js",
  "scripts": {
-  "prod": "node scripts/production.js",
-  "dev": "node scripts/development.js",
-  "deploy": "npm run prod && npm publish --access=public"
+  "prod": "./bin/production",
+  "dev": "./bin/development",
+  "deploy": "./bin/deploy",
+  "start": "./bin/start"
  },
  "repository": {
   "type": "git",
@@ -28,19 +29,20 @@
   "@babel/preset-env": "^7.4.3",
   "babel-eslint": "^10.0.1",
   "babel-loader": "^8.0.5",
-  "clean-webpack-plugin": "^2.0.1",
   "clear": "^0.1.0",
   "eslint": "^5.16.0",
   "eslint-config-airbnb-base": "^13.1.0",
   "eslint-config-standard": "^12.0.0",
-  "eslint-import-resolver-webpack": "^0.11.0",
   "eslint-loader": "^2.1.2",
   "eslint-plugin-import": "^2.16.0",
   "eslint-plugin-node": "^8.0.1",
   "eslint-plugin-promise": "^4.1.1",
   "eslint-plugin-standard": "^4.0.0",
+  "html-webpack-plugin": "^3.2.0",
   "ora": "^3.3.1",
   "webpack": "^4.29.6",
+  "webpack-cli": "^3.3.1",
+  "webpack-dev-server": "^3.3.1",
   "webpack-format-messages": "^2.0.5",
   "webpack-merge": "^4.2.1",
   "webpack-notifier": "^1.7.0"

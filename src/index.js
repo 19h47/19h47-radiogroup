@@ -1,4 +1,6 @@
-import KEYCODE from '@/keycode';
+import KEYCODE from 'src/keycode';
+
+const CHECKED = 'aria-checked';
 
 /**
  * Class Radios
@@ -14,7 +16,7 @@ export default class Radios {
 	init() {
 		if (null === this.$element) return false;
 
-		this.elements = this.$element.querySelectorAll('.js-radio');
+		this.radios = this.$element.querySelectorAll('[role=radio]');
 
 		this.initEvents();
 
@@ -22,80 +24,78 @@ export default class Radios {
 	}
 
 	initEvents() {
-		for (let i = 0; i < this.elements.length; i += 1) {
-			const input = this.elements[i].querySelector('input');
+		for (let i = 0; i < this.radios.length; i += 1) {
+			const input = this.radios[i].querySelector('input');
+
+			console.log(`${this.radios[i].tagName} ${this.radios[i].id}`);
 
 			// Click.
-			this.elements[i].addEventListener('click', () => {
+			this.radios[i].addEventListener('click', () => {
 				this.deactivateAll();
-				Radios.toggle(this.elements[i], input, 'true' === this.elements[i].getAttribute('aria-checked'));
+				Radios.toggle(this.radios[i], input, 'true' === this.radios[i].getAttribute(CHECKED));
 			});
 
 			// Focus
-			this.elements[i].addEventListener('focus', () => {
-				Radios.focus(this.elements[i]);
-			});
+			this.radios[i].addEventListener('focus', () => Radios.focus(this.radios[i]));
 
 			// Blur
-			this.elements[i].addEventListener('blur', () => {
-				Radios.blur(this.elements[i]);
-			});
+			this.radios[i].addEventListener('blur', () => Radios.blur(this.radios[i]));
 
 			// Keydown.
-			this.elements[i].addEventListener('keydown', (event) => {
+			this.radios[i].addEventListener('keydown', (event) => {
 				if ('keydown' !== event.type) return false;
 
 				let flag = false;
 				let $current = null;
 
 				switch (event.keyCode) {
-				case KEYCODE.DOWN:
-				case KEYCODE.RIGHT:
-					$current = this.elements[i + 1] ? this.elements[i + 1] : this.elements[0];
+					case KEYCODE.DOWN:
+					case KEYCODE.RIGHT:
+						$current = this.radios[i + 1] ? this.radios[i + 1] : this.radios[0];
 
-					this.deactivateAll();
-					Radios.blur(this.elements[i]);
-					Radios.focus($current);
-					Radios.activate(
-						$current,
-						$current.querySelector('input'),
-						false,
-					);
-					flag = true;
+						this.deactivateAll();
+						Radios.blur(this.radios[i]);
+						Radios.focus($current);
+						Radios.activate(
+							$current,
+							$current.querySelector('input'),
+							false,
+						);
+						flag = true;
 
-					break;
+						break;
 
-				case KEYCODE.UP:
-				case KEYCODE.LEFT:
-					$current = this.elements[i - 1]
-						? this.elements[i - 1]
-						: this.elements[this.elements.length - 1];
+					case KEYCODE.UP:
+					case KEYCODE.LEFT:
+						$current = this.radios[i - 1]
+							? this.radios[i - 1]
+							: this.radios[this.radios.length - 1];
 
-					this.deactivateAll();
-					Radios.blur(this.elements[i]);
-					Radios.focus($current);
-					Radios.activate(
-						$current,
-						$current.querySelector('input'),
-						false,
-					);
-					flag = true;
+						this.deactivateAll();
+						Radios.blur(this.radios[i]);
+						Radios.focus($current);
+						Radios.activate(
+							$current,
+							$current.querySelector('input'),
+							false,
+						);
+						flag = true;
 
-					break;
+						break;
 
-				case KEYCODE.SPACE:
-					this.deactivateAll();
-					Radios.activate(
-						this.elements[i],
-						this.elements[i].querySelector('input'),
-						false,
-					);
-					flag = true;
+					case KEYCODE.SPACE:
+						this.deactivateAll();
+						Radios.activate(
+							this.radios[i],
+							this.radios[i].querySelector('input'),
+							false,
+						);
+						flag = true;
 
-					break;
+						break;
 
-				default:
-					break;
+					default:
+						break;
 				}
 
 				if (flag) {
@@ -109,7 +109,7 @@ export default class Radios {
 			});
 
 			if (input.checked) {
-				Radios.activate(this.elements[i], input, false);
+				Radios.activate(this.radios[i], input, false);
 			}
 		}
 	}
@@ -142,14 +142,14 @@ export default class Radios {
 		const radio = input;
 
 		element.classList.add('is-selected');
-		element.setAttribute('aria-checked', 'true');
+		element.setAttribute(CHECKED, 'true');
 		element.setAttribute('tabindex', 0);
 
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
 			conditionalEls[i].classList.remove('is-off');
 			conditionalEls[i].setAttribute('tabIndex', 0);
-			conditionalEls[i].removeAttribute('disabled');
+			conditionalEls[i].querySelector('input').removeAttribute('disabled');
 		}
 
 		radio.setAttribute('checked', true);
@@ -176,13 +176,14 @@ export default class Radios {
 		const radio = input;
 
 		element.classList.remove('is-selected');
-		element.setAttribute('aria-checked', 'false');
+		element.setAttribute(CHECKED, 'false');
 		element.setAttribute('tabindex', -1);
 
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
 			conditionalEls[i].classList.add('is-off');
 			conditionalEls[i].setAttribute('tabIndex', -1);
+			conditionalEls[i].querySelector('input').setAttribute('disabled', true);
 		}
 
 		radio.removeAttribute('checked');
@@ -196,10 +197,10 @@ export default class Radios {
 	 * @return void
 	 */
 	deactivateAll() {
-		for (let i = 0; i < this.elements.length; i += 1) {
-			const input = this.elements[i].querySelector('input');
+		for (let i = 0; i < this.radios.length; i += 1) {
+			const input = this.radios[i].querySelector('input');
 
-			Radios.deactivate(this.elements[i], input, true);
+			Radios.deactivate(this.radios[i], input, true);
 		}
 	}
 
