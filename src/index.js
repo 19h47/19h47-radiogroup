@@ -27,18 +27,16 @@ export default class Radios {
 		for (let i = 0; i < this.radios.length; i += 1) {
 			const input = this.radios[i].querySelector('input');
 
-			console.log(`${this.radios[i].tagName} ${this.radios[i].id}`);
-
 			// Click.
 			this.radios[i].addEventListener('click', () => {
 				this.deactivateAll();
 				Radios.toggle(this.radios[i], input, 'true' === this.radios[i].getAttribute(CHECKED));
 			});
 
-			// Focus
+			// Focus.
 			this.radios[i].addEventListener('focus', () => Radios.focus(this.radios[i]));
 
-			// Blur
+			// Blur.
 			this.radios[i].addEventListener('blur', () => Radios.blur(this.radios[i]));
 
 			// Keydown.
