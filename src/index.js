@@ -2,6 +2,7 @@ import KEYCODE from 'src/keycode';
 
 const CHECKED = 'aria-checked';
 
+
 /**
  * Class Radios
  *
@@ -145,9 +146,14 @@ export default class Radios {
 
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
+			const $input = conditionalEls[i].querySelector('input') || false;
+
 			conditionalEls[i].classList.remove('is-off');
 			conditionalEls[i].setAttribute('tabIndex', 0);
-			conditionalEls[i].querySelector('input').removeAttribute('disabled');
+
+			if ($input) {
+				$input.removeAttribute('disabled');
+			}
 		}
 
 		radio.setAttribute('checked', true);
@@ -179,9 +185,13 @@ export default class Radios {
 
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
+			const $input = conditionalEls[i].querySelector('input') || false;
 			conditionalEls[i].classList.add('is-off');
 			conditionalEls[i].setAttribute('tabIndex', -1);
-			conditionalEls[i].querySelector('input').setAttribute('disabled', true);
+
+			if ($input) {
+				conditionalEls[i].querySelector('input').setAttribute('disabled', true);
+			}
 		}
 
 		radio.removeAttribute('checked');
