@@ -1,4 +1,10 @@
-import KEYCODE from 'src/keycode';
+import {
+	DOWN,
+	LEFT,
+	RIGHT,
+	SPACE,
+	UP,
+} from '@19h47/keycode';
 
 const CHECKED = 'aria-checked';
 
@@ -48,8 +54,8 @@ export default class Radios {
 				let $current = null;
 
 				switch (event.keyCode) {
-					case KEYCODE.DOWN:
-					case KEYCODE.RIGHT:
+					case DOWN:
+					case RIGHT:
 						$current = this.radios[i + 1] ? this.radios[i + 1] : this.radios[0];
 
 						this.deactivateAll();
@@ -64,8 +70,8 @@ export default class Radios {
 
 						break;
 
-					case KEYCODE.UP:
-					case KEYCODE.LEFT:
+					case UP:
+					case LEFT:
 						$current = this.radios[i - 1]
 							? this.radios[i - 1]
 							: this.radios[this.radios.length - 1];
@@ -82,7 +88,7 @@ export default class Radios {
 
 						break;
 
-					case KEYCODE.SPACE:
+					case SPACE:
 						this.deactivateAll();
 						Radios.activate(
 							this.radios[i],

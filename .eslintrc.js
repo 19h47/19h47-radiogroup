@@ -12,19 +12,25 @@ module.exports = {
 		'no-console': 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-tabs': 0,
-		'indent': ['error', 'tab', { 'SwitchCase': 1 }],
+		indent: ['error', 'tab', { 'SwitchCase': 1 }],
 		'no-param-reassign': ['error', {
 			props: true,
 			ignorePropertyModificationsFor: ['state']
 		}],
-		'yoda': [2, 'always'],
-		'import/no-named-as-default': 0,
-		'import/no-unresolved': 'off'
+		yoda: [2, 'always'],
+		'import/no-named-as-default': 0
 	},
-	parser: 'babel-eslint',
 	parserOptions: {
-		sourceType: 'module',
-		allowImportExportEverywhere: true,
-		codeFrame: false
-	}
+		parser: 'babel-eslint',
+  		sourceType: 'module',
+		ecmaVersion: 2017,
+  		allowImportExportEverywhere: true
+	},
+	settings: {
+		'import/resolver': {
+			'webpack': {
+				'config': 'config/webpack.common.js'
+			},
+		}
+	},
 };
