@@ -1,9 +1,9 @@
 import {
-	DOWN,
+	ARROWDOWN,
 	LEFT,
 	RIGHT,
-	SPACE,
-	UP,
+	// SPACE,
+	ARROWUP,
 } from '@19h47/keycode';
 
 const CHECKED = 'aria-checked';
@@ -48,69 +48,9 @@ export default class Radios {
 
 			// Keydown.
 			this.radios[i].addEventListener('keydown', (event) => {
-				if ('keydown' !== event.type) return false;
-
-				let flag = false;
-				let $current = null;
-
-				switch (event.keyCode) {
-					case DOWN:
-					case RIGHT:
-						$current = this.radios[i + 1] ? this.radios[i + 1] : this.radios[0];
-
-						this.deactivateAll();
-						Radios.blur(this.radios[i]);
-						Radios.focus($current);
-						Radios.activate(
-							$current,
-							$current.querySelector('input'),
-							false,
-						);
-						flag = true;
-
-						break;
-
-					case UP:
-					case LEFT:
-						$current = this.radios[i - 1]
-							? this.radios[i - 1]
-							: this.radios[this.radios.length - 1];
-
-						this.deactivateAll();
-						Radios.blur(this.radios[i]);
-						Radios.focus($current);
-						Radios.activate(
-							$current,
-							$current.querySelector('input'),
-							false,
-						);
-						flag = true;
-
-						break;
-
-					case SPACE:
-						this.deactivateAll();
-						Radios.activate(
-							this.radios[i],
-							this.radios[i].querySelector('input'),
-							false,
-						);
-						flag = true;
-
-						break;
-
-					default:
-						break;
+				if ('keydown' === event.type) {
+					this.keydownEventListener(event, i);
 				}
-
-				if (flag) {
-					event.preventDefault();
-					event.stopPropagation();
-
-					return true;
-				}
-
-				return false;
 			});
 
 			if (input.checked) {
@@ -119,7 +59,75 @@ export default class Radios {
 		}
 	}
 
+	/**
+	 * Keydown event listener
+	 *
+	 * @param  {object} event
+	 * @param  {number} i
+	 * @return
+	 */
+	keydownEventListener(event, i) {
+		const key = event.keyCode;
+		let $current = null;
 
+		const next = () => {
+			$current = this.radios[i + 1] || this.radios[0];
+
+			this.deactivateAll();
+			Radios.blur(this.radios[i]);
+			Radios.focus($current);
+			Radios.activate(
+				$current,
+				$current.querySelector('input'),
+				false,
+			);
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
+		const previous = () => {
+			$current = this.radios[i - 1] || this.radios[this.radios.length - 1];
+
+			this.deactivateAll();
+			Radios.blur(this.radios[i]);
+			Radios.focus($current);
+			Radios.activate(
+				$current,
+				$current.querySelector('input'),
+				false,
+			);
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
+		const codes = {
+			[ARROWDOWN]: next,
+			[RIGHT]: next,
+			[ARROWUP]: previous,
+			[LEFT]: previous,
+			// [SPACE]: () => {
+			// 	this.deactivateAll();
+			// 	Radios.activate(
+			// 		this.radios[i],
+			// 		this.radios[i].querySelector('input'),
+			// 		false,
+			// 	);
+			// 	event.preventDefault();
+			// 	event.stopPropagation();
+			// },
+			default: () => false,
+		};
+
+		return (codes[key] || codes.default)();
+	}
+
+	/**
+	 * Toggle
+	 *
+	 * @param  {object}  element DOM element.
+	 * @param  {object}  input DOM element.
+	 * @param  {boolean} active
+	 */
 	static toggle(element, input, active) {
 		if (active) {
 			return this.deactivate(element, input, active);
@@ -132,9 +140,9 @@ export default class Radios {
 	/**
 	 * Checkbox.activate
 	 *
-	 * @param  obj  element DOM element.
-	 * @param  obj  input DOM element.
-	 * @param  bool active
+	 * @param  {object}  element DOM element.
+	 * @param  {object}  input DOM element.
+	 * @param  {boolean} active
 	 * @return bool
 	 * @access static
 	 */
@@ -171,14 +179,12 @@ export default class Radios {
 	/**
 	 * Deactivate
 	 *
-	 * @param  obj  element DOM element.
-	 * @param  obj  input DOM element.
-	 * @param  bool active
-	 * @return bool
+	 * @param  {object}  element DOM element.
+	 * @param  {object}  input DOM element.
+	 * @param  {boolean} active
+	 * @return boolean
 	 */
 	static deactivate(element, input, active) {
-		// console.info('Radios.deactivate');
-
 		if (!active) return false;
 
 		const conditionClass = element.getAttribute('data-condition-class');
@@ -221,7 +227,7 @@ export default class Radios {
 	/**
 	 * Focus
 	 *
-	 * @param obj element DOM object.
+	 * @param {object} element DOM object.
 	 */
 	static focus(element) {
 		element.classList.add('is-focus');
@@ -232,7 +238,7 @@ export default class Radios {
 	/**
 	 * Blur
 	 *
-	 * @param obj element DOM object.
+	 * @param {object} element DOM object.
 	 */
 	static blur(element) {
 		element.classList.remove('is-focus');
