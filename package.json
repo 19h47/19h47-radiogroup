@@ -1,6 +1,6 @@
 {
 	"name": "@19h47/radios",
-	"version": "2.0.4",
+	"version": "2.1.4",
 	"description": "Custom radios elements with accessibility in mind",
 	"main": "dist/main.js",
 	"scripts": {
@@ -28,8 +28,9 @@
 	},
 	"homepage": "https://github.com/19h47/19h47-radios#readme",
 	"devDependencies": {
-		"@babel/core": "^7.7.5",
-		"@babel/preset-env": "^7.7.6",
+		"@babel/core": "^7.8.4",
+		"@babel/preset-env": "^7.8.4",
+		"@babel/runtime": "^7.8.4",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
 		"clean-webpack-plugin": "^3.0.0",
@@ -38,20 +39,22 @@
 		"eslint-config-airbnb-base": "^13.2.0",
 		"eslint-config-standard": "^12.0.0",
 		"eslint-loader": "^2.2.1",
-		"eslint-plugin-import": "^2.18.2",
+		"eslint-plugin-import": "^2.20.1",
 		"eslint-plugin-node": "^8.0.1",
 		"eslint-plugin-promise": "^4.2.1",
 		"eslint-plugin-standard": "^4.0.1",
 		"html-webpack-plugin": "^3.2.0",
 		"ora": "^3.4.0",
-		"webpack": "^4.41.2",
+		"webpack": "^4.41.5",
 		"webpack-cli": "^3.3.10",
-		"webpack-dev-server": "^3.9.0",
+		"webpack-dev-server": "^3.10.3",
 		"webpack-format-messages": "^2.0.6",
 		"webpack-merge": "^4.2.2",
 		"webpack-notifier": "^1.8.0"
 	},
 	"dependencies": {
-		"@19h47/keycode": "^1.0.6"
+		"@19h47/keycode": "^1.0.6",
+		"@babel/plugin-transform-runtime": "^7.8.3",
+		"core-js": "^3.6.4"
 	}
 }

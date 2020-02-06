@@ -9,22 +9,20 @@ module.exports = {
 		'airbnb-base',
 	],
 	rules: {
+		'arrow-parens': ['error', 'as-needed'],
 		'no-console': 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-tabs': 0,
-		indent: ['error', 'tab', { 'SwitchCase': 1 }],
-		'no-param-reassign': ['error', {
-			props: true,
-			ignorePropertyModificationsFor: ['state']
-		}],
+		indent: ['error', 'tab', { SwitchCase: 1, ignoredNodes: ["TemplateLiteral"] }],
+		"template-curly-spacing": ["off"],
+		'no-param-reassign': ['error', { props: false }],
 		yoda: [2, 'always'],
-		'import/no-named-as-default': 0
+		"import/no-named-as-default": 0
 	},
+	parser: 'babel-eslint',
 	parserOptions: {
-		parser: 'babel-eslint',
-  		sourceType: 'module',
-		ecmaVersion: 2017,
-  		allowImportExportEverywhere: true
+		sourceType: 'module',
+		allowImportExportEverywhere: true
 	},
 	settings: {
 		'import/resolver': {

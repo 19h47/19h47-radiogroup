@@ -10,20 +10,46 @@ const CHECKED = 'aria-checked';
 
 
 /**
+ * Blur
+ *
+ * @param {object} element DOM object.
+ */
+const blur = target => {
+	target.classList.remove('is-focus');
+
+	return target.blur();
+};
+
+
+/**
+ * Focus
+ *
+ * @param {obj} element DOM object.
+ */
+const focus = target => {
+	target.classList.add('is-focus');
+
+	return target.focus();
+};
+
+
+/**
  * Class Radios
  *
- * @param obj element DOM element.
- * @author Jérémy Levron <jeremylevron@19h47.fr> (http://19h47.fr)
+ * @param {obj} element DOM element.
+ * @author Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)
  */
 export default class Radios {
 	constructor(element) {
-		this.$element = element;
+		this.rootElement = element;
 	}
 
 	init() {
-		if (null === this.$element) return false;
+		if (null === this.rootElement) {
+			return false;
+		}
 
-		this.radios = this.$element.querySelectorAll('[role=radio]');
+		this.radios = this.rootElement.querySelectorAll('[role=radio]');
 
 		this.initEvents();
 
@@ -37,24 +63,21 @@ export default class Radios {
 			// Click.
 			this.radios[i].addEventListener('click', () => {
 				this.deactivateAll();
-				Radios.toggle(this.radios[i], input, 'true' === this.radios[i].getAttribute(CHECKED));
+				this.toggle(this.radios[i], input, 'true' === this.radios[i].getAttribute(CHECKED));
 			});
 
-			// Focus.
-			this.radios[i].addEventListener('focus', () => Radios.focus(this.radios[i]));
-
-			// Blur.
-			this.radios[i].addEventListener('blur', () => Radios.blur(this.radios[i]));
+			this.radios[i].addEventListener('focus', focus(this.radios[i]));
+			this.radios[i].addEventListener('blur', blur(this.radios[i]));
 
 			// Keydown.
-			this.radios[i].addEventListener('keydown', (event) => {
+			this.radios[i].addEventListener('keydown', event => {
 				if ('keydown' === event.type) {
-					this.keydownEventListener(event, i);
+					this.onKeyDown(event, i);
 				}
 			});
 
 			if (input.checked) {
-				Radios.activate(this.radios[i], input, false);
+				this.activate(this.radios[i], input, false);
 			}
 		}
 	}
@@ -66,7 +89,7 @@ export default class Radios {
 	 * @param  {number} i
 	 * @return
 	 */
-	keydownEventListener(event, i) {
+	onKeyDown(event, i) {
 		const key = event.keyCode;
 		let $current = null;
 
@@ -74,9 +97,9 @@ export default class Radios {
 			$current = this.radios[i + 1] || this.radios[0];
 
 			this.deactivateAll();
-			Radios.blur(this.radios[i]);
-			Radios.focus($current);
-			Radios.activate(
+			blur(this.radios[i]);
+			focus($current);
+			this.activate(
 				$current,
 				$current.querySelector('input'),
 				false,
@@ -89,9 +112,9 @@ export default class Radios {
 			$current = this.radios[i - 1] || this.radios[this.radios.length - 1];
 
 			this.deactivateAll();
-			Radios.blur(this.radios[i]);
-			Radios.focus($current);
-			Radios.activate(
+			blur(this.radios[i]);
+			focus($current);
+			this.activate(
 				$current,
 				$current.querySelector('input'),
 				false,
@@ -128,9 +151,9 @@ export default class Radios {
 	 * @param  {object}  input DOM element.
 	 * @param  {boolean} active
 	 */
-	static toggle(element, input, active) {
+	toggle(element, input, active) {
 		if (active) {
-			return this.deactivate(element, input, active);
+			return Radios.deactivate(element, input, active);
 		}
 
 		return this.activate(element, input, active);
@@ -146,7 +169,7 @@ export default class Radios {
 	 * @return bool
 	 * @access static
 	 */
-	static activate(element, input, active) {
+	activate(element, input, active) {
 		if (active) return false;
 
 		const conditionClass = element.getAttribute('data-condition-class');
@@ -171,6 +194,11 @@ export default class Radios {
 		}
 
 		radio.setAttribute('checked', true);
+
+
+		const changeEvent = new CustomEvent('Radios.change', { detail: { item: radio } });
+
+		this.rootElement.dispatchEvent(changeEvent);
 
 		return true;
 	}
@@ -222,27 +250,5 @@ export default class Radios {
 
 			Radios.deactivate(this.radios[i], input, true);
 		}
-	}
-
-	/**
-	 * Focus
-	 *
-	 * @param {object} element DOM object.
-	 */
-	static focus(element) {
-		element.classList.add('is-focus');
-
-		return element.focus();
-	}
-
-	/**
-	 * Blur
-	 *
-	 * @param {object} element DOM object.
-	 */
-	static blur(element) {
-		element.classList.remove('is-focus');
-
-		return element.blur();
 	}
 }

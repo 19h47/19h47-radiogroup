@@ -107,10 +107,17 @@
 
 	<script type="text/javascript" src="main.js"></script>
 	<script type="text/javascript">
-		const element = document.querySelector('.js-radios');
-		const radios = new Radios.default(element);
+		const $element = document.querySelector('.js-radios');
 
+		const radios = new Radios.default($element);
 		radios.init();
+
+		$element.addEventListener('Radios.change', event => {
+			const { detail: { item } } = event;
+
+			console.log(item);
+		});
+
 	</script>
 </body>
 </html>
