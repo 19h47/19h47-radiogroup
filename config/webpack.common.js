@@ -22,7 +22,7 @@ module.exports = {
 		docs: resolve('src/index.js')
 	},
 	output: {
-		library: 'Radios',
+		library: 'RadioGroup',
 		libraryTarget: 'umd',
 		filename: '../[name]/main.js'
 	},

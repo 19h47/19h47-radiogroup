@@ -1,3 +1,5 @@
+import EventDispatcher from './EventDispatcher';
+
 const CHECKED = 'aria-checked';
 
 const select = target => target.classList.add('is-selected');
@@ -33,8 +35,9 @@ const focus = target => {
  * @constructor
  * @param {object} element
  */
-export default class Radio {
+export default class Radio extends EventDispatcher {
 	constructor(element) {
+		super(['Radio.activate']);
 		// Elements
 		this.rootElement = element;
 		this.$input = this.rootElement.querySelector('input');
@@ -68,21 +71,12 @@ export default class Radio {
 		// console.info('Radio.toggle', this.checked);
 
 		if (this.checked) {
-			// Dispatch event
-			// this.rootElement.dispatchEvent(new CustomEvent('Radio.deactivate', {
-			// 	detail: {
-			// 		element: this.rootElement,
-			// 	},
-			// }));
+			this.emit('Radio.deactivate', this.rootElement);
 
-			// return this.deactivate();
+			return this.deactivate();
 		}
 
-		this.rootElement.dispatchEvent(new CustomEvent('Radio.activate', {
-			detail: {
-				element: this.rootElement,
-			},
-		}));
+		this.emit('Radio.activate', this.rootElement);
 
 		return this.activate();
 	}
@@ -107,6 +101,7 @@ export default class Radio {
 		deselect(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'false');
 		this.rootElement.setAttribute('tabindex', -1);
+		blur(this.rootElement);
 
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {
@@ -145,6 +140,7 @@ export default class Radio {
 		select(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'true');
 		this.rootElement.setAttribute('tabindex', 0);
+		focus(this.rootElement);
 
 		// Condition.
 		for (let i = 0; i < conditionalEls.length; i += 1) {

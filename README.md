@@ -1,4 +1,4 @@
-# @19h47/radios
+# @19h47/radiogroup
 
 
 ## Usage
@@ -7,13 +7,13 @@
 
 ```html
 
-<div class="js-radios" role="radiogroup">
-	<div class="js-radio" aria-checked="true" tabindex="0" role="radio">
+<div class="js-radiogroup" role="radiogroup">
+	<div aria-checked="true" tabindex="0" role="radio">
 		<span>Option 1</span>
 		<input type="radio" id="option_1" name="option" value="option_1" checked style="display: none;">
 	</div>
 
-	<div class="js-radio" aria-checked="false" tabindex="-1" role="radio">
+	<div aria-checked="false" tabindex="-1" role="radio">
 		<span>Option 2</span>
 		<input type="radio" id="option_2" name="option" value="option_2" style="display: none;">
 	</div>
@@ -25,7 +25,7 @@
 
 ```javascript
 
-const element = document.querySelector('.js-radios');
+const element = document.querySelector('.js-radiogroup');
 const radios = new Radios(element);
 
 radios.init();
@@ -36,13 +36,13 @@ radios.init();
 
 ```javascript
 
-import Radios from '@19h47/radios';
+import Radios from '@19h47/radiogroup';
 
-const element = document.querySelector('.js-radios');
-const radios = new Radios(element);
+const element = document.querySelector('.js-radiogroup');
+const radiogroup = new RadioGroup(element);
 
-radios.inputs.map(input => {
-	input.addEventListener('Radio.activate', event => {
+radiogroup.radios.map(input => {
+	radios.on('Radio.activate', event => {
 		const { detail: { element } } = event;
 
 		console.log(item);
@@ -62,15 +62,18 @@ radios.inputs.map(input => {
 
 ## ARIA Roles, Properties and States
 
-| Role            | Property/State | Usage |
-| --------------- | -------------- | ----- |
+| Role            | Property/State | Usage                                  |
+| --------------- | -------------- | -------------------------------------- |
 | Radiogroup      |                | Identify div as a container for radios |
 | Radio           | aria-checked   | Indicate state of radio:<br>- Checked (e.g. aria-checked=true)<br>- Unchecked (e.g. aria-checked=false) |
 | aria-labelledby |                | Used to identify radio group |
 
 ## Events
 
-| Event          | Arguments | Description |
-| -------------- | --------- | ----------- |
-| Radio.activate | event     |             |
+| Event          | Arguments | Description                       |
+| -------------- | --------- | --------------------------------- |
+| Radio.activate | item      | Return the current activate input |
 
+## Acknowledgement
+
+- [Aleh Zasypkin](https://github.com/azasypkin/event-dispatcher) for its Event Dispatcher

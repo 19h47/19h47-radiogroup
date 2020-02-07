@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Radios</title>
+	<title>Radio group</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		.Form {}
@@ -54,10 +54,10 @@
 			</h1>
 		</div>
 		<div class="col-12">
-			<form class="Form js-radios" role="radiogroup" aria-labelledby="pizza-condiments">
+			<form class="Form js-radio-group" role="radiogroup" aria-labelledby="pizza-condiments">
 				<h3 id="pizza-condiments">Pizza Condiments</h3>
 
-				<div class="Form__radio form-group js-radio is-selected" aria-checked="true" tabindex="0" role="radio">
+				<div class="Form__radio form-group is-selected" aria-checked="true" tabindex="0" role="radio">
 					<span class="Form__radio__input"></span>
 					<span class="Form__radio__label">Black olives</span>
 					<div class="d-none">
@@ -65,7 +65,7 @@
 					</div>
 				</div>
 
-				<div class="Form__radio form-group js-radio" aria-checked="false" tabindex="-1" role="radio" data-condition-class="js-condition-chicken">
+				<div class="Form__radio form-group" aria-checked="false" tabindex="-1" role="radio" data-condition-class="js-condition-chicken">
 					<span class="Form__radio__input"></span>
 					<span class="Form__radio__label">Cheeses</span>
 					<div class="d-none">
@@ -93,7 +93,7 @@
 					</div>
 				</div>
 
-				<div class="Form__radio form-group js-radio " aria-checked="false" tabindex="-1" role="radio">
+				<div class="Form__radio form-group" aria-checked="false" tabindex="-1" role="radio">
 					<span class="Form__radio__input"></span>
 					<span class="Form__radio__label">Spinach</span>
 					<div class="d-none">
@@ -107,17 +107,15 @@
 
 	<script type="text/javascript" src="main.js"></script>
 	<script type="text/javascript">
-		const $element = document.querySelector('.js-radios');
+		const $element = document.querySelector('.js-radio-group');
 
-		const radios = new Radios.default($element);
-		radios.init();
+		const radiogroup = new RadioGroup.default($element);
+		radiogroup.init();
 
-		radios.inputs.map(input => {
-			input.addEventListener('Radio.activate', event => {
-				const { detail: { element } } = event;
+		radiogroup.radios.map(radio => {
+			const activate = item => console.log(item);
 
-				console.log(item);
-			});
+			radio.on('Radio.activate', activate);
 		});
 
 	</script>
