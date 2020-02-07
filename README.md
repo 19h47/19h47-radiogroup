@@ -42,11 +42,7 @@ const element = document.querySelector('.js-radiogroup');
 const radiogroup = new RadioGroup(element);
 
 radiogroup.radios.map(input => {
-	radios.on('Radio.activate', event => {
-		const { detail: { element } } = event;
-
-		console.log(item);
-	});
+	radios.on('Radio.activate', item => console.log(item));
 });
 
 ```
