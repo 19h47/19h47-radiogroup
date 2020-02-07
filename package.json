@@ -1,5 +1,5 @@
 {
-	"name": "@19h47/radios",
+	"name": "@19h47/radiogroup",
 	"version": "3.0.0",
 	"description": "Custom radios elements with accessibility in mind",
 	"main": "dist/main.js",
@@ -11,19 +11,20 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/19h47/19h47-radios.git"
+		"url": "git://github.com/19h47/19h47-radiogroup.git"
 	},
 	"keywords": [
 		"radio",
 		"radios",
+		"radiogroup",
 		"ES6"
 	],
 	"author": "Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/19h47/19h47-radios/issues"
+		"url": "https://github.com/19h47/19h47-radiogroup/issues"
 	},
-	"homepage": "https://github.com/19h47/19h47-radios#readme",
+	"homepage": "https://github.com/19h47/19h47-radiogroup#readme",
 	"devDependencies": {
 		"@babel/core": "^7.8.4",
 		"@babel/plugin-syntax-dynamic-import": "^7.8.3",
