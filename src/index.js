@@ -1,36 +1,13 @@
 import {
-	ARROWDOWN,
+	ARROW_DOWN,
 	LEFT,
 	RIGHT,
 	// SPACE,
-	ARROWUP,
+	ARROW_UP,
+	HOME,
+	END,
 } from '@19h47/keycode';
-
-const CHECKED = 'aria-checked';
-
-
-/**
- * Blur
- *
- * @param {object} element DOM object.
- */
-const blur = target => {
-	target.classList.remove('is-focus');
-
-	return target.blur();
-};
-
-
-/**
- * Focus
- *
- * @param {obj} element DOM object.
- */
-const focus = target => {
-	target.classList.add('is-focus');
-
-	return target.focus();
-};
+import Radio from './Radio';
 
 
 /**
@@ -42,14 +19,24 @@ const focus = target => {
 export default class Radios {
 	constructor(element) {
 		this.rootElement = element;
+		this.inputs = [...this.rootElement.querySelectorAll('[role=radio]')];
+		this.radios = [];
+		this.current = 0;
+
+		//
+		this.onKeyDown = this.onKeyDown.bind(this);
+		this.deactivateAll = this.deactivateAll.bind(this);
 	}
 
 	init() {
-		if (null === this.rootElement) {
-			return false;
-		}
+		this.inputs.map($input => {
+			const radio = new Radio($input);
 
-		this.radios = this.rootElement.querySelectorAll('[role=radio]');
+			radio.init();
+			this.radios.push(radio);
+
+			return true;
+		});
 
 		this.initEvents();
 
@@ -57,198 +44,78 @@ export default class Radios {
 	}
 
 	initEvents() {
-		for (let i = 0; i < this.radios.length; i += 1) {
-			const input = this.radios[i].querySelector('input');
+		this.inputs.map($input => {
+			$input.addEventListener('Radio.activate', this.deactivateAll);
+			// $input.addEventListener('Radio.deactivate', () => {});
 
-			// Click.
-			this.radios[i].addEventListener('click', () => {
-				this.deactivateAll();
-				this.toggle(this.radios[i], input, 'true' === this.radios[i].getAttribute(CHECKED));
-			});
+			return true;
+		});
 
-			this.radios[i].addEventListener('focus', focus(this.radios[i]));
-			this.radios[i].addEventListener('blur', blur(this.radios[i]));
-
-			// Keydown.
-			this.radios[i].addEventListener('keydown', event => {
-				if ('keydown' === event.type) {
-					this.onKeyDown(event, i);
-				}
-			});
-
-			if (input.checked) {
-				this.activate(this.radios[i], input, false);
-			}
-		}
+		this.rootElement.addEventListener('keydown', this.onKeyDown);
 	}
 
 	/**
 	 * Keydown event listener
 	 *
-	 * @param  {object} event
-	 * @param  {number} i
-	 * @return
 	 */
-	onKeyDown(event, i) {
-		const key = event.keyCode;
-		let $current = null;
+	onKeyDown(event) {
+		const key = event.keyCode || event.which;
 
 		const next = () => {
-			$current = this.radios[i + 1] || this.radios[0];
+			this.current = this.current + 1 > this.radios.length - 1 ? 0 : this.current + 1;
 
 			this.deactivateAll();
-			blur(this.radios[i]);
-			focus($current);
-			this.activate(
-				$current,
-				$current.querySelector('input'),
-				false,
-			);
+			this.radios[this.current].activate();
+
 			event.preventDefault();
 			event.stopPropagation();
 		};
 
 		const previous = () => {
-			$current = this.radios[i - 1] || this.radios[this.radios.length - 1];
+			this.current = 0 > this.current - 1 ? this.radios.length - 1 : this.current - 1;
 
 			this.deactivateAll();
-			blur(this.radios[i]);
-			focus($current);
-			this.activate(
-				$current,
-				$current.querySelector('input'),
-				false,
-			);
+			this.radios[this.current].activate();
+
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
+		const first = () => {
+			this.deactivateAll();
+			this.radios[0].activate();
+
+			event.preventDefault();
+			event.stopPropagation();
+		};
+
+		const last = () => {
+			this.deactivateAll();
+			this.radios[this.radios.length - 1].activate();
+
 			event.preventDefault();
 			event.stopPropagation();
 		};
 
 		const codes = {
-			[ARROWDOWN]: next,
+			[ARROW_DOWN]: next,
 			[RIGHT]: next,
-			[ARROWUP]: previous,
+			[ARROW_UP]: previous,
 			[LEFT]: previous,
-			// [SPACE]: () => {
-			// 	this.deactivateAll();
-			// 	Radios.activate(
-			// 		this.radios[i],
-			// 		this.radios[i].querySelector('input'),
-			// 		false,
-			// 	);
-			// 	event.preventDefault();
-			// 	event.stopPropagation();
-			// },
+			[HOME]: first,
+			[END]: last,
 			default: () => false,
 		};
 
 		return (codes[key] || codes.default)();
 	}
 
-	/**
-	 * Toggle
-	 *
-	 * @param  {object}  element DOM element.
-	 * @param  {object}  input DOM element.
-	 * @param  {boolean} active
-	 */
-	toggle(element, input, active) {
-		if (active) {
-			return Radios.deactivate(element, input, active);
-		}
-
-		return this.activate(element, input, active);
-	}
-
 
 	/**
-	 * Checkbox.activate
+	 * Deactivate all
 	 *
-	 * @param  {object}  element DOM element.
-	 * @param  {object}  input DOM element.
-	 * @param  {boolean} active
-	 * @return bool
-	 * @access static
-	 */
-	activate(element, input, active) {
-		if (active) return false;
-
-		const conditionClass = element.getAttribute('data-condition-class');
-		const conditionalEls = document.querySelectorAll(`.${conditionClass}`) || [];
-
-		const radio = input;
-
-		element.classList.add('is-selected');
-		element.setAttribute(CHECKED, 'true');
-		element.setAttribute('tabindex', 0);
-
-		// Condition.
-		for (let i = 0; i < conditionalEls.length; i += 1) {
-			const $input = conditionalEls[i].querySelector('input') || false;
-
-			conditionalEls[i].classList.remove('is-off');
-			conditionalEls[i].setAttribute('tabIndex', 0);
-
-			if ($input) {
-				$input.removeAttribute('disabled');
-			}
-		}
-
-		radio.setAttribute('checked', true);
-
-
-		const changeEvent = new CustomEvent('Radios.change', { detail: { item: radio } });
-
-		this.rootElement.dispatchEvent(changeEvent);
-
-		return true;
-	}
-
-
-	/**
-	 * Deactivate
-	 *
-	 * @param  {object}  element DOM element.
-	 * @param  {object}  input DOM element.
-	 * @param  {boolean} active
-	 * @return boolean
-	 */
-	static deactivate(element, input, active) {
-		if (!active) return false;
-
-		const conditionClass = element.getAttribute('data-condition-class');
-		const conditionalEls = document.querySelectorAll(`.${conditionClass}`) || [];
-		const radio = input;
-
-		element.classList.remove('is-selected');
-		element.setAttribute(CHECKED, 'false');
-		element.setAttribute('tabindex', -1);
-
-		// Condition.
-		for (let i = 0; i < conditionalEls.length; i += 1) {
-			const $input = conditionalEls[i].querySelector('input') || false;
-			conditionalEls[i].classList.add('is-off');
-			conditionalEls[i].setAttribute('tabIndex', -1);
-
-			if ($input) {
-				conditionalEls[i].querySelector('input').setAttribute('disabled', true);
-			}
-		}
-
-		radio.removeAttribute('checked');
-
-		return true;
-	}
-
-	/**
-	 * Deactive all
-	 *
-	 * @return void
 	 */
 	deactivateAll() {
-		for (let i = 0; i < this.radios.length; i += 1) {
-			const input = this.radios[i].querySelector('input');
-
-			Radios.deactivate(this.radios[i], input, true);
-		}
+		return this.radios.map(radio => radio.deactivate());
 	}
 }

@@ -112,10 +112,12 @@
 		const radios = new Radios.default($element);
 		radios.init();
 
-		$element.addEventListener('Radios.change', event => {
-			const { detail: { item } } = event;
+		radios.inputs.map(input => {
+			input.addEventListener('Radio.activate', event => {
+				const { detail: { element } } = event;
 
-			console.log(item);
+				console.log(item);
+			});
 		});
 
 	</script>
