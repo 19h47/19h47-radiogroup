@@ -44,12 +44,16 @@ export default class RadioGroup {
 	}
 
 	initEvents() {
-		this.radios.map(radio => {
-			radio.on('Radio.activate', this.deactivateAll);
-			// radio.on('Radio.deactivate', () => {});
+		this.radios.forEach(
+			(radio, index) => radio.on(
+				'Radio.activate',
+				() => {
+					this.current = index;
 
-			return true;
-		});
+					return this.deactivateAll();
+				},
+			),
+		);
 
 		this.rootElement.addEventListener('keydown', this.onKeyDown);
 	}
@@ -68,7 +72,6 @@ export default class RadioGroup {
 			this.radios[this.current].activate();
 
 			event.preventDefault();
-			event.stopPropagation();
 		};
 
 		const previous = () => {
@@ -78,7 +81,6 @@ export default class RadioGroup {
 			this.radios[this.current].activate();
 
 			event.preventDefault();
-			event.stopPropagation();
 		};
 
 		const first = () => {
@@ -86,7 +88,6 @@ export default class RadioGroup {
 			this.radios[0].activate();
 
 			event.preventDefault();
-			event.stopPropagation();
 		};
 
 		const last = () => {
@@ -94,7 +95,6 @@ export default class RadioGroup {
 			this.radios[this.radios.length - 1].activate();
 
 			event.preventDefault();
-			event.stopPropagation();
 		};
 
 		const codes = {

@@ -37,16 +37,24 @@ const focus = target => {
  */
 export default class Radio extends EventDispatcher {
 	constructor(element) {
-		super(['Radio.activate']);
+		super(['Radio.activate', 'Radio.deactivate']);
+
 		// Elements
 		this.rootElement = element;
 		this.$input = this.rootElement.querySelector('input');
+
+		//
+		this.conditional = {
+			className: this.rootElement.getAttribute('data-condition-class'),
+		};
+
+		this.conditional.elements = [...document.querySelectorAll(`.${this.conditional.className}`)];
 
 		// Values
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));
 
 		// Bind
-		this.toggle = this.toggle.bind(this);
+		this.activate = this.activate.bind(this);
 	}
 
 	init() {
@@ -58,27 +66,9 @@ export default class Radio extends EventDispatcher {
 	initEvents() {
 		// console.info('Radio.initEvents');
 
-		this.rootElement.addEventListener('click', this.toggle);
+		this.rootElement.addEventListener('click', this.activate);
 		this.rootElement.addEventListener('focus', focus(this.rootElement));
 		this.rootElement.addEventListener('blur', blur(this.rootElement));
-	}
-
-	/**
-	 * Toggle
-	 *
-	 */
-	toggle() {
-		// console.info('Radio.toggle', this.checked);
-
-		if (this.checked) {
-			this.emit('Radio.deactivate', this.rootElement);
-
-			return this.deactivate();
-		}
-
-		this.emit('Radio.activate', this.rootElement);
-
-		return this.activate();
 	}
 
 	/**
@@ -93,10 +83,9 @@ export default class Radio extends EventDispatcher {
 			return false;
 		}
 
-		this.checked = false;
+		this.emit('Radio.deactivate', this.rootElement);
 
-		const conditionClass = this.rootElement.getAttribute('data-condition-class');
-		const conditionalEls = document.querySelectorAll(`.${conditionClass}`) || [];
+		this.checked = false;
 
 		deselect(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'false');
@@ -104,15 +93,18 @@ export default class Radio extends EventDispatcher {
 		blur(this.rootElement);
 
 		// Condition.
-		for (let i = 0; i < conditionalEls.length; i += 1) {
-			const $input = conditionalEls[i].querySelector('input') || false;
-			conditionalEls[i].classList.add('is-off');
-			conditionalEls[i].setAttribute('tabIndex', -1);
+		this.conditional.elements.map(element => {
+			const $input = element.querySelector('input') || false;
+
+			element.classList.add('is-off');
+			element.setAttribute('tabIndex', -1);
 
 			if ($input) {
-				conditionalEls[i].querySelector('input').setAttribute('disabled', true);
+				element.querySelector('input').setAttribute('disabled', true);
 			}
-		}
+
+			return true;
+		});
 
 		this.$input.removeAttribute('checked');
 
@@ -132,10 +124,9 @@ export default class Radio extends EventDispatcher {
 			return false;
 		}
 
-		this.checked = true;
+		this.emit('Radio.activate', this.rootElement);
 
-		const conditionClass = this.rootElement.getAttribute('data-condition-class');
-		const conditionalEls = document.querySelectorAll(`.${conditionClass}`) || [];
+		this.checked = true;
 
 		select(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'true');
@@ -143,16 +134,18 @@ export default class Radio extends EventDispatcher {
 		focus(this.rootElement);
 
 		// Condition.
-		for (let i = 0; i < conditionalEls.length; i += 1) {
-			const $input = conditionalEls[i].querySelector('input') || false;
+		this.conditional.elements.map(element => {
+			const $input = element.querySelector('input') || false;
 
-			conditionalEls[i].classList.remove('is-off');
-			conditionalEls[i].setAttribute('tabIndex', 0);
+			element.classList.remove('is-off');
+			element.setAttribute('tabIndex', 0);
 
 			if ($input) {
 				$input.removeAttribute('disabled');
 			}
-		}
+
+			return true;
+		});
 
 		this.$input.setAttribute('checked', true);
 
