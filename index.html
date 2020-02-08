@@ -49,7 +49,7 @@
 		<div class="col-12">
 			<h1 class="my-5">
 				<a href="https://github.com/19h47/19h47-radiogroup">
-					Radio group
+					Radio group<sup class="js-radio-group-value">Black olives</sup>
 				</a>
 			</h1>
 		</div>
@@ -59,7 +59,7 @@
 
 				<div class="Form__radio form-group is-selected" aria-checked="true" tabindex="0" role="radio">
 					<span class="Form__radio__input"></span>
-					<span class="Form__radio__label">Black olives</span>
+					<span class="Form__radio__label js-label">Black olives</span>
 					<div class="d-none">
 						<input type="radio" id="black-olives" name="pizza" value="black-olives" checked>
 					</div>
@@ -67,7 +67,7 @@
 
 				<div class="Form__radio form-group" aria-checked="false" tabindex="-1" role="radio" data-condition-class="js-condition-chicken">
 					<span class="Form__radio__input"></span>
-					<span class="Form__radio__label">Cheeses</span>
+					<span class="Form__radio__label js-label">Cheeses</span>
 					<div class="d-none">
 						<input type="radio" id="chicken" name="option" value="chicken">
 					</div>
@@ -95,7 +95,7 @@
 
 				<div class="Form__radio form-group" aria-checked="false" tabindex="-1" role="radio">
 					<span class="Form__radio__input"></span>
-					<span class="Form__radio__label">Spinach</span>
+					<span class="Form__radio__label js-label">Spinach</span>
 					<div class="d-none">
 						<input type="radio" id="spinach" name="option" value="spinach">
 					</div>
@@ -108,14 +108,18 @@
 	<script type="text/javascript" src="./main.js"></script>
 	<script type="text/javascript">
 		const $element = document.querySelector('.js-radio-group');
+		const $value = document.querySelector('.js-radio-group-value');
 
 		const radiogroup = new RadioGroup.default($element);
 		radiogroup.init();
 
 		radiogroup.radios.map(radio => {
-			const activate = item => console.log(item);
+			const setValue = item => {
+				const value = item.querySelector('.js-label').innerHTML;
+				$value.innerHTML = value;
+			};
 
-			radio.on('Radio.activate', activate);
+			radio.on('Radio.activate', setValue);
 		});
 
 	</script>
