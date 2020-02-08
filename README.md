@@ -24,9 +24,10 @@
 ### JavaScript
 
 ```javascript
+import RadioGroup from '@19h47/radiogroup';
 
 const element = document.querySelector('.js-radiogroup');
-const radios = new Radios(element);
+const radios = new RadioGroup(element);
 
 radios.init();
 
@@ -36,7 +37,7 @@ radios.init();
 
 ```javascript
 
-import Radios from '@19h47/radiogroup';
+import RadioGroup from '@19h47/radiogroup';
 
 const element = document.querySelector('.js-radiogroup');
 const radiogroup = new RadioGroup(element);
