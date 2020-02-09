@@ -24,6 +24,7 @@
 ### JavaScript
 
 ```javascript
+
 import RadioGroup from '@19h47/radiogroup';
 
 const element = document.querySelector('.js-radiogroup');
