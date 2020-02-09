@@ -70,6 +70,14 @@ radiogroup.radios.map(input => {
 | -------------- | --------- | --------------------------------- |
 | Radio.activate | item      | Return the current activate input |
 
+## Options
+
+| Option   | Type     | Default    | description |
+| -------- | -------- | ---------- | ----------- |
+| tagger   | array    | `[]`       |             |
+| template | function | `() => {}` |             |
+| name     | string   | `''`       |             |
+
 ## Acknowledgement
 
 - [Aleh Zasypkin](https://github.com/azasypkin/event-dispatcher) for its Event Dispatcher

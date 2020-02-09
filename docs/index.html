@@ -46,16 +46,17 @@
 </head>
 <body>
 	<div class="container">
-		<div class="col-12">
-			<h1 class="my-5">
+
+		<div class="col-12 my-5">
+			<h1>
 				<a href="https://github.com/19h47/19h47-radiogroup">
-					Radio group<sup class="js-radio-group-value">Black olives</sup>
+					Radio group
 				</a>
 			</h1>
 		</div>
-		<div class="col-12">
+		<div class="col-12 my-5">
 			<form class="Form js-radio-group" role="radiogroup" aria-labelledby="pizza-condiments">
-				<h3 id="pizza-condiments">Pizza Condiments</h3>
+				<h3 id="pizza-condiments">Pizza Condiments<sup class="js-radio-group-value">Black olives</sup></h3>
 
 				<div class="Form__radio form-group is-selected" aria-checked="true" tabindex="0" role="radio">
 					<span class="Form__radio__input"></span>
@@ -103,23 +104,35 @@
 
 			</form>
 		</div>
+
+		<div class="col-12 my-5">
+			<form class="Form js-radio-group" data-name="japan-condiments" data-tagger='[{"label":"Black vinegar","value":"black_vinegar"},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'>
+				<h3 class="my-5">Japan condiments<sup class="js-radio-group-value"></sup></h3>
+			</form>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="./main.js"></script>
 	<script type="text/javascript">
-		const $element = document.querySelector('.js-radio-group');
-		const $value = document.querySelector('.js-radio-group-value');
+		const elements = [...document.querySelectorAll('.js-radio-group')];
+		const template = (label, value, name) => '<div class="Form__radio form-group" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span><span class="Form__radio__label js-label">' + label + '</span><div class="d-none"><input type="radio" id="' + value + '" name="' + name + '" value="' + value + '"></div></div>';
 
-		const radiogroup = new RadioGroup.default($element);
-		radiogroup.init();
+		elements.map(element => {
+			const $value = element.querySelector('.js-radio-group-value');
+			const tagger = JSON.parse(element.getAttribute('data-tagger')) || [];
+			const name = element.getAttribute('data-name') || '';
 
-		radiogroup.radios.map(radio => {
-			const setValue = item => {
-				const value = item.querySelector('.js-label').innerHTML;
-				$value.innerHTML = value;
-			};
+			const radiogroup = new RadioGroup.default(element, { tagger, template, name });
+			radiogroup.init();
 
-			radio.on('Radio.activate', setValue);
+			radiogroup.radios.map(radio => {
+				const setValue = item => {
+					const value = item.querySelector('.js-label').innerHTML;
+					$value.innerHTML = value;
+				};
+
+				radio.on('Radio.activate', setValue);
+			});
 		});
 
 	</script>

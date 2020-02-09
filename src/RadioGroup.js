@@ -10,6 +10,12 @@ import {
 import Radio from './Radio';
 
 
+const optionsDefault = {
+	tagger: [],
+	template: () => {},
+	name: '',
+};
+
 /**
  * Class Radios
  *
@@ -17,18 +23,23 @@ import Radio from './Radio';
  * @author Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)
  */
 export default class RadioGroup {
-	constructor(element) {
+	constructor(element, options = {}) {
 		this.rootElement = element;
-		this.elements = [...this.rootElement.querySelectorAll('[role=radio]')];
 		this.radios = [];
 		this.current = 0;
+
+		this.options = Object.assign({}, optionsDefault, options);
 
 		//
 		this.onKeyDown = this.onKeyDown.bind(this);
 		this.deactivateAll = this.deactivateAll.bind(this);
+
+		this.render();
 	}
 
 	init() {
+		this.elements = [...this.rootElement.querySelectorAll('[role=radio]')];
+
 		this.elements.map($input => {
 			const radio = new Radio($input);
 
@@ -117,5 +128,13 @@ export default class RadioGroup {
 	 */
 	deactivateAll() {
 		return this.radios.map(radio => radio.deactivate());
+	}
+
+	render() {
+		const { template, name } = this.options;
+
+		this.options.tagger.forEach(tag => {
+			this.rootElement.insertAdjacentHTML('beforeend', template(tag.label, tag.value, name));
+		});
 	}
 }
