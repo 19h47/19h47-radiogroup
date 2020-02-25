@@ -28,9 +28,9 @@
 import RadioGroup from '@19h47/radiogroup';
 
 const element = document.querySelector('.js-radiogroup');
-const radios = new RadioGroup(element);
+const radiogroup = new RadioGroup(element);
 
-radios.init();
+radiogroup.init();
 
 ```
 
@@ -42,6 +42,8 @@ import RadioGroup from '@19h47/radiogroup';
 
 const element = document.querySelector('.js-radiogroup');
 const radiogroup = new RadioGroup(element);
+
+radiogroup.init();
 
 radiogroup.radios.map(radio => {
 	radio.on('Radio.activate', item => console.log(item));
