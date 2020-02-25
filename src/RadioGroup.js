@@ -31,7 +31,7 @@ export default class RadioGroup {
 		this.options = Object.assign({}, optionsDefault, options);
 
 		//
-		this.onKeyDown = this.onKeyDown.bind(this);
+		this.onKeydown = this.onKeydown.bind(this);
 		this.deactivateAll = this.deactivateAll.bind(this);
 
 		this.render();
@@ -66,14 +66,14 @@ export default class RadioGroup {
 			),
 		);
 
-		this.rootElement.addEventListener('keydown', this.onKeyDown);
+		this.rootElement.addEventListener('keydown', this.onKeydown);
 	}
 
 	/**
 	 * Keydown event listener
 	 *
 	 */
-	onKeyDown(event) {
+	onKeydown(event) {
 		const key = event.keyCode || event.which;
 
 		const next = () => {
