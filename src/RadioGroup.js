@@ -1,9 +1,9 @@
 import {
-	ARROW_DOWN,
-	LEFT,
-	RIGHT,
-	// SPACE,
 	ARROW_UP,
+	ARROW_RIGHT,
+	ARROW_DOWN,
+	ARROW_LEFT,
+	// SPACE,
 	HOME,
 	END,
 } from '@19h47/keycode';
@@ -28,7 +28,7 @@ export default class RadioGroup {
 		this.radios = [];
 		this.current = 0;
 
-		this.options = Object.assign({}, optionsDefault, options);
+		this.options = { ...optionsDefault, ...options };
 
 		//
 		this.onKeydown = this.onKeydown.bind(this);
@@ -109,10 +109,10 @@ export default class RadioGroup {
 		};
 
 		const codes = {
-			[ARROW_DOWN]: next,
-			[RIGHT]: next,
 			[ARROW_UP]: previous,
-			[LEFT]: previous,
+			[ARROW_RIGHT]: next,
+			[ARROW_DOWN]: next,
+			[ARROW_LEFT]: previous,
 			[HOME]: first,
 			[END]: last,
 			default: () => false,
