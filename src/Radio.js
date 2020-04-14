@@ -77,8 +77,7 @@ export default class Radio extends EventDispatcher {
 			return this.emit('Radio.activate', this.rootElement);
 		}
 
-		this.deactivate();
-		return this.emit('Radio.deactivate', this.rootElement);
+		return false;
 	}
 
 	/**
@@ -116,7 +115,7 @@ export default class Radio extends EventDispatcher {
 
 		this.$input.removeAttribute('checked');
 
-		return true;
+		return this.emit('Radio.deactivate', this.rootElement);
 	}
 
 	/**
