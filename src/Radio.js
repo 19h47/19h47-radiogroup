@@ -66,8 +66,8 @@ export default class Radio extends EventDispatcher {
 		// console.info('Radio.initEvents');
 
 		this.rootElement.addEventListener('click', this.toggle);
-		this.rootElement.addEventListener('focus', focus(this.rootElement));
-		this.rootElement.addEventListener('blur', blur(this.rootElement));
+		this.rootElement.addEventListener('focus', () => focus(this.rootElement));
+		this.rootElement.addEventListener('blur', () => blur(this.rootElement));
 	}
 
 	toggle() {
@@ -86,7 +86,7 @@ export default class Radio extends EventDispatcher {
 	 * @return boolean
 	 */
 	deactivate() {
-		// console.info('Radio.deactivate', this.checked);
+		console.info('Radio.deactivate', this.checked);
 
 		if (!this.checked) {
 			return false;
@@ -119,12 +119,12 @@ export default class Radio extends EventDispatcher {
 	}
 
 	/**
-	 * Checkbox.activate
+	 * Radio.activate
 	 *
 	 * @return {boolean}
 	 */
 	activate() {
-		// console.info('Radio.activate', this.checked);
+		console.info('Radio.activate', this.checked);
 
 		if (this.checked) {
 			return false;
