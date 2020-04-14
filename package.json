@@ -1,6 +1,6 @@
 {
 	"name": "@19h47/radiogroup",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Custom radios elements with accessibility in mind",
 	"main": "dist/main.js",
 	"scripts": {
