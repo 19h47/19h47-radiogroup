@@ -34,7 +34,7 @@ const focus = target => {
  */
 export default class Radio extends EventDispatcher {
 	constructor(element) {
-		super(['Radio.activate', 'Radio.deactivate']);
+		super(['Radio.beforeActivate', 'Radio.activate', 'Radio.deactivate']);
 
 		// Elements
 		this.rootElement = element;
@@ -53,7 +53,7 @@ export default class Radio extends EventDispatcher {
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));
 
 		// Bind
-		this.activate = this.activate.bind(this);
+		this.toggle = this.toggle.bind(this);
 	}
 
 	init() {
@@ -65,9 +65,20 @@ export default class Radio extends EventDispatcher {
 	initEvents() {
 		// console.info('Radio.initEvents');
 
-		this.rootElement.addEventListener('click', this.activate);
+		this.rootElement.addEventListener('click', this.toggle);
 		this.rootElement.addEventListener('focus', focus(this.rootElement));
 		this.rootElement.addEventListener('blur', blur(this.rootElement));
+	}
+
+	toggle() {
+		if (!this.checked) {
+			this.emit('Radio.beforeActivate', this.rootElement);
+			this.activate();
+			return this.emit('Radio.activate', this.rootElement);
+		}
+
+		this.deactivate();
+		return this.emit('Radio.deactivate', this.rootElement);
 	}
 
 	/**
@@ -81,8 +92,6 @@ export default class Radio extends EventDispatcher {
 		if (!this.checked) {
 			return false;
 		}
-
-		this.emit('Radio.deactivate', this.rootElement);
 
 		this.checked = false;
 
@@ -121,8 +130,6 @@ export default class Radio extends EventDispatcher {
 		if (this.checked) {
 			return false;
 		}
-
-		this.emit('Radio.activate', this.rootElement);
 
 		this.checked = true;
 

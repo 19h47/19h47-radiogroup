@@ -55,10 +55,11 @@ export default class RadioGroup {
 
 	initEvents() {
 		this.radios.forEach((radio, index) =>
-			radio.on('Radio.activate', () => {
+			radio.on('Radio.beforeActivate', () => {
 				this.current = index;
 
-				return this.deactivateAll();
+				this.deactivateAll();
+				return this.radios[this.current].activate();
 			}),
 		);
 
@@ -76,7 +77,7 @@ export default class RadioGroup {
 			this.current = this.current + 1 > this.radios.length - 1 ? 0 : this.current + 1;
 
 			this.deactivateAll();
-			this.radios[this.current].activate();
+			this.radios[this.current].toggle();
 
 			event.preventDefault();
 		};
@@ -85,21 +86,21 @@ export default class RadioGroup {
 			this.current = 0 > this.current - 1 ? this.radios.length - 1 : this.current - 1;
 
 			this.deactivateAll();
-			this.radios[this.current].activate();
+			this.radios[this.current].toggle();
 
 			event.preventDefault();
 		};
 
 		const first = () => {
 			this.deactivateAll();
-			this.radios[0].activate();
+			this.radios[0].toggle();
 
 			event.preventDefault();
 		};
 
 		const last = () => {
 			this.deactivateAll();
-			this.radios[this.radios.length - 1].activate();
+			this.radios[this.radios.length - 1].toggle();
 
 			event.preventDefault();
 		};
