@@ -9,7 +9,6 @@ import {
 } from '@19h47/keycode';
 import Radio from './Radio';
 
-
 const optionsDefault = {
 	tagger: [],
 	template: () => {},
@@ -55,15 +54,12 @@ export default class RadioGroup {
 	}
 
 	initEvents() {
-		this.radios.forEach(
-			(radio, index) => radio.on(
-				'Radio.activate',
-				() => {
-					this.current = index;
+		this.radios.forEach((radio, index) =>
+			radio.on('Radio.activate', () => {
+				this.current = index;
 
-					return this.deactivateAll();
-				},
-			),
+				return this.deactivateAll();
+			}),
 		);
 
 		this.rootElement.addEventListener('keydown', this.onKeydown);
@@ -120,7 +116,6 @@ export default class RadioGroup {
 
 		return (codes[key] || codes.default)();
 	}
-
 
 	/**
 	 * Deactivate all

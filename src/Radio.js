@@ -5,7 +5,6 @@ const CHECKED = 'aria-checked';
 const select = target => target.classList.add('is-selected');
 const deselect = target => target.classList.remove('is-selected');
 
-
 /**
  * Blur
  *
@@ -17,7 +16,6 @@ const blur = target => {
 	return target.blur();
 };
 
-
 /**
  * Focus
  *
@@ -28,7 +26,6 @@ const focus = target => {
 
 	return target.focus();
 };
-
 
 /**
  *
@@ -48,7 +45,9 @@ export default class Radio extends EventDispatcher {
 			className: this.rootElement.getAttribute('data-condition-class'),
 		};
 
-		this.conditional.elements = [...document.querySelectorAll(`.${this.conditional.className}`)];
+		this.conditional.elements = [
+			...document.querySelectorAll(`.${this.conditional.className}`),
+		];
 
 		// Values
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));
@@ -110,7 +109,6 @@ export default class Radio extends EventDispatcher {
 
 		return true;
 	}
-
 
 	/**
 	 * Checkbox.activate
