@@ -123,7 +123,7 @@ export default class RadioGroup {
 	 *
 	 */
 	deactivateAll() {
-		console.log('RadioGroup.deactivateAll');
+		// console.log('RadioGroup.deactivateAll');
 		return this.radios.map(radio => radio.deactivate());
 	}
 

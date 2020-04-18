@@ -86,7 +86,7 @@ export default class Radio extends EventDispatcher {
 	 * @return boolean
 	 */
 	deactivate() {
-		console.info('Radio.deactivate', this.checked);
+		// console.info('Radio.deactivate', this.checked);
 
 		if (!this.checked) {
 			return false;
@@ -124,7 +124,7 @@ export default class Radio extends EventDispatcher {
 	 * @return {boolean}
 	 */
 	activate() {
-		console.info('Radio.activate', this.checked);
+		// console.info('Radio.activate', this.checked);
 
 		if (this.checked) {
 			return false;
