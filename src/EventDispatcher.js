@@ -98,7 +98,6 @@ export default class EventDispatcher {
 	 * handler.
 	 */
 	emit(eventName, parameters) {
-		console.info('emit');
 		const handlers = this.listeners.get(eventName);
 
 		if (!handlers) {
