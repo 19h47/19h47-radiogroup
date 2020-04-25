@@ -123,7 +123,7 @@ export default class RadioGroup {
 	 *
 	 */
 	deactivateAll() {
-		// console.log('RadioGroup.deactivateAll');
+		// console.info('RadioGroup.deactivateAll');
 		return this.radios.map(radio => radio.deactivate());
 	}
 
@@ -131,7 +131,10 @@ export default class RadioGroup {
 		const { template, name } = this.options;
 
 		this.options.tagger.forEach(tag => {
-			this.rootElement.insertAdjacentHTML('beforeend', template(tag.label, tag.value, name));
+			this.rootElement.insertAdjacentHTML(
+				'beforeend',
+				template(tag.label, tag.value, tag.selected, name),
+			);
 		});
 	}
 }

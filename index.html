@@ -160,9 +160,21 @@
 				<form
 					class="Form js-radio-group"
 					data-name="japan-condiments"
-					data-tagger='[{"label":"Black vinegar","value":"black_vinegar"},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
+					data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
 				>
 					<h3 class="my-5">Japan condiments<sup class="js-radio-group-value"></sup></h3>
+				</form>
+			</div>
+
+			<div class="col-12 my-5">
+				<form
+					class="Form js-radio-group"
+					data-name="american-condiments"
+					data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy_sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot_sauce"}]'
+				>
+					<h3 class="my-5">
+						American condiments<sup class="js-radio-group-value"></sup>
+					</h3>
 				</form>
 			</div>
 		</div>
@@ -170,8 +182,14 @@
 		<script type="text/javascript" src="./main.js"></script>
 		<script type="text/javascript">
 			const elements = [...document.querySelectorAll('.js-radio-group')];
-			const template = (label, value, name) =>
-				'<div class="Form__radio form-group" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span><span class="Form__radio__label js-label">' +
+			const template = (label, value, selected, name) =>
+				'<div class="Form__radio form-group' +
+				(selected ? ' is-selected' : '') +
+				'" aria-checked="' +
+				(selected ? 'true' : 'false') +
+				'" tabindex="' +
+				(selected ? '0' : '-1') +
+				'" role="radio"><span class="Form__radio__input"></span><span class="Form__radio__label js-label">' +
 				label +
 				'</span><div class="d-none"><input type="radio" id="' +
 				value +
@@ -179,7 +197,9 @@
 				name +
 				'" value="' +
 				value +
-				'"></div></div>';
+				'" ' +
+				(selected ? 'checked' : '') +
+				'></div></div>';
 
 			elements.map(element => {
 				const $value = element.querySelector('.js-radio-group-value');
