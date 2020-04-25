@@ -162,7 +162,9 @@
 					data-name="japan-condiments"
 					data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
 				>
-					<h3 class="my-5">Japan condiments<sup class="js-radio-group-value"></sup></h3>
+					<h3 class="my-5">
+						Japan condiments<sup class="js-radio-group-value">Black vinegar</sup>
+					</h3>
 				</form>
 			</div>
 
@@ -172,9 +174,15 @@
 					data-name="american-condiments"
 					data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy_sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot_sauce"}]'
 				>
-					<h3 class="my-5">
-						American condiments<sup class="js-radio-group-value"></sup>
-					</h3>
+					<h3>American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h3>
+					<select class="custom-select my-5 js-select" name="" id="">
+						<option value="mayonnaise" selected>Mayonnaise</option>
+						<option value="ketchup">Ketchup</option>
+						<option value="soy_sauce">Soy sauce</option>
+						<option value="salsa">Salsa</option>
+						<option value="mustard">Mustard</option>
+						<option value="hot_sauce">Hot sauce</option>
+					</select>
 				</form>
 			</div>
 		</div>
@@ -203,6 +211,7 @@
 
 			elements.map(element => {
 				const $value = element.querySelector('.js-radio-group-value');
+				const $select = element.querySelector('.js-select');
 				const tagger = JSON.parse(element.getAttribute('data-tagger')) || [];
 				const name = element.getAttribute('data-name') || '';
 
@@ -215,8 +224,35 @@
 						$value.innerHTML = value;
 					};
 
-					radio.on('Radio.activate', el => setValue(el));
+					radio.on('Radio.activate', el => {
+						if ($select) {
+							[...$select.options].map(option => {
+								const $input = el.querySelector('input[type="radio"]');
+
+								if ($input && option.value === $input.value) {
+									option.selected = true;
+								} else {
+									option.selected = false;
+								}
+							});
+						}
+						setValue(el);
+					});
 				});
+
+				if ($select) {
+					$select.addEventListener('change', event => {
+						const value = event.target.options[event.target.selectedIndex].value;
+						radiogroup.deactivateAll();
+						radiogroup.radios.forEach((radio, index) => {
+							if (radio.$input.value === value) {
+								radio.activate();
+								radio.emit('Radio.activate', radio.rootElement);
+								radiogroup.current = index;
+							}
+						});
+					});
+				}
 			});
 		</script>
 	</body>
