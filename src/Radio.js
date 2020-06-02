@@ -1,31 +1,7 @@
 import EventDispatcher from './EventDispatcher';
+import { select, deselect, blur, focus } from './utils';
 
 const CHECKED = 'aria-checked';
-
-const select = target => target.classList.add('is-selected');
-const deselect = target => target.classList.remove('is-selected');
-
-/**
- * Blur
- *
- * @param {object} target DOM object.
- */
-const blur = target => {
-	target.classList.remove('is-focus');
-
-	return target.blur();
-};
-
-/**
- * Focus
- *
- * @param {object} target DOM object.
- */
-const focus = target => {
-	target.classList.add('is-focus');
-
-	return target.focus();
-};
 
 /**
  *
