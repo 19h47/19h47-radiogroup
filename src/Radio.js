@@ -14,7 +14,7 @@ export default class Radio extends EventDispatcher {
 
 		// Elements
 		this.rootElement = element;
-		this.$input = this.rootElement.querySelector('input');
+		this.$input = this.rootElement.querySelector('input[type="radio"]');
 
 		// Values
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));

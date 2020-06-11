@@ -58,12 +58,8 @@
 				</h1>
 			</div>
 			<div class="col-12 my-5">
-				<form
-					class="Form border p-3 js-radio-group"
-					role="radiogroup"
-					aria-labelledby="pizza-condiments"
-				>
-					<h3 class="mb-3" id="pizza-condiments">
+				<form class="Form border p-3" role="radiogroup" aria-labelledby="pizza-condiments">
+					<h3 id="pizza-condiments" class="mb-3">
 						Pizza Condiments<sup class="js-radio-group-value">Black olives</sup>
 					</h3>
 
@@ -174,11 +170,13 @@
 
 			<div class="col-12 my-5">
 				<form
-					class="Form border p-3 js-radio-group"
+					class="Form border p-3"
+					role="radiogroup"
+					aria-labelledby="japan-condiments"
 					data-name="japan-condiments"
 					data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
 				>
-					<h3 class="mb-3">
+					<h3 id="japan-condiments" class="mb-3">
 						Japan condiments<sup class="js-radio-group-value">Black vinegar</sup>
 					</h3>
 				</form>
@@ -186,11 +184,15 @@
 
 			<div class="col-12 my-5">
 				<form
-					class="Form border p-3 js-radio-group"
+					class="Form border p-3"
+					role="radiogroup"
+					aria-labelledby="american-condiments"
 					data-name="american-condiments"
 					data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy_sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot_sauce"}]'
 				>
-					<h3>American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h3>
+					<h3 id="american-condiments" class="mb-3">
+						American condiments<sup class="js-radio-group-value">Mayonnaise</sup>
+					</h3>
 					<select class="custom-select my-3 js-select" name="" id="">
 						<option value="mayonnaise" selected>Mayonnaise</option>
 						<option value="ketchup">Ketchup</option>
@@ -205,7 +207,7 @@
 
 		<script type="text/javascript" src="./main.js"></script>
 		<script type="text/javascript">
-			const elements = [...document.querySelectorAll('.js-radio-group')];
+			const elements = [...document.querySelectorAll('[role="radiogroup"]')];
 			const template = (label, value, selected, name) =>
 				'<div class="Form__radio form-group m-3' +
 				(selected ? ' is-selected' : '') +
