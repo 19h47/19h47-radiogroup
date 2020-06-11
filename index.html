@@ -59,16 +59,16 @@
 			</div>
 			<div class="col-12 my-5">
 				<form
-					class="Form js-radio-group"
+					class="Form border p-3 js-radio-group"
 					role="radiogroup"
 					aria-labelledby="pizza-condiments"
 				>
-					<h3 id="pizza-condiments">
+					<h3 class="mb-3" id="pizza-condiments">
 						Pizza Condiments<sup class="js-radio-group-value">Black olives</sup>
 					</h3>
 
 					<div
-						class="Form__radio form-group is-selected"
+						class="Form__radio form-group is-selected m-3"
 						aria-checked="true"
 						tabindex="0"
 						role="radio"
@@ -79,7 +79,7 @@
 							<input
 								type="radio"
 								id="black-olives"
-								name="pizza"
+								name="pizza_condiments"
 								value="black-olives"
 								checked
 							/>
@@ -87,62 +87,73 @@
 					</div>
 
 					<div
-						class="Form__radio form-group"
+						class="Form__radio form-group m-3"
 						aria-checked="false"
 						tabindex="-1"
 						role="radio"
-						data-condition-class="js-condition-chicken"
 					>
 						<span class="Form__radio__input"></span>
 						<span class="Form__radio__label js-label">Cheeses</span>
 						<div class="d-none">
-							<input type="radio" id="chicken" name="option" value="chicken" />
-						</div>
-					</div>
-
-					<div class="form-group row js-condition-chicken is-off" tabindex="-1">
-						<label class="col-sm-1 col-form-label" for="size">Mozzarella</label>
-						<div class="col-sm-11">
 							<input
-								class="form-control"
-								id="mozzarella"
-								type="text"
-								name="mozzarella"
-								placeholder="ex. 1"
-								disabled
-							/>
-						</div>
-					</div>
-					<div class="form-group row js-condition-chicken is-off" tabindex="-1">
-						<label class="col-sm-1 col-form-label" for="pate">Cheddar</label>
-						<div class="col-sm-11">
-							<input
-								class="form-control"
-								id="cheddar"
-								name="cheddar"
-								type="text"
-								placeholder="ex. 1"
-								disabled
+								type="radio"
+								id="cheeses"
+								name="pizza_condiments"
+								value="cheeses"
 							/>
 						</div>
 					</div>
 
-					<div class="form-group row js-condition-chicken is-off" tabindex="-1">
-						<label class="col-sm-1 col-form-label" for="sauce">Emmental</label>
-						<div class="col-sm-11">
-							<input
-								class="form-control"
-								id="emmental"
-								type="text"
-								name="emmental"
-								placeholder="ex. 1"
-								disabled
-							/>
+					<fieldset class="border">
+						<div class="form-group m-3 row js-cheese is-off">
+							<label class="col-sm-2 px-0 col-form-label" for="size"
+								>Mozzarella</label
+							>
+							<div class="col-sm-10 px-0">
+								<input
+									class="form-control"
+									id="mozzarella"
+									type="text"
+									name="mozzarella"
+									placeholder="ex. 1"
+									disabled
+									tabindex="-1"
+								/>
+							</div>
 						</div>
-					</div>
+						<div class="form-group m-3 row js-cheese is-off">
+							<label class="col-sm-2 px-0 col-form-label" for="pate">Cheddar</label>
+							<div class="col-sm-10 px-0">
+								<input
+									class="form-control"
+									id="cheddar"
+									name="cheddar"
+									type="text"
+									placeholder="ex. 1"
+									tabindex="-1"
+									disabled
+								/>
+							</div>
+						</div>
+
+						<div class="form-group m-3 row js-cheese is-off">
+							<label class="col-sm-2 px-0 col-form-label" for="sauce">Emmental</label>
+							<div class="col-sm-10 px-0">
+								<input
+									class="form-control"
+									id="emmental"
+									type="text"
+									name="emmental"
+									placeholder="ex. 1"
+									tabindex="-1"
+									disabled
+								/>
+							</div>
+						</div>
+					</fieldset>
 
 					<div
-						class="Form__radio form-group"
+						class="Form__radio form-group m-3"
 						aria-checked="false"
 						tabindex="-1"
 						role="radio"
@@ -150,7 +161,12 @@
 						<span class="Form__radio__input"></span>
 						<span class="Form__radio__label js-label">Spinach</span>
 						<div class="d-none">
-							<input type="radio" id="spinach" name="option" value="spinach" />
+							<input
+								type="radio"
+								id="spinach"
+								name="pizza_condiments"
+								value="spinach"
+							/>
 						</div>
 					</div>
 				</form>
@@ -158,11 +174,11 @@
 
 			<div class="col-12 my-5">
 				<form
-					class="Form js-radio-group"
+					class="Form border p-3 js-radio-group"
 					data-name="japan-condiments"
 					data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
 				>
-					<h3 class="my-5">
+					<h3 class="mb-3">
 						Japan condiments<sup class="js-radio-group-value">Black vinegar</sup>
 					</h3>
 				</form>
@@ -170,12 +186,12 @@
 
 			<div class="col-12 my-5">
 				<form
-					class="Form js-radio-group"
+					class="Form border p-3 js-radio-group"
 					data-name="american-condiments"
 					data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy_sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot_sauce"}]'
 				>
 					<h3>American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h3>
-					<select class="custom-select my-5 js-select" name="" id="">
+					<select class="custom-select my-3 js-select" name="" id="">
 						<option value="mayonnaise" selected>Mayonnaise</option>
 						<option value="ketchup">Ketchup</option>
 						<option value="soy_sauce">Soy sauce</option>
@@ -191,7 +207,7 @@
 		<script type="text/javascript">
 			const elements = [...document.querySelectorAll('.js-radio-group')];
 			const template = (label, value, selected, name) =>
-				'<div class="Form__radio form-group' +
+				'<div class="Form__radio form-group m-3' +
 				(selected ? ' is-selected' : '') +
 				'" aria-checked="' +
 				(selected ? 'true' : 'false') +
@@ -208,6 +224,7 @@
 				'" ' +
 				(selected ? 'checked' : '') +
 				'></div></div>';
+			const cheeses = [...document.querySelectorAll('.js-cheese')];
 
 			elements.map(element => {
 				const $value = element.querySelector('.js-radio-group-value');
@@ -216,6 +233,7 @@
 				const name = element.getAttribute('data-name') || '';
 
 				const radiogroup = new RadioGroup.default(element, { tagger, template, name });
+
 				radiogroup.init();
 
 				radiogroup.radios.map(radio => {
@@ -224,10 +242,12 @@
 						$value.innerHTML = value;
 					};
 
-					radio.on('Radio.activate', el => {
+					radio.on('Radio.activate', event => {
+						const { element, value } = event;
+
 						if ($select) {
 							[...$select.options].map(option => {
-								const $input = el.querySelector('input[type="radio"]');
+								const $input = element.querySelector('input[type="radio"]');
 
 								if ($input && option.value === $input.value) {
 									option.selected = true;
@@ -236,18 +256,47 @@
 								}
 							});
 						}
-						setValue(el);
+
+						if ('cheeses' === value) {
+							cheeses.map(cheese => {
+								const $input = cheese.querySelector('input');
+
+								cheese.classList.remove('is-off');
+
+								$input.setAttribute('tabIndex', 0);
+								$input.removeAttribute('disabled');
+							});
+						}
+
+						setValue(element);
+					});
+
+					radio.on('Radio.deactivate', event => {
+						const { element, value } = event;
+
+						if ('cheeses' === value) {
+							cheeses.map(cheese => {
+								const $input = cheese.querySelector('input');
+
+								cheese.classList.add('is-off');
+
+								$input.setAttribute('tabIndex', -1);
+								$input.setAttribute('disabled', true);
+							});
+						}
 					});
 				});
 
 				if ($select) {
 					$select.addEventListener('change', event => {
 						const value = event.target.options[event.target.selectedIndex].value;
+
 						radiogroup.deactivateAll();
+
 						radiogroup.radios.forEach((radio, index) => {
 							if (radio.$input.value === value) {
 								radio.activate();
-								radio.emit('Radio.activate', radio.rootElement);
+								radio.emit('Radio.activate', { element: radio.rootElement });
 								radiogroup.current = index;
 							}
 						});

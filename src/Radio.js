@@ -16,15 +16,6 @@ export default class Radio extends EventDispatcher {
 		this.rootElement = element;
 		this.$input = this.rootElement.querySelector('input');
 
-		//
-		this.conditional = {
-			className: this.rootElement.getAttribute('data-condition-class'),
-		};
-
-		this.conditional.elements = [
-			...document.querySelectorAll(`.${this.conditional.className}`),
-		];
-
 		// Values
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));
 
@@ -48,9 +39,12 @@ export default class Radio extends EventDispatcher {
 
 	toggle() {
 		if (!this.checked) {
-			this.emit('Radio.beforeActivate', this.rootElement);
+			this.emit('Radio.beforeActivate');
 			this.activate();
-			return this.emit('Radio.activate', this.rootElement);
+			return this.emit('Radio.activate', {
+				element: this.rootElement,
+				value: this.$input.value,
+			});
 		}
 
 		return false;
@@ -75,23 +69,12 @@ export default class Radio extends EventDispatcher {
 		this.rootElement.setAttribute('tabindex', -1);
 		blur(this.rootElement);
 
-		// Condition.
-		this.conditional.elements.map(element => {
-			const $input = element.querySelector('input') || false;
-
-			element.classList.add('is-off');
-			element.setAttribute('tabIndex', -1);
-
-			if ($input) {
-				element.querySelector('input').setAttribute('disabled', true);
-			}
-
-			return true;
-		});
-
 		this.$input.removeAttribute('checked');
 
-		return this.emit('Radio.deactivate', this.rootElement);
+		return this.emit('Radio.deactivate', {
+			element: this.rootElement,
+			value: this.$input.value,
+		});
 	}
 
 	/**
@@ -112,20 +95,6 @@ export default class Radio extends EventDispatcher {
 		this.rootElement.setAttribute(CHECKED, 'true');
 		this.rootElement.setAttribute('tabindex', 0);
 		focus(this.rootElement);
-
-		// Condition.
-		this.conditional.elements.map(element => {
-			const $input = element.querySelector('input') || false;
-
-			element.classList.remove('is-off');
-			element.setAttribute('tabIndex', 0);
-
-			if ($input) {
-				$input.removeAttribute('disabled');
-			}
-
-			return true;
-		});
 
 		this.$input.setAttribute('checked', true);
 

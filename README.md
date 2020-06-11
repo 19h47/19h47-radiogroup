@@ -47,7 +47,7 @@ const radiogroup = new RadioGroup(element);
 radiogroup.init();
 
 radiogroup.radios.map(radio => {
-	radio.on('Radio.activate', item => console.log(item));
+	radio.on('Radio.activate', event => console.log(event)); // { element, value }
 });
 ```
 
@@ -70,9 +70,11 @@ radiogroup.radios.map(radio => {
 
 ## Events
 
-| Event          | Arguments | Description                       |
-| -------------- | --------- | --------------------------------- |
-| Radio.activate | item      | Return the current activate input |
+| Event                | Arguments | Description                                                   |
+| -------------------- | --------- | ------------------------------------------------------------- |
+| Radio.activate       | event     | Return an object containing current element and current value |
+| Radio.deactivate     | event     | Return an object containing current element and current value |
+| Radio.beforeActivate | event     |                                                               |
 
 ## Options
 
