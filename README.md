@@ -1,5 +1,11 @@
 # @19h47/radiogroup
 
+## Install
+
+```bash
+yarn add @19h47/radiogroup
+```
+
 ## Usage
 
 ### HTML
