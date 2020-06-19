@@ -98,7 +98,7 @@ radiogroup.radios.map(radio => {
 yarn test
 ```
 
-## Acknowledgement
+## References
 
 -   [Aleh Zasypkin](https://github.com/azasypkin/event-dispatcher) for its Event Dispatcher
 -   [Radio Button Example](https://www.w3.org/TR/2017/WD-wai-aria-practices-1.1-20170628/examples/radio/radio-1/radio-1.html)

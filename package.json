@@ -55,7 +55,7 @@
 		"ora": "^4.0.4",
 		"prettier": "^2.0.5",
 		"webpack": "^4.43.0",
-		"webpack-cli": "^3.3.11",
+		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.0",
 		"webpack-format-messages": "^2.0.6",
 		"webpack-merge": "^4.2.2",
