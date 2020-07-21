@@ -100,4 +100,20 @@ export default class Radio extends EventDispatcher {
 
 		return true;
 	}
+
+	destroy() {
+		this.rootElement.removeEventListener('click', this.toggle);
+		this.rootElement.removeEventListener('focus', () => focus(this.rootElement));
+		this.rootElement.removeEventListener('blur', () => blur(this.rootElement));
+
+		this.off('Radio.beforeActivate');
+		this.off('Radio.activate', {
+			element: this.rootElement,
+			value: this.$input.value,
+		});
+		this.off('Radio.deactivate', {
+			element: this.rootElement,
+			value: this.$input.value,
+		});
+	}
 }

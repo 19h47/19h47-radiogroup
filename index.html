@@ -205,6 +205,61 @@
 					</select>
 				</form>
 			</div>
+
+			<div class="col-12 my-5">
+				<form class="Form border p-3" role="radiogroup" aria-labelledby="condiments">
+					<h3 id="condiments" class="mb-3">
+						Condiments<sup class="js-radio-group-value">Savora</sup>
+					</h3>
+
+					<div class="input-group my-3">
+						<input
+							class="form-control js-input"
+							id="condiments"
+							type="text"
+							name="condiments"
+							placeholder="ex. 1"
+						/>
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary js-button" type="button">
+								Add
+							</button>
+						</div>
+					</div>
+
+					<div
+						class="Form__radio form-group is-selected m-3"
+						aria-checked="true"
+						tabindex="0"
+						role="radio"
+					>
+						<span class="Form__radio__input"></span>
+						<span class="Form__radio__label js-label">Savora</span>
+						<div class="d-none">
+							<input
+								type="radio"
+								id="savora"
+								name="condiments"
+								value="savora"
+								checked
+							/>
+						</div>
+					</div>
+
+					<div
+						class="Form__radio form-group m-3"
+						aria-checked="false"
+						tabindex="-1"
+						role="radio"
+					>
+						<span class="Form__radio__input"></span>
+						<span class="Form__radio__label js-label">Tapenade</span>
+						<div class="d-none">
+							<input type="radio" id="tapenade" name="condiments" value="tapenade" />
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 
 		<script type="text/javascript" src="./main.js"></script>
@@ -235,6 +290,8 @@
 				const $select = element.querySelector('.js-select');
 				const tagger = JSON.parse(element.getAttribute('data-tagger')) || [];
 				const name = element.getAttribute('data-name') || '';
+				const $add = element.querySelector('.js-button');
+				const $input = element.querySelector('.js-input');
 
 				const radiogroup = new RadioGroup.default(element, { tagger, template, name });
 
@@ -304,6 +361,24 @@
 								radiogroup.current = index;
 							}
 						});
+					});
+				}
+
+				if ($add && $input) {
+					$add.addEventListener('click', () => {
+						const { value } = $input;
+
+						if (0 !== value.length) {
+							radiogroup.destroy();
+
+							element.insertAdjacentHTML(
+								'beforeend',
+								template(value, value, false, 'condiments'),
+							);
+
+							radiogroup.init();
+							radiogroup.radios[radiogroup.current].activate();
+						}
 					});
 				}
 			});

@@ -92,6 +92,21 @@ radiogroup.radios.map(radio => {
 | template | function | `() => {}` |             |
 | name     | string   | `''`       |             |
 
+## RadioGroup Methods
+
+| Method      | Description | Arguments |
+| ----------- | ----------- | --------- |
+| `init()`    |             |           |
+| `destroy()` |             |           |
+
+## Radio Methods
+
+| Method         | Description | Arguments |
+| -------------- | ----------- | --------- |
+| `activate()`   |             |           |
+| `deactivate()` |             |           |
+| `destroy()`    |             |           |
+
 ## Test
 
 ```bash

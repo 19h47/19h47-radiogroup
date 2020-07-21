@@ -137,4 +137,16 @@ export default class RadioGroup {
 			);
 		});
 	}
+
+	destroy() {
+		this.rootElement.removeEventListener('keydown', this.onKeydown);
+
+		this.radios.forEach(radio => {
+			radio.deactivate();
+			radio.destroy();
+		});
+
+		this.elements = [];
+		this.radios = [];
+	}
 }
