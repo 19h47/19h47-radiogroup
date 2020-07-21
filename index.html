@@ -295,14 +295,15 @@
 
 				const radiogroup = new RadioGroup.default(element, { tagger, template, name });
 
+				const setValue = item => {
+					console.log(item);
+					const value = item.querySelector('.js-label').innerHTML;
+					$value.innerHTML = value;
+				};
+
 				radiogroup.init();
 
-				radiogroup.radios.map(radio => {
-					const setValue = item => {
-						const value = item.querySelector('.js-label').innerHTML;
-						$value.innerHTML = value;
-					};
-
+				radiogroup.radios.forEach(radio => {
 					radio.on('Radio.activate', event => {
 						const { element, value } = event;
 
@@ -378,6 +379,14 @@
 
 							radiogroup.init();
 							radiogroup.radios[radiogroup.current].activate();
+
+							radiogroup.radios.forEach(radio => {
+								radio.on('Radio.activate', event => {
+									const { element } = event;
+
+									setValue(element);
+								});
+							});
 						}
 					});
 				}
