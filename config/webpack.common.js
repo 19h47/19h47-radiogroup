@@ -12,9 +12,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
-function resolve(dir) {
-	return path.join(__dirname, '..', dir);
-}
+const resolve = require('./webpack.utils');
 
 module.exports = {
 	entry: {

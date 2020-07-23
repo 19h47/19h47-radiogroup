@@ -39,6 +39,7 @@
 		"babel-loader": "^8.0.6",
 		"clean-webpack-plugin": "^3.0.0",
 		"clear": "^0.1.0",
+		"copy-webpack-plugin": "^6.0.3",
 		"core-js": "^3.6.4",
 		"eslint": "^7.5.0",
 		"eslint-config-airbnb-base": "^14.2.0",
