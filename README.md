@@ -113,6 +113,21 @@ radiogroup.radios.map(radio => {
 yarn test
 ```
 
+## Build Setup
+
+```bash
+
+# install dependencies
+$ yarn install
+
+# serve with hot reload at localhost:3000
+$ yarn start
+
+# build for production
+$ yarn prod
+
+```
+
 ## References
 
 -   [Aleh Zasypkin](https://github.com/azasypkin/event-dispatcher) for its Event Dispatcher

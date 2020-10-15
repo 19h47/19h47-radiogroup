@@ -1,11 +1,8 @@
 /**
  *
- * @file webpack.common.js
+ * @file webpack.config.common.js
  * @author Jérémy Levron <jeremylevron@19h47.fr> (http://19h47.fr)
  */
-
-// Node modules
-const path = require('path');
 
 // Plugins
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -30,6 +27,13 @@ module.exports = {
 		port: 3000,
 		inline: true,
 		disableHostCheck: true,
+		writeToDisk: true,
+	},
+	resolve: {
+		alias: {
+			'@': resolve('src'),
+			Utils: resolve('src/utils'),
+		},
 	},
 	module: {
 		rules: [
