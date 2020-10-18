@@ -42,21 +42,6 @@ const radiogroup = new RadioGroup($element);
 radiogroup.init();
 ```
 
-#### With events
-
-```javascript
-import RadioGroup from '@19h47/radiogroup';
-
-const $element = document.querySelector('[role="radiogroup"]');
-const radiogroup = new RadioGroup($element);
-
-radiogroup.init();
-
-radiogroup.radios.map(radio => {
-	radio.on('Radio.activate', event => console.log(event)); // { element, value }
-});
-```
-
 ## Keyboard Support
 
 | Key        | Function                                                                                                                                                                           |
@@ -78,11 +63,32 @@ radiogroup.radios.map(radio => {
 
 ## Events
 
-| Event                | Arguments | Description                                                   |
-| -------------------- | --------- | ------------------------------------------------------------- |
-| Radio.activate       | event     | Return an object containing current element and current value |
-| Radio.deactivate     | event     | Return an object containing current element and current value |
-| Radio.beforeActivate | event     |                                                               |
+| Event            | Arguments | Description                                                   |
+| ---------------- | --------- | ------------------------------------------------------------- |
+| Radio.activate   | event     | Return an object containing current element and current value |
+| Radio.deactivate | event     | Return an object containing current element and current value |
+
+```javascript
+
+import RadioGroup from '@19h47/radiogroup';
+
+const $element = document.querySelector('[role="radiogroup"]');
+const radiogroup = new RadioGroup($element);
+
+radiogroup.init();
+
+
+radiogroup.radios.forEach(radio => {
+	radio.on('Radio.activate', ({ element, value }) => {
+		console.log(element, value);
+	}
+
+	radio.on('Radio.deactivate', ({ element, value }) => {
+		console.log(element, value);
+	}
+}
+
+```
 
 ## Options
 
@@ -122,6 +128,9 @@ $ yarn install
 
 # serve with hot reload at localhost:3000
 $ yarn start
+
+# build for development
+$ yarn dev
 
 # build for production
 $ yarn prod

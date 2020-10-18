@@ -49,15 +49,22 @@
 				opacity: 0.3;
 				pointer-events: none;
 			}
+			.Alert {
+				margin: 1em;
+				position: fixed;
+				top: 0;
+				right: 0;
+				z-index: 10;
+			}
 		</style>
 	</head>
 	<body>
+		<div class="Alert js-alert"></div>
+
 		<div class="container">
 			<div class="col-12 my-5">
 				<h1 class="m-0">
-					<a href="https://github.com/19h47/19h47-radiogroup">
-						Radio group
-					</a>
+					<a href="https://github.com/19h47/19h47-radiogroup"> Radio group </a>
 				</h1>
 			</div>
 			<div class="col-12 my-5">
@@ -285,6 +292,33 @@
 				(selected ? 'checked' : '') +
 				'></div></div>';
 			const cheeses = [...document.querySelectorAll('.js-cheese')];
+			const alert = content => {
+				const div = document.createElement('div');
+
+				div.className = 'toast fade show';
+				div.style = 'toast fade show';
+				div.innerHTML = `<div class="toast-body">${content}</div>`;
+
+				div.setAttribute('role', 'alert');
+				div.setAttribute('aria-live', 'assertive');
+				div.setAttribute('aria-atomic', 'true');
+
+				return div;
+			};
+			const $alert = document.querySelector('.js-alert');
+			const onRadioChange = content => {
+				const $el = alert(content);
+
+				$alert.appendChild($el);
+
+				$el.addEventListener(
+					'click',
+					() => $el.style.setProperty('display', 'none'),
+					false,
+				);
+
+				setTimeout(() => $el.parentNode.removeChild($el), 2000);
+			};
 
 			elements.map(element => {
 				const $value = element.querySelector('.js-radio-group-value');
@@ -297,7 +331,6 @@
 				const radiogroup = new RadioGroup.default(element, { tagger, template, name });
 
 				const setValue = item => {
-					console.log(item);
 					const value = item.querySelector('.js-label').innerHTML;
 					$value.innerHTML = value;
 				};
@@ -305,8 +338,10 @@
 				radiogroup.init();
 
 				radiogroup.radios.forEach(radio => {
-					radio.on('Radio.activate', event => {
-						const { element, value } = event;
+					radio.on('Radio.activate', ({ element, value }) => {
+						console.log({ element, value, event: 'activate' });
+
+						onRadioChange(`<strong>${value}</strong> has been activated!`);
 
 						if ($select) {
 							[...$select.options].map(option => {
@@ -334,8 +369,12 @@
 						setValue(element);
 					});
 
-					radio.on('Radio.deactivate', event => {
-						const { element, value } = event;
+					radio.on('Radio.deactivate', ({ element, value }) => {
+						console.log({ element, value, event: 'deactivate' });
+
+						onRadioChange(`<strong>${value}</strong> has been deactivated!`);
+
+						setTimeout(() => $el.parentNode.removeChild($el), 2000);
 
 						if ('cheeses' === value) {
 							cheeses.map(cheese => {
@@ -359,7 +398,11 @@
 						radiogroup.radios.forEach((radio, index) => {
 							if (radio.$input.value === value) {
 								radio.activate();
-								radio.emit('Radio.activate', { element: radio.rootElement });
+
+								radio.emit('Radio.activate', {
+									element: radio.rootElement,
+									value: radio.$input.value,
+								});
 								radiogroup.current = index;
 							}
 						});
@@ -382,10 +425,17 @@
 							radiogroup.radios[radiogroup.current].activate();
 
 							radiogroup.radios.forEach(radio => {
-								radio.on('Radio.activate', event => {
-									const { element } = event;
-
+								radio.on('Radio.activate', ({ event, value }) => {
+									onRadioChange(`<strong>${value}</strong> has been activated!`);
 									setValue(element);
+								});
+							});
+
+							radiogroup.radios.forEach(radio => {
+								radio.on('Radio.deactivate', ({ event, value }) => {
+									onRadioChange(
+										`<strong>${value}</strong> has been deactivated!`,
+									);
 								});
 							});
 						}
