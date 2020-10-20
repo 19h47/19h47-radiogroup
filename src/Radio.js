@@ -1,4 +1,4 @@
-import EventDispatcher from './EventDispatcher';
+import { EventEmitter } from 'events';
 import { select, deselect, blur, focus } from './utils';
 
 const CHECKED = 'aria-checked';
@@ -8,9 +8,9 @@ const CHECKED = 'aria-checked';
  * @constructor
  * @param {object} element
  */
-export default class Radio extends EventDispatcher {
+export default class Radio extends EventEmitter {
 	constructor(element) {
-		super(['Radio.beforeActivate', 'Radio.activate', 'Radio.deactivate']);
+		super();
 
 		// Elements
 		this.rootElement = element;
@@ -105,15 +105,5 @@ export default class Radio extends EventDispatcher {
 		this.rootElement.removeEventListener('click', this.toggle);
 		this.rootElement.removeEventListener('focus', () => focus(this.rootElement));
 		this.rootElement.removeEventListener('blur', () => blur(this.rootElement));
-
-		this.off('Radio.beforeActivate');
-		this.off('Radio.activate', {
-			element: this.rootElement,
-			value: this.$input.value,
-		});
-		this.off('Radio.deactivate', {
-			element: this.rootElement,
-			value: this.$input.value,
-		});
 	}
 }

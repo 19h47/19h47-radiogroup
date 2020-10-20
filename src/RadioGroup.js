@@ -1,12 +1,4 @@
-import {
-	ARROW_UP,
-	ARROW_RIGHT,
-	ARROW_DOWN,
-	ARROW_LEFT,
-	// SPACE,
-	HOME,
-	END,
-} from '@19h47/keycode';
+import { ARROW_UP, ARROW_RIGHT, ARROW_DOWN, ARROW_LEFT, HOME, END } from '@19h47/keycode';
 import Radio from './Radio';
 
 const optionsDefault = {
@@ -142,7 +134,6 @@ export default class RadioGroup {
 		this.rootElement.removeEventListener('keydown', this.onKeydown);
 
 		this.radios.forEach(radio => {
-			radio.deactivate();
 			radio.destroy();
 		});
 

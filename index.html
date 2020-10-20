@@ -198,7 +198,7 @@
 					role="radiogroup"
 					aria-labelledby="american-condiments"
 					data-name="american-condiments"
-					data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy_sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot_sauce"}]'
+					data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'
 				>
 					<h3 id="american-condiments" class="mb-3">
 						American condiments<sup class="js-radio-group-value">Mayonnaise</sup>
@@ -206,10 +206,10 @@
 					<select class="custom-select my-3 js-select" name="" id="">
 						<option value="mayonnaise" selected>Mayonnaise</option>
 						<option value="ketchup">Ketchup</option>
-						<option value="soy_sauce">Soy sauce</option>
+						<option value="soy-sauce">Soy sauce</option>
 						<option value="salsa">Salsa</option>
 						<option value="mustard">Mustard</option>
-						<option value="hot_sauce">Hot sauce</option>
+						<option value="hot-sauce">Hot sauce</option>
 					</select>
 				</form>
 			</div>
@@ -272,6 +272,26 @@
 
 		<script type="text/javascript" src="./main.js"></script>
 		<script type="text/javascript">
+			// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
+			const slugify = string => {
+				const a =
+					'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
+				const b =
+					'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
+				const p = new RegExp(a.split('').join('|'), 'g');
+
+				return string
+					.toString()
+					.toLowerCase()
+					.replace(/\s+/g, '-') // Replace spaces with -
+					.replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+					.replace(/&/g, '-and-') // Replace & with 'and'
+					.replace(/[^\w\-]+/g, '') // Remove all non-word characters
+					.replace(/\-\-+/g, '-') // Replace multiple - with single -
+					.replace(/^-+/, '') // Trim - from start of text
+					.replace(/-+$/, ''); // Trim - from end of text
+			};
+
 			const elements = [...document.querySelectorAll('[role="radiogroup"]')];
 			const template = (label, value, selected, name) =>
 				'<div class="Form__radio form-group m-3' +
@@ -283,11 +303,11 @@
 				'" role="radio"><span class="Form__radio__input"></span><span class="Form__radio__label js-label">' +
 				label +
 				'</span><div class="d-none"><input type="radio" id="' +
-				value +
+				slugify(value) +
 				'" name="' +
-				name +
+				slugify(name) +
 				'" value="' +
-				value +
+				slugify(value) +
 				'" ' +
 				(selected ? 'checked' : '') +
 				'></div></div>';
@@ -370,11 +390,9 @@
 					});
 
 					radio.on('Radio.deactivate', ({ element, value }) => {
-						console.log({ element, value, event: 'deactivate' });
+						// console.log({ element, value, event: 'deactivate' });
 
 						onRadioChange(`<strong>${value}</strong> has been deactivated!`);
-
-						setTimeout(() => $el.parentNode.removeChild($el), 2000);
 
 						if ('cheeses' === value) {
 							cheeses.map(cheese => {
