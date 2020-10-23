@@ -1,4 +1,5 @@
 const plugins = ['@babel'];
+
 const settings = {
 	'import/resolver': {
 		webpack: {
@@ -7,13 +8,15 @@ const settings = {
 	},
 };
 
+const env = {
+	node: true,
+	browser: true,
+	jest: true,
+};
+
 module.exports = {
 	root: true,
-	env: {
-		node: true,
-		browser: true,
-		jest: true,
-	},
+	env,
 	extends: ['standard', 'airbnb-base', 'prettier'],
 	rules: {
 		'arrow-parens': ['error', 'as-needed'],
