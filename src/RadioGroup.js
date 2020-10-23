@@ -22,8 +22,7 @@ export default class RadioGroup {
 		this.options = { ...optionsDefault, ...options };
 
 		//
-		this.onKeydown = this.onKeydown.bind(this);
-		this.deactivateAll = this.deactivateAll.bind(this);
+		this.handleKeydown = this.handleKeydown.bind(this);
 
 		this.render();
 	}
@@ -31,7 +30,7 @@ export default class RadioGroup {
 	init() {
 		this.elements = [...this.rootElement.querySelectorAll('[role=radio]')];
 
-		this.elements.map($input => {
+		this.elements.forEach($input => {
 			const radio = new Radio($input);
 
 			radio.init();
@@ -55,14 +54,14 @@ export default class RadioGroup {
 			}),
 		);
 
-		this.rootElement.addEventListener('keydown', this.onKeydown);
+		this.rootElement.addEventListener('keydown', this.handleKeydown);
 	}
 
 	/**
 	 * Keydown event listener
 	 *
 	 */
-	onKeydown(event) {
+	handleKeydown(event) {
 		const key = event.keyCode || event.which;
 
 		const next = () => {
@@ -114,10 +113,7 @@ export default class RadioGroup {
 	 * Deactivate all
 	 *
 	 */
-	deactivateAll() {
-		// console.info('RadioGroup.deactivateAll');
-		return this.radios.map(radio => radio.deactivate());
-	}
+	deactivateAll = () => this.radios.forEach(radio => radio.deactivate());
 
 	render() {
 		const { template, name } = this.options;
@@ -131,7 +127,7 @@ export default class RadioGroup {
 	}
 
 	destroy() {
-		this.rootElement.removeEventListener('keydown', this.onKeydown);
+		this.rootElement.removeEventListener('keydown', this.handleKeydown);
 
 		this.radios.forEach(radio => {
 			radio.destroy();

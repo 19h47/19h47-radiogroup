@@ -1,3 +1,12 @@
+const plugins = ['@babel'];
+const settings = {
+	'import/resolver': {
+		webpack: {
+			config: 'webpack/webpack.config.common.js',
+		},
+	},
+};
+
 module.exports = {
 	root: true,
 	env: {
@@ -22,11 +31,6 @@ module.exports = {
 		sourceType: 'module',
 		allowImportExportEverywhere: true,
 	},
-	settings: {
-		'import/resolver': {
-			webpack: {
-				config: 'webpack/webpack.config.common.js',
-			},
-		},
-	},
+	settings,
+	plugins,
 };

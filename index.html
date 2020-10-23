@@ -12,6 +12,12 @@
 			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 			crossorigin="anonymous"
 		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism.min.css"
+			integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
+			crossorigin="anonymous"
+		/>
 		<style>
 			.Form__radio {
 				display: flex;
@@ -189,6 +195,39 @@
 			</div>
 
 			<div class="col-12 my-5">
+				<p>
+					Thanks to customs events we can programmatically change the current selected
+					radio.
+				</p>
+
+				<pre>
+
+	<code class="language-javascript">import RadioGroup from '@19h47/radiogroup';
+
+	const $element = document.querySelector('[role="radiogroup"]');
+	const $select = document.querySelector('select');
+	const radiogroup = new RadioGroup($element);
+
+	radiogroup.init();
+
+	radiogroup.radios.forEach(radio => {
+		radio.on('Radio.activate', () => {
+			[...$select.options].forEach(option => {
+				const { $input: { value } } = radio;
+
+				if (value === option.value) {
+					option.selected = true;
+				} else {
+					option.selected = false;
+				}
+			});
+		}
+	});</code>
+
+				</pre>
+			</div>
+
+			<div class="col-12 my-5">
 				<form
 					class="Form border p-3"
 					role="radiogroup"
@@ -265,6 +304,8 @@
 				</form>
 			</div>
 		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
 		<script type="text/javascript" src="./main.js"></script>
 		<script type="text/javascript">
@@ -336,7 +377,7 @@
 				setTimeout(() => $el.parentNode.removeChild($el), 2000);
 			};
 
-			elements.map(element => {
+			elements.forEach(element => {
 				const $value = element.querySelector('.js-radio-group-value');
 				const $select = element.querySelector('.js-select');
 				const tagger = JSON.parse(element.getAttribute('data-tagger')) || [];
@@ -360,10 +401,12 @@
 						onRadioChange(`<strong>${value}</strong> has been activated!`);
 
 						if ($select) {
-							[...$select.options].map(option => {
-								const $input = element.querySelector('input[type="radio"]');
+							[...$select.options].forEach(option => {
+								const {
+									$input: { value },
+								} = radio;
 
-								if ($input && option.value === $input.value) {
+								if (value === option.value) {
 									option.selected = true;
 								} else {
 									option.selected = false;
@@ -372,7 +415,7 @@
 						}
 
 						if ('cheeses' === value) {
-							cheeses.map(cheese => {
+							cheeses.forEach(cheese => {
 								const $input = cheese.querySelector('input');
 
 								cheese.classList.remove('is-off');
@@ -391,7 +434,7 @@
 						onRadioChange(`<strong>${value}</strong> has been deactivated!`);
 
 						if ('cheeses' === value) {
-							cheeses.map(cheese => {
+							cheeses.forEach(cheese => {
 								const $input = cheese.querySelector('input');
 
 								cheese.classList.add('is-off');
@@ -404,8 +447,8 @@
 				});
 
 				if ($select) {
-					$select.addEventListener('change', event => {
-						const value = event.target.options[event.target.selectedIndex].value;
+					$select.addEventListener('change', ({ target }) => {
+						const value = target.options[target.selectedIndex].value;
 
 						radiogroup.deactivateAll();
 

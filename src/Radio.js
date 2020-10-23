@@ -20,7 +20,7 @@ export default class Radio extends EventEmitter {
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));
 
 		// Bind
-		this.toggle = this.toggle.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	init() {
@@ -32,11 +32,16 @@ export default class Radio extends EventEmitter {
 	initEvents() {
 		// console.info('Radio.initEvents');
 
-		this.rootElement.addEventListener('click', this.toggle);
+		this.rootElement.addEventListener('click', this.handleClick);
 		this.rootElement.addEventListener('focus', () => focus(this.rootElement));
 		this.rootElement.addEventListener('blur', () => blur(this.rootElement));
 	}
 
+	handleClick = () => this.toggle();
+
+	/**
+	 * Toggle
+	 */
 	toggle() {
 		if (!this.checked) {
 			this.emit('Radio.beforeActivate');
@@ -102,7 +107,7 @@ export default class Radio extends EventEmitter {
 	}
 
 	destroy() {
-		this.rootElement.removeEventListener('click', this.toggle);
+		this.rootElement.removeEventListener('click', this.handleClick);
 		this.rootElement.removeEventListener('focus', () => focus(this.rootElement));
 		this.rootElement.removeEventListener('blur', () => blur(this.rootElement));
 	}

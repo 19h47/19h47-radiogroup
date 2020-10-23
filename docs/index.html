@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><title>Radio group</title><link rel="icon" type="image/png" href="radio-button.png"/><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/><style>.Form__radio {
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><title>Radio group</title><link rel="icon" type="image/png" href="radio-button.png"/><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous"/><style>.Form__radio {
 				display: flex;
 			}
 			.Form__radio__input {
@@ -36,7 +36,31 @@
 				top: 0;
 				right: 0;
 				z-index: 10;
-			}</style></head><body><div class="Alert js-alert"></div><div class="container"><div class="col-12 my-5"><h1 class="m-0"><a href="https://github.com/19h47/19h47-radiogroup">Radio group</a></h1></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="pizza-condiments"><h3 id="pizza-condiments" class="mb-3">Pizza Condiments<sup class="js-radio-group-value">Black olives</sup></h3><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Black olives</span><div class="d-none"><input type="radio" id="black-olives" name="pizza_condiments" value="black-olives" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Cheeses</span><div class="d-none"><input type="radio" id="cheeses" name="pizza_condiments" value="cheeses"/></div></div><fieldset class="border"><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="size">Mozzarella</label><div class="col-sm-10 px-0"><input class="form-control" id="mozzarella" name="mozzarella" placeholder="ex. 1" disabled="disabled" tabindex="-1"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="pate">Cheddar</label><div class="col-sm-10 px-0"><input class="form-control" id="cheddar" name="cheddar" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="sauce">Emmental</label><div class="col-sm-10 px-0"><input class="form-control" id="emmental" name="emmental" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div></fieldset><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Spinach</span><div class="d-none"><input type="radio" id="spinach" name="pizza_condiments" value="spinach"/></div></div></form></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="japan-condiments" data-name="japan-condiments" data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'><h3 id="japan-condiments" class="mb-3">Japan condiments<sup class="js-radio-group-value">Black vinegar</sup></h3></form></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="american-condiments" data-name="american-condiments" data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'><h3 id="american-condiments" class="mb-3">American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h3><select class="custom-select my-3 js-select" name="" id=""><option value="mayonnaise" selected="selected">Mayonnaise</option><option value="ketchup">Ketchup</option><option value="soy-sauce">Soy sauce</option><option value="salsa">Salsa</option><option value="mustard">Mustard</option><option value="hot-sauce">Hot sauce</option></select></form></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="condiments"><h3 id="condiments" class="mb-3">Condiments<sup class="js-radio-group-value">Savora</sup></h3><div class="input-group my-3"><input class="form-control js-input" id="condiments" name="condiments" placeholder="ex. 1"/><div class="input-group-append"><button class="btn btn-outline-secondary js-button" type="button">Add</button></div></div><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Savora</span><div class="d-none"><input type="radio" id="savora" name="condiments" value="savora" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Tapenade</span><div class="d-none"><input type="radio" id="tapenade" name="condiments" value="tapenade"/></div></div></form></div></div><script src="./main.js"></script><script>// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
+			}</style></head><body><div class="Alert js-alert"></div><div class="container"><div class="col-12 my-5"><h1 class="m-0"><a href="https://github.com/19h47/19h47-radiogroup">Radio group</a></h1></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="pizza-condiments"><h3 id="pizza-condiments" class="mb-3">Pizza Condiments<sup class="js-radio-group-value">Black olives</sup></h3><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Black olives</span><div class="d-none"><input type="radio" id="black-olives" name="pizza_condiments" value="black-olives" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Cheeses</span><div class="d-none"><input type="radio" id="cheeses" name="pizza_condiments" value="cheeses"/></div></div><fieldset class="border"><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="size">Mozzarella</label><div class="col-sm-10 px-0"><input class="form-control" id="mozzarella" name="mozzarella" placeholder="ex. 1" disabled="disabled" tabindex="-1"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="pate">Cheddar</label><div class="col-sm-10 px-0"><input class="form-control" id="cheddar" name="cheddar" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="sauce">Emmental</label><div class="col-sm-10 px-0"><input class="form-control" id="emmental" name="emmental" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div></fieldset><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Spinach</span><div class="d-none"><input type="radio" id="spinach" name="pizza_condiments" value="spinach"/></div></div></form></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="japan-condiments" data-name="japan-condiments" data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'><h3 id="japan-condiments" class="mb-3">Japan condiments<sup class="js-radio-group-value">Black vinegar</sup></h3></form></div><div class="col-12 my-5"><p>Thanks to customs events we can programmatically change the current selected radio.</p><pre>
+
+	<code class="language-javascript">import RadioGroup from '@19h47/radiogroup';
+
+	const $element = document.querySelector('[role="radiogroup"]');
+	const $select = document.querySelector('select');
+	const radiogroup = new RadioGroup($element);
+
+	radiogroup.init();
+
+	radiogroup.radios.forEach(radio => {
+		radio.on('Radio.activate', () => {
+			[...$select.options].forEach(option => {
+				const { $input: { value } } = radio;
+
+				if (value === option.value) {
+					option.selected = true;
+				} else {
+					option.selected = false;
+				}
+			});
+		}
+	});</code>
+
+				</pre></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="american-condiments" data-name="american-condiments" data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'><h3 id="american-condiments" class="mb-3">American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h3><select class="custom-select my-3 js-select" name="" id=""><option value="mayonnaise" selected="selected">Mayonnaise</option><option value="ketchup">Ketchup</option><option value="soy-sauce">Soy sauce</option><option value="salsa">Salsa</option><option value="mustard">Mustard</option><option value="hot-sauce">Hot sauce</option></select></form></div><div class="col-12 my-5"><form class="Form border p-3" role="radiogroup" aria-labelledby="condiments"><h3 id="condiments" class="mb-3">Condiments<sup class="js-radio-group-value">Savora</sup></h3><div class="input-group my-3"><input class="form-control js-input" id="condiments" name="condiments" placeholder="ex. 1"/><div class="input-group-append"><button class="btn btn-outline-secondary js-button" type="button">Add</button></div></div><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Savora</span><div class="d-none"><input type="radio" id="savora" name="condiments" value="savora" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Tapenade</span><div class="d-none"><input type="radio" id="tapenade" name="condiments" value="tapenade"/></div></div></form></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="./main.js"></script><script>// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
 			const slugify = string => {
 				const a =
 					'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
@@ -104,7 +128,7 @@
 				setTimeout(() => $el.parentNode.removeChild($el), 2000);
 			};
 
-			elements.map(element => {
+			elements.forEach(element => {
 				const $value = element.querySelector('.js-radio-group-value');
 				const $select = element.querySelector('.js-select');
 				const tagger = JSON.parse(element.getAttribute('data-tagger')) || [];
@@ -128,10 +152,12 @@
 						onRadioChange(`<strong>${value}</strong> has been activated!`);
 
 						if ($select) {
-							[...$select.options].map(option => {
-								const $input = element.querySelector('input[type="radio"]');
+							[...$select.options].forEach(option => {
+								const {
+									$input: { value },
+								} = radio;
 
-								if ($input && option.value === $input.value) {
+								if (value === option.value) {
 									option.selected = true;
 								} else {
 									option.selected = false;
@@ -140,7 +166,7 @@
 						}
 
 						if ('cheeses' === value) {
-							cheeses.map(cheese => {
+							cheeses.forEach(cheese => {
 								const $input = cheese.querySelector('input');
 
 								cheese.classList.remove('is-off');
@@ -159,7 +185,7 @@
 						onRadioChange(`<strong>${value}</strong> has been deactivated!`);
 
 						if ('cheeses' === value) {
-							cheeses.map(cheese => {
+							cheeses.forEach(cheese => {
 								const $input = cheese.querySelector('input');
 
 								cheese.classList.add('is-off');
@@ -172,8 +198,8 @@
 				});
 
 				if ($select) {
-					$select.addEventListener('change', event => {
-						const value = event.target.options[event.target.selectedIndex].value;
+					$select.addEventListener('change', ({ target }) => {
+						const value = target.options[target.selectedIndex].value;
 
 						radiogroup.deactivateAll();
 
