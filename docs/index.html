@@ -26,6 +26,27 @@
 				background-color: black;
 			}
 
+			.Form__star {
+				height: 24px;
+				width: 24px;
+				fill: #858585;
+			}
+
+			.Form__star:hover {
+				cursor: pointer;
+			}
+
+			.Form__radio:hover .Form__star {
+				opacity: 0.7;
+			}
+
+			.Form__radio:hover .Form__star,
+			.Form__radio.is-selected .Form__star,
+			.Form__radio:hover ~ .Form__radio .Form__star,
+			.Form__radio.is-selected ~ .Form__radio .Form__star {
+				fill: #ffc107 !important;
+			}
+
 			.form-group.is-off {
 				opacity: 0.3;
 				pointer-events: none;
@@ -62,7 +83,7 @@ radiogroup.radios.forEach(radio => {
 			}
 		});
 	}
-});</code></pre></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="american-condiments" data-name="american-condiments" data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'><h2 id="american-condiments" class="m-0 h3">American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h2><select class="custom-select my-3 js-select" aria-label="Select an american condiments"><option value="mayonnaise" selected="selected">Mayonnaise</option><option value="ketchup">Ketchup</option><option value="soy-sauce">Soy sauce</option><option value="salsa">Salsa</option><option value="mustard">Mustard</option><option value="hot-sauce">Hot sauce</option></select></div></form></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="condiments"><h2 id="condiments" class="mb-3 h3">Condiments<sup class="js-radio-group-value">Savora</sup></h2><div class="input-group my-3"><input class="form-control js-input" name="condiments" placeholder="ex. 1" aria-label="Add a condiments"/><div class="input-group-append"><button class="btn btn-outline-secondary js-button" type="button">Add</button></div></div><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Savora</span><div class="d-none"><input type="radio" id="savora" name="condiments" value="savora" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Tapenade</span><div class="d-none"><input type="radio" id="tapenade" name="condiments" value="tapenade"/></div></div></div></form></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="./main.js"></script><script>// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
+});</code></pre></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="american-condiments" data-name="american-condiments" data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'><h2 id="american-condiments" class="m-0 h3">American condiments<sup class="js-radio-group-value">Mayonnaise</sup></h2><select class="custom-select my-3 js-select" aria-label="Select an american condiments"><option value="mayonnaise" selected="selected">Mayonnaise</option><option value="ketchup">Ketchup</option><option value="soy-sauce">Soy sauce</option><option value="salsa">Salsa</option><option value="mustard">Mustard</option><option value="hot-sauce">Hot sauce</option></select></div></form></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="condiments"><h2 id="condiments" class="mb-3 h3">Condiments<sup class="js-radio-group-value">Savora</sup></h2><div class="input-group my-3"><input class="form-control js-input" name="condiments" placeholder="ex. 1" aria-label="Add a condiments"/><div class="input-group-append"><button class="btn btn-outline-secondary js-button" type="button">Add</button></div></div><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Savora</span><div class="d-none"><input type="radio" id="savora" name="condiments" value="savora" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Tapenade</span><div class="d-none"><input type="radio" id="tapenade" name="condiments" value="tapenade"/></div></div></div></form></div><div class="col-12 my-5"><form class="Form" aria-labelledby="rating-star"><div role="radiogroup"><h2 id="rating-star" class="mb-3 h3">Star rating<sup class="js-radio-group-value">1</sup></h2><div class="d-flex flex-row-reverse justify-content-end"><div class="Form__radio" aria-checked="false" tabindex="-1" role="radio"><span class="d-none js-label">5</span> <svg role="img" viewBox="0 0 576 512" class="Form__star"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg> <input id="star-5" type="radio" name="option" value="5" style="display: none"/></div><div class="Form__radio" aria-checked="false" tabindex="-1" role="radio"><span class="d-none js-label">4</span> <svg role="img" viewBox="0 0 576 512" class="Form__star"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg> <input id="star-4" type="radio" name="option" value="4" style="display: none"/></div><div class="Form__radio" aria-checked="false" tabindex="-1" role="radio"><span class="d-none js-label">3</span> <svg role="img" viewBox="0 0 576 512" class="Form__star"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg> <input id="star-3" type="radio" name="option" value="3" style="display: none"/></div><div class="Form__radio" aria-checked="false" tabindex="-1" role="radio"><span class="d-none js-label">2</span> <svg role="img" viewBox="0 0 576 512" class="Form__star"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg> <input id="star-2" type="radio" name="option" value="2" style="display: none"/></div><div class="Form__radio is-selected" aria-checked="true" tabindex="0" role="radio"><span class="d-none js-label">1</span> <svg role="img" viewBox="0 0 576 512" class="Form__star"><path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg> <input id="star-1" type="radio" name="option" value="1" checked="checked" style="display: none"/></div></div></div></form></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script><script src="./main.js"></script><script>// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
 			const slugify = string => {
 				const a =
 					'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
@@ -142,6 +163,7 @@ radiogroup.radios.forEach(radio => {
 
 				const setValue = item => {
 					const value = item.querySelector('.js-label').innerHTML;
+
 					$value.innerHTML = value;
 				};
 
