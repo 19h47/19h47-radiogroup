@@ -107,11 +107,11 @@ radiogroup.radios.forEach(radio => {
 
 ## Radio Methods
 
-| Method         | Description | Arguments |
-| -------------- | ----------- | --------- |
-| `activate()`   |             |           |
-| `deactivate()` |             |           |
-| `destroy()`    |             |           |
+| Method         | Description            | Arguments                                                   |
+| -------------- | ---------------------- | ----------------------------------------------------------- |
+| `activate()`   | Active a given `radio` | <ul><li>`shouldFocus` (optional)</li>Default to `true`</ul> |
+| `deactivate()` |                        |                                                             |
+| `destroy()`    |                        |                                                             |
 
 ## Test
 

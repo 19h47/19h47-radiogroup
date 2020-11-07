@@ -87,7 +87,7 @@ export default class Radio extends EventEmitter {
 	 *
 	 * @return {boolean}
 	 */
-	activate() {
+	activate(shouldFocus = true) {
 		// console.info('Radio.activate', this.checked);
 
 		if (this.checked) {
@@ -99,7 +99,10 @@ export default class Radio extends EventEmitter {
 		select(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'true');
 		this.rootElement.setAttribute('tabindex', 0);
-		focus(this.rootElement);
+
+		if (shouldFocus) {
+			focus(this.rootElement);
+		}
 
 		this.$input.setAttribute('checked', true);
 
