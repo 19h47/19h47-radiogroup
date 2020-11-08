@@ -22,6 +22,7 @@
 			.Form__radio {
 				display: flex;
 			}
+
 			.Form__radio__input {
 				position: relative;
 				height: 24px;
@@ -68,9 +69,9 @@
 				fill: #ffc107 !important;
 			}
 
-			.form-group.is-off {
+			.is-off {
 				opacity: 0.3;
-				pointer-events: none;
+				cursor: not-allowed;
 			}
 			.Alert {
 				margin: 1em;
@@ -171,7 +172,6 @@ radiogroup.init();</code></pre>
 										type="text"
 										name="mozzarella"
 										placeholder="ex. 1"
-										disabled
 										tabindex="-1"
 									/>
 								</div>
@@ -212,8 +212,9 @@ radiogroup.init();</code></pre>
 						</fieldset>
 
 						<div
-							class="Form__radio form-group m-3"
+							class="Form__radio form-group m-3 is-off"
 							aria-checked="false"
+							aria-disabled="true"
 							tabindex="-1"
 							role="radio"
 						>
@@ -225,11 +226,238 @@ radiogroup.init();</code></pre>
 									id="spinach"
 									name="pizza_condiments"
 									value="spinach"
+									disabled
+								/>
+							</div>
+						</div>
+
+						<div
+							class="Form__radio form-group m-3"
+							aria-checked="false"
+							tabindex="-1"
+							role="radio"
+						>
+							<span class="Form__radio__input"></span>
+							<span class="Form__radio__label js-label">Kale</span>
+							<div class="d-none">
+								<input
+									type="radio"
+									id="kale"
+									name="pizza_condiments"
+									value="kale"
 								/>
 							</div>
 						</div>
 					</div>
 				</form>
+			</div>
+
+			<div class="col-12 my-5">
+				<fieldset class="border p-3">
+					<div id="control-radiogroup" role="radiogroup" aria-labelledby="control-label">
+						<h2 id="control-label" class="mb-3 h3">
+							Control&nbsp;<sup class="js-radio-group-value"
+								>Never gonna let you down</sup
+							>
+						</h2>
+						<p>Disable or enable programmatically a radiogroup</p>
+						<div class="input-group my-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input
+										type="checkbox"
+										value="never-gonna-give-you-up"
+										class="js-control"
+									/>
+								</div>
+							</div>
+							<div class="border flex-grow-1">
+								<div
+									class="Form__radio p-3 is-off js-control-radio"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+									aria-disabled="true"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">
+										Never gonna give you up
+									</span>
+									<div class="d-none">
+										<input
+											type="radio"
+											name="rickroll"
+											disabled
+											value="never-gonna-give-you-up"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="input-group my-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input
+										type="checkbox"
+										value="never-gonna-let-you-down"
+										class="js-control"
+									/>
+								</div>
+							</div>
+
+							<div class="border flex-grow-1">
+								<div
+									class="Form__radio p-3 is-off is-selected js-control-radio"
+									aria-checked="true"
+									tabindex="-1"
+									role="radio"
+									aria-disabled="true"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">
+										Never gonna let you down
+									</span>
+									<div class="d-none">
+										<input
+											type="radio"
+											name="rickroll"
+											value="never-gonna-let-you-down"
+											disabled
+											checked
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="input-group my-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input
+										type="checkbox"
+										value="never-gonna-run-around-and-desert-you"
+										class="js-control"
+									/>
+								</div>
+							</div>
+							<div class="border flex-grow-1">
+								<div
+									class="Form__radio p-3 is-off js-control-radio"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+									aria-disabled="true"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label"
+										>Never gonna run around and desert you</span
+									>
+									<div class="d-none">
+										<input
+											type="radio"
+											name="rickroll"
+											value="never-gonna-run-around-and-desert-you"
+											disabled
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="input-group my-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input
+										type="checkbox"
+										value="never-gonna-make-you-cry"
+										checked
+										class="js-control"
+									/>
+								</div>
+							</div>
+							<div class="border flex-grow-1">
+								<div
+									class="Form__radio p-3"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">
+										Never gonna make you cry
+									</span>
+									<div class="d-none">
+										<input
+											type="radio"
+											name="rickroll"
+											value="never-gonna-make-you-cry"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="input-group my-3">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<input
+										type="checkbox"
+										value="never-gonna-say-goodbye"
+										class="js-control"
+										checked
+									/>
+								</div>
+							</div>
+							<div class="border flex-grow-1">
+								<div
+									class="Form__radio p-3"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label"
+										>Never gonna say goodbye</span
+									>
+									<div class="d-none">
+										<input
+											type="radio"
+											name="rickroll"
+											value="never-gonna-say-goodbye"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="input-group my-3">
+							<div class="input-group-text">
+								<input
+									type="checkbox"
+									value="never-gonna-tell-a-lie-and-hurt-you"
+									class="js-control"
+									checked
+								/>
+							</div>
+							<div class="border flex-grow-1">
+								<div
+									class="Form__radio p-3"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label"
+										>Never gonna tell a lie and hurt you</span
+									>
+									<div class="d-none">
+										<input
+											type="radio"
+											name="rickroll"
+											value="never-gonna-tell-a-lie-and-hurt-you"
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
 			</div>
 
 			<div class="col-12 my-5">
@@ -538,6 +766,19 @@ radiogroup.radios.forEach(radio => {
 
 				setTimeout(() => $el.parentNode.removeChild($el), 2000);
 			};
+			const controls = [...document.querySelectorAll('.js-control')];
+
+			controls.forEach($control => {
+				$control.addEventListener('input', ({ target }) => {
+					elements.forEach(element =>
+						element.dispatchEvent(
+							new CustomEvent('Control.input', {
+								detail: { checked: target.checked, value: target.value },
+							}),
+						),
+					);
+				});
+			});
 
 			elements.forEach(element => {
 				const $value = element.querySelector('.js-radio-group-value');
@@ -556,6 +797,62 @@ radiogroup.radios.forEach(radio => {
 				};
 
 				radiogroup.init();
+
+				if ('control-radiogroup' === element.id) {
+					element.addEventListener('Control.input', ({ detail: { checked, value } }) => {
+						radiogroup.radios.forEach((radio, index) => {
+							if (radio.$input.value === value && checked) {
+								radio.enable();
+
+								radio.rootElement.classList.remove('is-off');
+
+								radiogroup.destroy();
+								radiogroup.init();
+
+								radiogroup.radios.forEach(radio => {
+									radio.on('Radio.deactivate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been deactivated!`,
+										);
+									});
+
+									radio.on('Radio.activate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been activated!`,
+										);
+
+										setValue(radio.rootElement);
+									});
+								});
+							}
+
+							if (radio.$input.value === value && !checked) {
+								radio.disable();
+
+								radio.rootElement.classList.add('is-off');
+
+								radiogroup.destroy();
+								radiogroup.init();
+
+								radiogroup.radios.forEach(radio => {
+									radio.on('Radio.deactivate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been deactivated!`,
+										);
+									});
+
+									radio.on('Radio.activate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been activated!`,
+										);
+
+										setValue(radio.rootElement);
+									});
+								});
+							}
+						});
+					});
+				}
 
 				radiogroup.radios.forEach(radio => {
 					radio.on('Radio.activate', ({ element, value }) => {

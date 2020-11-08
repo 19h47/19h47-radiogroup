@@ -18,16 +18,13 @@ export default class Radio extends EventEmitter {
 
 		// Values
 		this.checked = JSON.parse(this.rootElement.getAttribute(CHECKED));
+		this.disabled = this.$input.disabled || false;
 
 		// Bind
 		this.handleClick = this.handleClick.bind(this);
 	}
 
-	init() {
-		// console.info('Radio.init');
-
-		this.initEvents();
-	}
+	init = () => this.initEvents();
 
 	initEvents() {
 		// console.info('Radio.initEvents');
@@ -43,9 +40,13 @@ export default class Radio extends EventEmitter {
 	 * Toggle
 	 */
 	toggle() {
+		if (this.disabled) {
+			return false;
+		}
+
 		if (!this.checked) {
 			this.emit('Radio.beforeActivate');
-			this.activate();
+			// this.activate();
 			return this.emit('Radio.activate', {
 				element: this.rootElement,
 				value: this.$input.value,
@@ -113,5 +114,20 @@ export default class Radio extends EventEmitter {
 		this.rootElement.removeEventListener('click', this.handleClick);
 		this.rootElement.removeEventListener('focus', () => focus(this.rootElement));
 		this.rootElement.removeEventListener('blur', () => blur(this.rootElement));
+	}
+
+	disable() {
+		this.rootElement.setAttribute('tabindex', -1);
+		this.$input.disabled = true;
+		this.rootElement.setAttribute('aria-disabled', true);
+	}
+
+	enable() {
+		this.$input.disabled = false;
+		this.rootElement.setAttribute('aria-disabled', false);
+
+		if (this.checked) {
+			this.rootElement.setAttribute('tabindex', 0);
+		}
 	}
 }

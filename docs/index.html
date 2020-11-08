@@ -1,6 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta http-equiv="X-UA-Compatible" content="ie=edge"/><title>RadioGroup</title><link rel="icon" type="image/png" href="radio-button.png"/><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous"/><style>.Form__radio {
 				display: flex;
 			}
+
 			.Form__radio__input {
 				position: relative;
 				height: 24px;
@@ -47,9 +48,9 @@
 				fill: #ffc107 !important;
 			}
 
-			.form-group.is-off {
+			.is-off {
 				opacity: 0.3;
-				pointer-events: none;
+				cursor: not-allowed;
 			}
 			.Alert {
 				margin: 1em;
@@ -62,7 +63,7 @@
 const $element = document.querySelector('[role="radiogroup"]');
 const radiogroup = new RadioGroup($element);
 
-radiogroup.init();</code></pre></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="japan-condiments" data-name="japan-condiments" data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'><h2 id="japan-condiments" class="mb-3 h3">Japan condiments<sup class="js-radio-group-value">Black vinegar</sup></h2></div></form></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="pizza-condiments"><h2 id="pizza-condiments" class="mb-3 h3">Pizza Condiments<sup class="js-radio-group-value">Black olives</sup></h2><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Black olives</span><div class="d-none"><input type="radio" id="black-olives" name="pizza_condiments" value="black-olives" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Cheeses</span><div class="d-none"><input type="radio" id="cheeses" name="pizza_condiments" value="cheeses"/></div></div><fieldset class="border"><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="mozzarella">Mozzarella</label><div class="col-sm-10 px-0"><input class="form-control" id="mozzarella" name="mozzarella" placeholder="ex. 1" disabled="disabled" tabindex="-1"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="cheddar">Cheddar</label><div class="col-sm-10 px-0"><input class="form-control" id="cheddar" name="cheddar" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="emmental">Emmental</label><div class="col-sm-10 px-0"><input class="form-control" id="emmental" name="emmental" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div></fieldset><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Spinach</span><div class="d-none"><input type="radio" id="spinach" name="pizza_condiments" value="spinach"/></div></div></div></form></div><div class="col-12 my-5"><p>Thanks to customs events we can programmatically change the current selected radio.</p><pre class="p-3 m-0"><code class="language-javascript">import RadioGroup from '@19h47/radiogroup';
+radiogroup.init();</code></pre></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="japan-condiments" data-name="japan-condiments" data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'><h2 id="japan-condiments" class="mb-3 h3">Japan condiments<sup class="js-radio-group-value">Black vinegar</sup></h2></div></form></div><div class="col-12 my-5"><form class="Form border p-3"><div role="radiogroup" aria-labelledby="pizza-condiments"><h2 id="pizza-condiments" class="mb-3 h3">Pizza Condiments<sup class="js-radio-group-value">Black olives</sup></h2><div class="Form__radio form-group is-selected m-3" aria-checked="true" tabindex="0" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Black olives</span><div class="d-none"><input type="radio" id="black-olives" name="pizza_condiments" value="black-olives" checked="checked"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Cheeses</span><div class="d-none"><input type="radio" id="cheeses" name="pizza_condiments" value="cheeses"/></div></div><fieldset class="border"><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="mozzarella">Mozzarella</label><div class="col-sm-10 px-0"><input class="form-control" id="mozzarella" name="mozzarella" placeholder="ex. 1" tabindex="-1"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="cheddar">Cheddar</label><div class="col-sm-10 px-0"><input class="form-control" id="cheddar" name="cheddar" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div><div class="form-group m-3 row js-cheese is-off"><label class="col-sm-2 px-0 col-form-label" for="emmental">Emmental</label><div class="col-sm-10 px-0"><input class="form-control" id="emmental" name="emmental" placeholder="ex. 1" tabindex="-1" disabled="disabled"/></div></div></fieldset><div class="Form__radio form-group m-3 is-off" aria-checked="false" aria-disabled="true" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Spinach</span><div class="d-none"><input type="radio" id="spinach" name="pizza_condiments" value="spinach" disabled="disabled"/></div></div><div class="Form__radio form-group m-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Kale</span><div class="d-none"><input type="radio" id="kale" name="pizza_condiments" value="kale"/></div></div></div></form></div><div class="col-12 my-5"><fieldset class="border p-3"><div id="control-radiogroup" role="radiogroup" aria-labelledby="control-label"><h2 id="control-label" class="mb-3 h3">Control&nbsp;<sup class="js-radio-group-value">Never gonna let you down</sup></h2><p>Disable or enable programmatically a radiogroup</p><div class="input-group my-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" value="never-gonna-give-you-up" class="js-control"/></div></div><div class="border flex-grow-1"><div class="Form__radio p-3 is-off js-control-radio" aria-checked="false" tabindex="-1" role="radio" aria-disabled="true"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Never gonna give you up</span><div class="d-none"><input type="radio" name="rickroll" disabled="disabled" value="never-gonna-give-you-up"/></div></div></div></div><div class="input-group my-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" value="never-gonna-let-you-down" class="js-control"/></div></div><div class="border flex-grow-1"><div class="Form__radio p-3 is-off is-selected js-control-radio" aria-checked="true" tabindex="-1" role="radio" aria-disabled="true"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Never gonna let you down</span><div class="d-none"><input type="radio" name="rickroll" value="never-gonna-let-you-down" disabled="disabled" checked="checked"/></div></div></div></div><div class="input-group my-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" value="never-gonna-run-around-and-desert-you" class="js-control"/></div></div><div class="border flex-grow-1"><div class="Form__radio p-3 is-off js-control-radio" aria-checked="false" tabindex="-1" role="radio" aria-disabled="true"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Never gonna run around and desert you</span><div class="d-none"><input type="radio" name="rickroll" value="never-gonna-run-around-and-desert-you" disabled="disabled"/></div></div></div></div><div class="input-group my-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" value="never-gonna-make-you-cry" checked="checked" class="js-control"/></div></div><div class="border flex-grow-1"><div class="Form__radio p-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Never gonna make you cry</span><div class="d-none"><input type="radio" name="rickroll" value="never-gonna-make-you-cry"/></div></div></div></div><div class="input-group my-3"><div class="input-group-prepend"><div class="input-group-text"><input type="checkbox" value="never-gonna-say-goodbye" class="js-control" checked="checked"/></div></div><div class="border flex-grow-1"><div class="Form__radio p-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Never gonna say goodbye</span><div class="d-none"><input type="radio" name="rickroll" value="never-gonna-say-goodbye"/></div></div></div></div><div class="input-group my-3"><div class="input-group-text"><input type="checkbox" value="never-gonna-tell-a-lie-and-hurt-you" class="js-control" checked="checked"/></div><div class="border flex-grow-1"><div class="Form__radio p-3" aria-checked="false" tabindex="-1" role="radio"><span class="Form__radio__input"></span> <span class="Form__radio__label js-label">Never gonna tell a lie and hurt you</span><div class="d-none"><input type="radio" name="rickroll" value="never-gonna-tell-a-lie-and-hurt-you"/></div></div></div></div></div></fieldset></div><div class="col-12 my-5"><p>Thanks to customs events we can programmatically change the current selected radio.</p><pre class="p-3 m-0"><code class="language-javascript">import RadioGroup from '@19h47/radiogroup';
 
 const $element = document.querySelector('[role="radiogroup"]');
 const $select = document.querySelector('select');
@@ -150,6 +151,19 @@ radiogroup.radios.forEach(radio => {
 
 				setTimeout(() => $el.parentNode.removeChild($el), 2000);
 			};
+			const controls = [...document.querySelectorAll('.js-control')];
+
+			controls.forEach($control => {
+				$control.addEventListener('input', ({ target }) => {
+					elements.forEach(element =>
+						element.dispatchEvent(
+							new CustomEvent('Control.input', {
+								detail: { checked: target.checked, value: target.value },
+							}),
+						),
+					);
+				});
+			});
 
 			elements.forEach(element => {
 				const $value = element.querySelector('.js-radio-group-value');
@@ -168,6 +182,62 @@ radiogroup.radios.forEach(radio => {
 				};
 
 				radiogroup.init();
+
+				if ('control-radiogroup' === element.id) {
+					element.addEventListener('Control.input', ({ detail: { checked, value } }) => {
+						radiogroup.radios.forEach((radio, index) => {
+							if (radio.$input.value === value && checked) {
+								radio.enable();
+
+								radio.rootElement.classList.remove('is-off');
+
+								radiogroup.destroy();
+								radiogroup.init();
+
+								radiogroup.radios.forEach(radio => {
+									radio.on('Radio.deactivate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been deactivated!`,
+										);
+									});
+
+									radio.on('Radio.activate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been activated!`,
+										);
+
+										setValue(radio.rootElement);
+									});
+								});
+							}
+
+							if (radio.$input.value === value && !checked) {
+								radio.disable();
+
+								radio.rootElement.classList.add('is-off');
+
+								radiogroup.destroy();
+								radiogroup.init();
+
+								radiogroup.radios.forEach(radio => {
+									radio.on('Radio.deactivate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been deactivated!`,
+										);
+									});
+
+									radio.on('Radio.activate', ({ event, value }) => {
+										onRadioChange(
+											`<strong>${value}</strong> has been activated!`,
+										);
+
+										setValue(radio.rootElement);
+									});
+								});
+							}
+						});
+					});
+				}
 
 				radiogroup.radios.forEach(radio => {
 					radio.on('Radio.activate', ({ element, value }) => {

@@ -21,7 +21,7 @@ export default class RadioGroup {
 
 		this.options = { ...optionsDefault, ...options };
 
-		//
+		// Bind.
 		this.handleKeydown = this.handleKeydown.bind(this);
 
 		this.render();
@@ -30,10 +30,11 @@ export default class RadioGroup {
 	init() {
 		this.elements = [...this.rootElement.querySelectorAll('[role=radio]')];
 
-		this.elements.forEach($input => {
-			const radio = new Radio($input);
+		this.elements.forEach($element => {
+			const radio = new Radio($element);
 
 			radio.init();
+
 			this.radios.push(radio);
 
 			return true;
@@ -45,14 +46,15 @@ export default class RadioGroup {
 	}
 
 	initEvents() {
-		this.radios.forEach((radio, index) =>
-			radio.on('Radio.beforeActivate', () => {
-				this.current = index;
-
-				this.deactivateAll();
-				return this.radios[this.current].activate();
-			}),
-		);
+		this.radios
+			.filter(radio => false === radio.disabled)
+			.forEach((radio, index) =>
+				radio.on('Radio.beforeActivate', () => {
+					this.setCurrent(index);
+					this.deactivateAll();
+					return radio.activate();
+				}),
+			);
 
 		this.rootElement.addEventListener('keydown', this.handleKeydown);
 	}
@@ -63,37 +65,38 @@ export default class RadioGroup {
 	 */
 	handleKeydown(event) {
 		const key = event.keyCode || event.which;
+		const radios = this.radios.filter(radio => false === radio.disabled);
 
 		const next = () => {
-			this.current = this.current + 1 > this.radios.length - 1 ? 0 : this.current + 1;
-
-			this.deactivateAll();
-			this.radios[this.current].toggle();
-
 			event.preventDefault();
+
+			const index = this.current + 1 > radios.length - 1 ? 0 : this.current + 1;
+
+			this.setCurrent(index);
+			radios[this.current].toggle();
 		};
 
 		const previous = () => {
-			this.current = 0 > this.current - 1 ? this.radios.length - 1 : this.current - 1;
-
-			this.deactivateAll();
-			this.radios[this.current].toggle();
-
 			event.preventDefault();
+
+			const index = 0 > this.current - 1 ? radios.length - 1 : this.current - 1;
+
+			this.setCurrent(index);
+			radios[this.current].toggle();
 		};
 
 		const first = () => {
-			this.deactivateAll();
-			this.radios[0].toggle();
-
 			event.preventDefault();
+
+			this.setCurrent(0);
+			radios[0].toggle();
 		};
 
 		const last = () => {
-			this.deactivateAll();
-			this.radios[this.radios.length - 1].toggle();
-
 			event.preventDefault();
+
+			this.setCurrent(radios.length - 1);
+			radios[radios.length - 1].toggle();
 		};
 
 		const codes = {
@@ -129,11 +132,13 @@ export default class RadioGroup {
 	destroy() {
 		this.rootElement.removeEventListener('keydown', this.handleKeydown);
 
-		this.radios.forEach(radio => {
-			radio.destroy();
-		});
+		this.radios.forEach(radio => radio.destroy());
 
 		this.elements = [];
 		this.radios = [];
 	}
+
+	setCurrent = (index = 0) => {
+		this.current = index;
+	};
 }
