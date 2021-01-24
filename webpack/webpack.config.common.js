@@ -9,6 +9,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
+const path = require('path');
+
 const resolve = require('./webpack.utils');
 
 module.exports = {
@@ -20,6 +22,7 @@ module.exports = {
 		library: 'RadioGroup',
 		libraryTarget: 'umd',
 		filename: '../[name]/main.js',
+		path: path.resolve(process.cwd(), 'dist'),
 	},
 	devServer: {
 		contentBase: resolve('/'),
