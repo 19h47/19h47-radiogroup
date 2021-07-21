@@ -81,12 +81,12 @@ radiogroup.init();
 radiogroup.radios.forEach(radio => {
 	radio.on('Radio.activate', ({ element, value }) => {
 		console.log(element, value);
-	}
+	});
 
 	radio.on('Radio.deactivate', ({ element, value }) => {
 		console.log(element, value);
-	}
-}
+	});
+});
 
 ```
 
