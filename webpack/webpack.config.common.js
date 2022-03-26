@@ -8,6 +8,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const path = require('path');
 
@@ -25,12 +26,9 @@ module.exports = {
 		path: path.resolve(process.cwd(), 'dist'),
 	},
 	devServer: {
-		contentBase: resolve('/'),
-		compress: true,
 		port: 3000,
-		inline: true,
-		disableHostCheck: true,
-		writeToDisk: true,
+		static: [resolve('/')],
+		compress: true,
 	},
 	resolve: {
 		alias: {
@@ -40,12 +38,6 @@ module.exports = {
 	},
 	module: {
 		rules: [
-			{
-				enforce: 'pre',
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loader: 'eslint-loader',
-			},
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
@@ -67,5 +59,6 @@ module.exports = {
 			excludeWarnings: true,
 			alwaysNotify: true,
 		}),
+		new ESLintPlugin(),
 	],
 };

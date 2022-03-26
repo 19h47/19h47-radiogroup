@@ -4,6 +4,8 @@
  * @author Jérémy Levron <jeremylevron@19h47.fr> (http://19h47.fr)
  */
 
+console.log('[Webpack] webpack.production.js');
+
 const CopyPlugin = require('copy-webpack-plugin');
 
 const resolve = require('./webpack.utils');
