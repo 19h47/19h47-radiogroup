@@ -3,7 +3,7 @@ import Radio from './Radio';
 
 const optionsDefault = {
 	tagger: [],
-	template: () => {},
+	template: () => { },
 	name: '',
 };
 
