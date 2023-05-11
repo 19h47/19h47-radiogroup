@@ -69,6 +69,7 @@ export default class Radio extends EventEmitter {
 		}
 
 		this.checked = false;
+		this.rootElement.checked = false;
 
 		deselect(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'false');
@@ -96,6 +97,7 @@ export default class Radio extends EventEmitter {
 		}
 
 		this.checked = true;
+		this.rootElement.checked = true;
 
 		select(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'true');
