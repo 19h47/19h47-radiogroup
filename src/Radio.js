@@ -69,13 +69,13 @@ export default class Radio extends EventEmitter {
 		}
 
 		this.checked = false;
-		this.rootElement.checked = false;
 
 		deselect(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'false');
 		this.rootElement.setAttribute('tabindex', -1);
 		blur(this.rootElement);
 
+		this.$input.checked = false;
 		this.$input.removeAttribute('checked');
 
 		return this.emit('Radio.deactivate', {
@@ -97,7 +97,6 @@ export default class Radio extends EventEmitter {
 		}
 
 		this.checked = true;
-		this.rootElement.checked = true;
 
 		select(this.rootElement);
 		this.rootElement.setAttribute(CHECKED, 'true');
@@ -107,6 +106,7 @@ export default class Radio extends EventEmitter {
 			focus(this.rootElement);
 		}
 
+		this.$input.checked = true;
 		this.$input.setAttribute('checked', true);
 
 		return true;
