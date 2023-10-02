@@ -1,9 +1,22 @@
-import { ARROW_UP, ARROW_RIGHT, ARROW_DOWN, ARROW_LEFT, HOME, END } from '@19h47/keycode';
 import Radio from './Radio';
 
-const optionsDefault = {
+type Template = (label: string, value: string, selected: boolean, name: string) => string
+
+interface Options {
+	tagger: Tag[],
+	template: Template,
+	name: string
+}
+
+interface Tag {
+	label: string,
+	value: string,
+	selected: boolean
+}
+
+const optionsDefault : Options = {
 	tagger: [],
-	template: () => { },
+	template: () => '',
 	name: '',
 };
 
@@ -14,8 +27,20 @@ const optionsDefault = {
  * @author Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)
  */
 export default class RadioGroup {
-	constructor(element, options = {}) {
-		this.rootElement = element;
+	el: HTMLElement;
+	radios: Radio[];
+	current: number;
+	options: Options;
+	elements: HTMLElement[];
+
+	/**
+	 *
+	 * @param {HTMLElement} el
+	 * @param options
+	 */
+	constructor(el: HTMLElement, options = {} as Options) {
+		this.el = el;
+		this.elements = [];
 		this.radios = [];
 		this.current = 0;
 
@@ -28,7 +53,7 @@ export default class RadioGroup {
 	}
 
 	init() {
-		this.elements = [...this.rootElement.querySelectorAll('[role=radio]')];
+		this.elements = [...this.el.querySelectorAll<HTMLElement>('[role=radio]')];
 
 		this.elements.forEach($element => {
 			const radio = new Radio($element);
@@ -56,15 +81,15 @@ export default class RadioGroup {
 				}),
 			);
 
-		this.rootElement.addEventListener('keydown', this.handleKeydown);
+		this.el.addEventListener('keydown', this.handleKeydown);
 	}
 
 	/**
 	 * Keydown event listener
 	 *
 	 */
-	handleKeydown(event) {
-		const key = event.keyCode || event.which;
+	handleKeydown(event: KeyboardEvent) {
+		const key = event.key || event.code;
 		const radios = this.radios.filter(radio => false === radio.disabled);
 
 		const next = () => {
@@ -99,13 +124,13 @@ export default class RadioGroup {
 			radios[radios.length - 1].toggle();
 		};
 
-		const codes = {
-			[ARROW_UP]: previous,
-			[ARROW_RIGHT]: next,
-			[ARROW_DOWN]: next,
-			[ARROW_LEFT]: previous,
-			[HOME]: first,
-			[END]: last,
+		const codes : any = {
+			ArrowUp: previous,
+			ArrowRight: next,
+			ArrowDown: next,
+			ArrowLeft: previous,
+			Home: first,
+			End: last,
 			default: () => false,
 		};
 
@@ -122,7 +147,7 @@ export default class RadioGroup {
 		const { template, name } = this.options;
 
 		this.options.tagger.forEach(tag => {
-			this.rootElement.insertAdjacentHTML(
+			this.el.insertAdjacentHTML(
 				'beforeend',
 				template(tag.label, tag.value, tag.selected, name),
 			);
@@ -130,7 +155,7 @@ export default class RadioGroup {
 	}
 
 	destroy() {
-		this.rootElement.removeEventListener('keydown', this.handleKeydown);
+		this.el.removeEventListener('keydown', this.handleKeydown);
 
 		this.radios.forEach(radio => radio.destroy());
 

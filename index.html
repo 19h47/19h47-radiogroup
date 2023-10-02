@@ -804,7 +804,7 @@ radiogroup.radios.forEach(radio => {
 							if (radio.$input.value === value && checked) {
 								radio.enable();
 
-								radio.rootElement.classList.remove('is-off');
+								radio.el.classList.remove('is-off');
 
 								radiogroup.destroy();
 								radiogroup.init();
@@ -821,7 +821,7 @@ radiogroup.radios.forEach(radio => {
 											`<strong>${value}</strong> has been activated!`,
 										);
 
-										setValue(radio.rootElement);
+										setValue(radio.el);
 									});
 								});
 							}
@@ -829,7 +829,7 @@ radiogroup.radios.forEach(radio => {
 							if (radio.$input.value === value && !checked) {
 								radio.disable();
 
-								radio.rootElement.classList.add('is-off');
+								radio.el.classList.add('is-off');
 
 								radiogroup.destroy();
 								radiogroup.init();
@@ -846,7 +846,7 @@ radiogroup.radios.forEach(radio => {
 											`<strong>${value}</strong> has been activated!`,
 										);
 
-										setValue(radio.rootElement);
+										setValue(radio.el);
 									});
 								});
 							}
@@ -917,7 +917,7 @@ radiogroup.radios.forEach(radio => {
 								radio.activate();
 
 								radio.emit('Radio.activate', {
-									element: radio.rootElement,
+									element: radio.el,
 									value: radio.$input.value,
 								});
 								radiogroup.current = index;
