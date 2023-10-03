@@ -5,14 +5,13 @@ const CHECKED = 'aria-checked';
 
 /**
  *
- * @constructor
- * @param {object} element
+ * @param {HTMLElement} el HTML element.
  */
 export default class Radio extends EventEmitter {
 	el: HTMLElement;
-	$input: HTMLInputElement | null;
-	checked: boolean;
-	disabled: boolean;
+	$input: HTMLInputElement | null = null;
+	checked: boolean = false;
+	disabled: boolean = false;
 
 	/**
 	 *
@@ -23,9 +22,6 @@ export default class Radio extends EventEmitter {
 
 		// Elements
 		this.el = el;
-		this.$input = null;
-		this.checked = false;
-		this.disabled = false;
 
 		const $input = this.el.querySelector<HTMLInputElement>('input[type="radio"]');
 
@@ -36,15 +32,12 @@ export default class Radio extends EventEmitter {
 			// Values
 			this.checked = JSON.parse(this.el.getAttribute(CHECKED) as string);
 			this.disabled = this.$input.disabled;
-
-			// Bind
-			this.handleClick = this.handleClick.bind(this);
 		}
 	}
 
 	init = () => this.initEvents();
 
-	initEvents() {
+	initEvents(): void {
 		// console.info('Radio.initEvents');
 
 		this.el.addEventListener('click', this.handleClick);
@@ -57,17 +50,17 @@ export default class Radio extends EventEmitter {
 	/**
 	 * Toggle
 	 */
-	toggle() {
+	toggle(): boolean {
 		if (this.disabled) {
 			return false;
 		}
 
-		if (!this.checked && this.$input) {
+		if (!this.checked) {
 			this.emit('Radio.beforeActivate');
 			// this.activate();
 			return this.emit('Radio.activate', {
 				element: this.el,
-				value: this.$input.value,
+				value: this.$input!.value,
 			});
 		}
 
@@ -79,7 +72,7 @@ export default class Radio extends EventEmitter {
 	 *
 	 * @return boolean
 	 */
-	deactivate() {
+	deactivate(): boolean | undefined {
 		// console.info('Radio.deactivate', this.checked);
 
 		if (!this.checked) {
@@ -93,23 +86,25 @@ export default class Radio extends EventEmitter {
 		this.el.setAttribute('tabindex', '-1');
 		blur(this.el);
 
-		if (this.$input) {
-			this.$input.checked = false;
-			this.$input.removeAttribute('checked');
 
-			return this.emit('Radio.deactivate', {
-				element: this.el,
-				value: this.$input.value,
-			});
-		}
+		this.$input!.checked = false;
+		this.$input!.removeAttribute('checked');
+
+		return this.emit('Radio.deactivate', {
+			element: this.el,
+			value: this.$input!.value,
+		});
+
 	}
 
 	/**
 	 * Radio.activate
 	 *
+	 * @param {boolean} shouldFocus Should focus or not.
+	 *
 	 * @return {boolean}
 	 */
-	activate(shouldFocus = true) {
+	activate(shouldFocus: boolean = true): boolean {
 		// console.info('Radio.activate', this.checked);
 
 		if (this.checked) {
@@ -126,33 +121,28 @@ export default class Radio extends EventEmitter {
 			focus(this.el);
 		}
 
-		if (this.$input) {
-			this.$input.checked = true;
-			this.$input.setAttribute('checked', 'true');
-		}
+		this.$input!.checked = true;
+		this.$input!.setAttribute('checked', 'true');
 
 		return true;
 	}
 
-	destroy() {
+	destroy(): void {
 		this.el.removeEventListener('click', this.handleClick);
 		this.el.removeEventListener('focus', () => focus(this.el));
 		this.el.removeEventListener('blur', () => blur(this.el));
 	}
 
-	disable() {
+	disable(): void {
 		this.el.setAttribute('tabindex', '-1');
 		this.el.setAttribute('aria-disabled', 'true');
 
-		if (this.$input) {
-			this.$input.disabled = true;
-		}
+		// @see https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-
+		this.$input!.disabled = true;
 	}
 
-	enable() {
-		if (this.$input) {
-			this.$input.disabled = false;
-		}
+	enable(): void {
+		this.$input!.disabled = false;
 
 		this.el.setAttribute('aria-disabled', 'false');
 

@@ -28,10 +28,10 @@ const optionsDefault : Options = {
  */
 export default class RadioGroup {
 	el: HTMLElement;
-	radios: Radio[];
-	current: number;
+	radios: Radio[] = [];
+	current: number = 0;
 	options: Options;
-	elements: HTMLElement[];
+	elements: HTMLElement[] = [];
 
 	/**
 	 *
@@ -40,14 +40,8 @@ export default class RadioGroup {
 	 */
 	constructor(el: HTMLElement, options = {} as Options) {
 		this.el = el;
-		this.elements = [];
-		this.radios = [];
-		this.current = 0;
 
 		this.options = { ...optionsDefault, ...options };
-
-		// Bind.
-		this.handleKeydown = this.handleKeydown.bind(this);
 
 		this.render();
 	}
@@ -87,8 +81,9 @@ export default class RadioGroup {
 	/**
 	 * Keydown event listener
 	 *
+	 * @param {KeyboardEvent} event Keyboard event.
 	 */
-	handleKeydown(event: KeyboardEvent) {
+	handleKeydown = (event: KeyboardEvent): any => {
 		const key = event.key || event.code;
 		const radios = this.radios.filter(radio => false === radio.disabled);
 
@@ -143,7 +138,7 @@ export default class RadioGroup {
 	 */
 	deactivateAll = () => this.radios.forEach(radio => radio.deactivate());
 
-	render() {
+	render(): void {
 		const { template, name } = this.options;
 
 		this.options.tagger.forEach(tag => {
@@ -154,7 +149,7 @@ export default class RadioGroup {
 		});
 	}
 
-	destroy() {
+	destroy(): void {
 		this.el.removeEventListener('keydown', this.handleKeydown);
 
 		this.radios.forEach(radio => radio.destroy());
