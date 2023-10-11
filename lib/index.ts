@@ -68,7 +68,7 @@ export default class RadioGroup {
 		this.radios
 			.filter(radio => false === radio.disabled)
 			.forEach((radio, index) =>
-				radio.on('Radio.beforeActivate', () => {
+				radio.el.addEventListener('Radio.beforeActivate', () => {
 					this.setCurrent(index);
 					this.deactivateAll();
 					return radio.activate();

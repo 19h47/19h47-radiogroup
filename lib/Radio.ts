@@ -1,5 +1,4 @@
-import { EventEmitter } from 'events';
-import { select, deselect, blur, focus } from './utils';
+import { select, deselect, blur, focus, dispatchEvent } from './utils';
 
 const CHECKED = 'aria-checked';
 
@@ -7,7 +6,7 @@ const CHECKED = 'aria-checked';
  *
  * @param {HTMLElement} el HTML element.
  */
-export default class Radio extends EventEmitter {
+export default class Radio {
 	el: HTMLElement;
 	$input: HTMLInputElement | null = null;
 	checked: boolean = false;
@@ -18,8 +17,6 @@ export default class Radio extends EventEmitter {
 	 * @param {HTMLElement} el
 	 */
 	constructor(el: HTMLElement) {
-		super();
-
 		// Elements
 		this.el = el;
 
@@ -56,12 +53,12 @@ export default class Radio extends EventEmitter {
 		}
 
 		if (!this.checked) {
-			this.emit('Radio.beforeActivate');
+			dispatchEvent(this.el, {}, 'beforeActivate');
 			// this.activate();
-			return this.emit('Radio.activate', {
+			return dispatchEvent(this.el, {
 				element: this.el,
-				value: this.$input!.value,
-			});
+				value: this.$input!.value
+			}, 'activate');
 		}
 
 		return false;
@@ -90,10 +87,10 @@ export default class Radio extends EventEmitter {
 		this.$input!.checked = false;
 		this.$input!.removeAttribute('checked');
 
-		return this.emit('Radio.deactivate', {
+		return dispatchEvent(this.el, {
 			element: this.el,
 			value: this.$input!.value,
-		});
+		}, 'deactivate');
 
 	}
 

@@ -79,11 +79,11 @@ radiogroup.init();
 
 
 radiogroup.radios.forEach(radio => {
-	radio.on('Radio.activate', ({ element, value }) => {
+	radio.el.addEventListener('Radio.activate', ({ element, value }) => {
 		console.log(element, value);
 	});
 
-	radio.on('Radio.deactivate', ({ element, value }) => {
+	radio.el.addEventListener('Radio.deactivate', ({ element, value }) => {
 		console.log(element, value);
 	});
 });
