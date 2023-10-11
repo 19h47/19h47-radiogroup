@@ -63,10 +63,10 @@ radiogroup.init();
 
 ## Events
 
-| Event            | Arguments | Description                                                   |
-| ---------------- | --------- | ------------------------------------------------------------- |
-| Radio.activate   | event     | Return an object containing current element and current value |
-| Radio.deactivate | event     | Return an object containing current element and current value |
+| Event Name       | Description                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| Radio.activate   | Return an event object containing detail object (current element and current value) |
+| Radio.deactivate | Return an event object containing detail object (current element and current value) |
 
 ```javascript
 
@@ -77,14 +77,13 @@ const radiogroup = new RadioGroup($element);
 
 radiogroup.init();
 
-
 radiogroup.radios.forEach(radio => {
-	radio.el.addEventListener('Radio.activate', ({ element, value }) => {
-		console.log(element, value);
+	radio.el.addEventListener('Radio.activate', ({ detail }) => {
+		console.log(detail.element, detail.value);
 	});
 
-	radio.el.addEventListener('Radio.deactivate', ({ element, value }) => {
-		console.log(element, value);
+	radio.el.addEventListener('Radio.deactivate', ({ detail }) => {
+		console.log(detail.element, detail.value);
 	});
 });
 
@@ -113,12 +112,6 @@ radiogroup.radios.forEach(radio => {
 | `deactivate()` |                        |                                                             |
 | `destroy()`    |                        |                                                             |
 
-## Test
-
-```bash
-yarn test
-```
-
 ## Build Setup
 
 ```bash
@@ -127,17 +120,16 @@ yarn test
 $ yarn install
 
 # serve with hot reload at localhost:3000
-$ yarn start
+$ yarn serve
 
 # build for development
 $ yarn dev
 
 # build for production
-$ yarn prod
+$ yarn build
 
 ```
 
 ## References
 
--   [Aleh Zasypkin](https://github.com/azasypkin/event-dispatcher) for its Event Dispatcher
--   [Radio Button Example](https://www.w3.org/TR/2017/WD-wai-aria-practices-1.1-20170628/examples/radio/radio-1/radio-1.html)
+-   [Radio Group Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
