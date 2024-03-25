@@ -136,7 +136,7 @@ export default class RadioGroup {
 	 * Deactivate all
 	 *
 	 */
-	deactivateAll = () => this.radios.forEach(radio => radio.deactivate());
+	deactivateAll = () : void => this.radios.forEach(radio => radio.deactivate());
 
 	render(): void {
 		const { template, name } = this.options;
@@ -158,7 +158,7 @@ export default class RadioGroup {
 		this.radios = [];
 	}
 
-	setCurrent = (index = 0) => {
+	setCurrent = (index = 0) : void => {
 		this.current = index;
 	};
 }
