@@ -77,6 +77,64 @@
 				opacity: 0.3;
 				cursor: not-allowed;
 			}
+
+			[role='radiogroup'][aria-invalid='true'] {
+				outline: 1px solid var(--bs-danger);
+				outline-offset: 0.5rem;
+			}
+
+			.Form__cards {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+				gap: 0.75rem;
+			}
+
+			.Form__cards > :not([role='radio']) {
+				grid-column: 1 / -1;
+			}
+
+			.Form__card {
+				position: relative;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 0.25rem;
+				margin: 0;
+				padding: 1rem 1.75rem 1rem 1rem;
+				border: 2px solid #dee2e6;
+				border-radius: 0.75rem;
+				background: #fff;
+				cursor: pointer;
+			}
+
+			.Form__card.is-selected {
+				border-color: #212529;
+				background: #f8f9fa;
+			}
+
+			.Form__card.is-selected::after {
+				position: absolute;
+				top: 0.55rem;
+				right: 0.65rem;
+				font-size: 0.85rem;
+				line-height: 1;
+				content: '✓';
+			}
+
+			.Form__card.is-focus {
+				outline: 2px solid #0d6efd;
+				outline-offset: 2px;
+			}
+
+			.Form__card__emoji {
+				font-size: 1.75rem;
+				line-height: 1;
+			}
+
+			.Form__card__note {
+				font-size: 0.8rem;
+				color: #6c757d;
+			}
 		</style>
 	</head>
 
@@ -192,10 +250,23 @@ radiogroup.init();</code></pre>
 						<a href="#input-heading">Optional native input</a>
 					</h2>
 					<p class="text-secondary small mb-3">
-						Hidden <code>input[type="radio"]</code> for form submit.
-						<code>detail.value</code> comes from that input.
+						The custom radios are for the accessibility tree. Hidden
+						<code>input[type="radio"]</code> ride along in <code>FormData</code> on
+						submit — that is the only reason they exist.
 					</p>
-					<form>
+					<form class="js-order-form">
+						<div class="mb-3">
+							<label class="form-label" for="order-name">Name</label>
+							<input
+								class="form-control"
+								id="order-name"
+								name="name"
+								type="text"
+								autocomplete="name"
+								placeholder="Ada Lovelace"
+								required
+							/>
+						</div>
 						<div role="radiogroup" aria-labelledby="size-label">
 							<h3 id="size-label" class="h5 mb-3">
 								Size<sup class="js-radio-group-value">Medium</sup>
@@ -230,6 +301,96 @@ radiogroup.init();</code></pre>
 								</div>
 							</div>
 						</div>
+						<div class="mb-3">
+							<label class="form-label" for="order-quantity">Quantity</label>
+							<input
+								class="form-control"
+								id="order-quantity"
+								name="quantity"
+								type="number"
+								min="1"
+								max="12"
+								value="1"
+								required
+							/>
+						</div>
+						<button class="btn btn-primary" type="submit">Place order</button>
+						<pre
+							class="p-3 mt-3 mb-0 bg-light border rounded small d-none js-order-result"
+						></pre>
+					</form>
+				</div>
+			</section>
+
+			<section class="mb-5" aria-labelledby="required-heading">
+				<div class="border rounded p-3">
+					<h2 id="required-heading" class="h4 mb-2">
+						<a href="#required-heading">Required empty group</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						No radio is checked. Submit sets <code>aria-invalid</code> and moves
+						focus into the group. Choosing an option clears the error;
+						<code>FormData</code> then includes the hidden input.
+					</p>
+					<form class="js-required-form" novalidate>
+						<div
+							role="radiogroup"
+							aria-labelledby="sauce-label"
+							aria-required="true"
+							aria-invalid="false"
+							aria-describedby="sauce-error"
+						>
+							<h3 id="sauce-label" class="h5 mb-3">
+								Sauce<sup class="js-radio-group-value"></sup>
+							</h3>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="0"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Tomato</span>
+								<div class="d-none">
+									<input type="radio" name="sauce" value="tomato" required />
+								</div>
+							</div>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Bianca</span>
+								<div class="d-none">
+									<input type="radio" name="sauce" value="bianca" required />
+								</div>
+							</div>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Pesto</span>
+								<div class="d-none">
+									<input type="radio" name="sauce" value="pesto" required />
+								</div>
+							</div>
+						</div>
+						<p
+							id="sauce-error"
+							class="text-danger small mb-3 d-none js-required-error"
+							role="alert"
+						>
+							Choose a sauce.
+						</p>
+						<button class="btn btn-primary" type="submit">Submit</button>
+						<pre
+							class="p-3 mt-3 mb-0 bg-light border rounded small d-none js-required-result"
+						></pre>
 					</form>
 				</div>
 			</section>
@@ -240,21 +401,26 @@ radiogroup.init();</code></pre>
 						<a href="#tagger-heading">tagger + template</a>
 					</h2>
 					<p class="text-secondary small mb-3">
-						Radios are appended from <code>tagger</code> through
-						<code>template(label, value, selected, name)</code>.
+						A native radio already covers the classic control. <code>template</code>
+						is for a widget that should not look like one, while still behaving as a
+						group: one checked, arrow keys, roving <code>tabindex</code>.
 					</p>
-					<pre class="p-3 mb-3 language-javascript"><code>new RadioGroup($element, {
-	name: 'japan-condiments',
-	tagger: [
-		{ label: 'Black vinegar', value: 'black_vinegar', selected: true },
-		{ label: 'Chili oil', value: 'chili_oil', selected: false },
-	],
-	template,
-});</code></pre>
+					<pre class="p-3 mb-3 language-javascript"><code>const template = (label, value, selected, name) =>
+	`&lt;div class="Form__card${selected ? ' is-selected' : ''}" role="radio"
+		aria-checked="${selected}" tabindex="${selected ? 0 : -1}"&gt;
+		&lt;span aria-hidden="true"&gt;${emoji}&lt;/span&gt;
+		&lt;strong class="js-label"&gt;${label}&lt;/strong&gt;
+		&lt;span&gt;${note}&lt;/span&gt;
+	&lt;/div&gt;`;
+
+new RadioGroup($element, { name, tagger, template });</code></pre>
 					<form>
 						<div
+							class="Form__cards"
 							role="radiogroup"
 							aria-labelledby="japan-condiments"
+							aria-orientation="horizontal"
+							data-template="card"
 							data-name="japan-condiments"
 							data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
 						>
@@ -805,6 +971,34 @@ radiogroup.init();</code></pre>
 					selected ? 'checked' : ''
 				}></div></div>`;
 
+			const cardNotes = {
+				black_vinegar: { emoji: '🍶', note: 'Sharp, malty' },
+				chili_oil: { emoji: '🌶️', note: 'Heat and crunch' },
+				dashi: { emoji: '🍲', note: 'Smoky stock' },
+				fukujinzuke: { emoji: '🥒', note: 'Sweet pickle' },
+				furikake: { emoji: '🍚', note: 'Savory sprinkle' },
+				gomashio: { emoji: '🌰', note: 'Toasted sesame' },
+			};
+
+			const cardTemplate = (label, value, selected, name) => {
+				const { emoji = '•', note = '' } = cardNotes[value] ?? {};
+
+				return `<div class="Form__card${
+					selected ? ' is-selected' : ''
+				}" aria-checked="${selected ? 'true' : 'false'}" tabindex="${
+					selected ? '0' : '-1'
+				}" role="radio"><span class="Form__card__emoji" aria-hidden="true">${emoji}</span><strong class="js-label">${label}</strong><span class="Form__card__note">${note}</span><div class="d-none"><input type="radio" id="${slugify(
+					value,
+				)}" name="${slugify(name)}" value="${slugify(value)}" ${
+					selected ? 'checked' : ''
+				}></div></div>`;
+			};
+
+			const templates = {
+				card: cardTemplate,
+				default: template,
+			};
+
 			const radioLabel = $radio =>
 				$radio.querySelector('.js-label')?.textContent.trim() ||
 				$radio.textContent.trim();
@@ -852,6 +1046,14 @@ radiogroup.init();</code></pre>
 						notify(`<strong>${labelOf(radio, detail.value)}</strong> has been activated!`);
 						setValue(detail.element);
 
+						if ('true' === $group.getAttribute('aria-required')) {
+							$group.setAttribute('aria-invalid', 'false');
+							$group
+								.closest('form')
+								?.querySelector('.js-required-error')
+								?.classList.add('d-none');
+						}
+
 						if ($select && radio.$input) {
 							[...$select.options].forEach(option => {
 								option.selected = radio.$input.value === option.value;
@@ -891,6 +1093,51 @@ radiogroup.init();</code></pre>
 				});
 			};
 
+			document.querySelector('.js-required-form')?.addEventListener('submit', event => {
+				event.preventDefault();
+
+				const $form = event.target;
+				const $group = $form.querySelector('[role="radiogroup"]');
+				const $error = $form.querySelector('.js-required-error');
+				const $result = $form.querySelector('.js-required-result');
+				const $checked =
+					$group.querySelector('[role="radio"][aria-checked="true"]') ||
+					$form.querySelector('input[name="sauce"]:checked');
+
+				if (!$checked) {
+					$group.setAttribute('aria-invalid', 'true');
+					$error.classList.remove('d-none');
+					$result.classList.add('d-none');
+					$group.querySelector('[role="radio"]')?.focus();
+					notify('Sauce is required.');
+					return;
+				}
+
+				$group.setAttribute('aria-invalid', 'false');
+				$error.classList.add('d-none');
+
+				const payload = [...new FormData($form)]
+					.map(([key, value]) => `${key}=${value}`)
+					.join('\n');
+
+				$result.textContent = payload;
+				$result.classList.remove('d-none');
+				notify(`Order submitted.<br><code>${payload.replaceAll('\n', ' · ')}</code>`);
+			});
+
+			document.querySelector('.js-order-form')?.addEventListener('submit', event => {
+				event.preventDefault();
+
+				const $result = event.target.querySelector('.js-order-result');
+				const payload = [...new FormData(event.target)]
+					.map(([key, value]) => `${key}=${value}`)
+					.join('\n');
+
+				$result.textContent = payload;
+				$result.classList.remove('d-none');
+				notify(`Order submitted.<br><code>${payload.replaceAll('\n', ' · ')}</code>`);
+			});
+
 			document.querySelectorAll('.js-control').forEach($control => {
 				$control.addEventListener('input', ({ target }) => {
 					document.querySelector('#control-radiogroup').dispatchEvent(
@@ -909,7 +1156,13 @@ radiogroup.init();</code></pre>
 				const $input = $group.querySelector('.js-input');
 				const $destroy = $group.querySelector('.js-destroy');
 				const $create = $group.querySelector('.js-create');
-				const radiogroup = new RadioGroup($group, { tagger, template, name });
+				const render =
+					templates[$group.getAttribute('data-template')] ?? templates.default;
+				const radiogroup = new RadioGroup($group, {
+					tagger,
+					template: render,
+					name,
+				});
 
 				radiogroup.init();
 				bindRadioEvents(radiogroup, $group);
