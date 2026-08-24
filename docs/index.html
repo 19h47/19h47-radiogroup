@@ -2,21 +2,16 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>RadioGroup</title>
 		<link rel="icon" type="image/png" href="radio-button.png" />
 		<link
 			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-			crossorigin="anonymous"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
 		/>
 		<link
+			href="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/themes/prism.min.css"
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/themes/prism.min.css"
-			integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ=="
-			crossorigin="anonymous"
 		/>
 		<style>
 			.Form__radio {
@@ -54,38 +49,43 @@
 				fill: #858585;
 			}
 
-			.Form__star:hover {
+			.Form__stars .Form__radio {
 				cursor: pointer;
 			}
 
-			.Form__radio:hover .Form__star {
-				opacity: 0.7;
+			.Form__stars:has(.Form__radio.is-selected) .Form__radio .Form__star {
+				fill: #ffc107;
 			}
 
-			.Form__radio:hover .Form__star,
-			.Form__radio.is-selected .Form__star,
-			.Form__radio:hover ~ .Form__star,
-			.Form__radio.is-selected ~ .Form__star {
-				fill: #ffc107 !important;
+			.Form__stars .Form__radio.is-selected ~ .Form__radio .Form__star {
+				fill: #858585;
+			}
+
+			.Form__stars:has(.Form__radio:hover) .Form__radio .Form__star {
+				fill: #ffc107;
+			}
+
+			.Form__stars .Form__radio:hover ~ .Form__radio .Form__star {
+				fill: #858585;
+			}
+
+			.Form__stars .Form__radio:hover .Form__star {
+				opacity: 0.7;
 			}
 
 			.is-off {
 				opacity: 0.3;
 				cursor: not-allowed;
 			}
-
-			.Alert {
-				margin: 1em;
-				position: fixed;
-				top: 0;
-				right: 0;
-				z-index: 10;
-			}
 		</style>
 	</head>
 
 	<body>
-		<div class="Alert js-alert"></div>
+		<div
+			class="toast-container position-fixed top-0 end-0 p-3 js-alert"
+			aria-live="polite"
+			aria-atomic="true"
+		></div>
 
 		<div class="container">
 			<div class="col-12 my-5">
@@ -126,7 +126,7 @@ radiogroup.init();</code></pre>
 						</h2>
 
 						<div
-							class="Form__radio form-group is-selected m-3"
+							class="Form__radio is-selected m-3"
 							aria-checked="true"
 							tabindex="0"
 							role="radio"
@@ -145,7 +145,7 @@ radiogroup.init();</code></pre>
 						</div>
 
 						<div
-							class="Form__radio form-group m-3"
+							class="Form__radio m-3"
 							aria-checked="false"
 							tabindex="-1"
 							role="radio"
@@ -163,11 +163,11 @@ radiogroup.init();</code></pre>
 						</div>
 
 						<fieldset class="border">
-							<div class="form-group m-3 row js-cheese is-off">
-								<label class="col-sm-2 px-0 col-form-label" for="mozzarella">
+							<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
+								<label class="form-label mb-0 text-nowrap" for="mozzarella">
 									Mozzarella
 								</label>
-								<div class="col-sm-10 px-0">
+								<div class="flex-grow-1">
 									<input
 										class="form-control"
 										id="mozzarella"
@@ -178,11 +178,11 @@ radiogroup.init();</code></pre>
 									/>
 								</div>
 							</div>
-							<div class="form-group m-3 row js-cheese is-off">
-								<label class="col-sm-2 px-0 col-form-label" for="cheddar">
+							<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
+								<label class="form-label mb-0 text-nowrap" for="cheddar">
 									Cheddar
 								</label>
-								<div class="col-sm-10 px-0">
+								<div class="flex-grow-1">
 									<input
 										class="form-control"
 										id="cheddar"
@@ -195,11 +195,11 @@ radiogroup.init();</code></pre>
 								</div>
 							</div>
 
-							<div class="form-group m-3 row js-cheese is-off">
-								<label class="col-sm-2 px-0 col-form-label" for="emmental">
+							<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
+								<label class="form-label mb-0 text-nowrap" for="emmental">
 									Emmental
 								</label>
-								<div class="col-sm-10 px-0">
+								<div class="flex-grow-1">
 									<input
 										class="form-control"
 										id="emmental"
@@ -214,7 +214,7 @@ radiogroup.init();</code></pre>
 						</fieldset>
 
 						<div
-							class="Form__radio form-group m-3 is-off"
+							class="Form__radio m-3 is-off"
 							aria-checked="false"
 							aria-disabled="true"
 							tabindex="-1"
@@ -234,7 +234,7 @@ radiogroup.init();</code></pre>
 						</div>
 
 						<div
-							class="Form__radio form-group m-3"
+							class="Form__radio m-3"
 							aria-checked="false"
 							tabindex="-1"
 							role="radio"
@@ -264,14 +264,12 @@ radiogroup.init();</code></pre>
 						</h2>
 						<p>Disable or enable programmatically a radiogroup</p>
 						<div class="input-group my-3">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
+							<div class="input-group-text">
 									<input
 										type="checkbox"
 										value="never-gonna-give-you-up"
 										class="js-control"
 									/>
-								</div>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -297,16 +295,13 @@ radiogroup.init();</code></pre>
 							</div>
 						</div>
 						<div class="input-group my-3">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
+							<div class="input-group-text">
 									<input
 										type="checkbox"
 										value="never-gonna-let-you-down"
 										class="js-control"
 									/>
-								</div>
 							</div>
-
 							<div class="border flex-grow-1">
 								<div
 									class="Form__radio p-3 is-off is-selected js-control-radio"
@@ -332,14 +327,12 @@ radiogroup.init();</code></pre>
 							</div>
 						</div>
 						<div class="input-group my-3">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
+							<div class="input-group-text">
 									<input
 										type="checkbox"
 										value="never-gonna-run-around-and-desert-you"
 										class="js-control"
 									/>
-								</div>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -365,15 +358,13 @@ radiogroup.init();</code></pre>
 							</div>
 						</div>
 						<div class="input-group my-3">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
+							<div class="input-group-text">
 									<input
 										type="checkbox"
 										value="never-gonna-make-you-cry"
 										checked
 										class="js-control"
 									/>
-								</div>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -397,15 +388,13 @@ radiogroup.init();</code></pre>
 							</div>
 						</div>
 						<div class="input-group my-3">
-							<div class="input-group-prepend">
-								<div class="input-group-text">
+							<div class="input-group-text">
 									<input
 										type="checkbox"
 										value="never-gonna-say-goodbye"
 										class="js-control"
 										checked
 									/>
-								</div>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -506,7 +495,7 @@ radiogroup.radios.forEach(radio => {
 							American condiments<sup class="js-radio-group-value">Mayonnaise</sup>
 						</h2>
 						<select
-							class="custom-select my-3 js-select"
+							class="form-select my-3 js-select"
 							aria-label="Select an american condiments"
 						>
 							<option value="mayonnaise" selected>Mayonnaise</option>
@@ -535,15 +524,13 @@ radiogroup.radios.forEach(radio => {
 								placeholder="ex. 1"
 								aria-label="Add a condiments"
 							/>
-							<div class="input-group-append">
-								<button class="btn btn-outline-secondary js-button" type="button">
-									Add
-								</button>
-							</div>
+							<button class="btn btn-outline-secondary js-button" type="button">
+								Add
+							</button>
 						</div>
 
 						<div
-							class="Form__radio form-group is-selected m-3"
+							class="Form__radio is-selected m-3"
 							aria-checked="true"
 							tabindex="0"
 							role="radio"
@@ -562,7 +549,7 @@ radiogroup.radios.forEach(radio => {
 						</div>
 
 						<div
-							class="Form__radio form-group m-3"
+							class="Form__radio m-3"
 							aria-checked="false"
 							tabindex="-1"
 							role="radio"
@@ -595,9 +582,9 @@ radiogroup.radios.forEach(radio => {
 							>
 						</h2>
 
-						<div class="form-row">
+						<div class="row">
 							<div
-								class="Form__radio form-group is-selected m-3"
+								class="Form__radio is-selected m-3"
 								aria-checked="true"
 								tabindex="0"
 								role="radio"
@@ -618,7 +605,7 @@ radiogroup.radios.forEach(radio => {
 							</div>
 
 							<div
-								class="Form__radio form-group m-3"
+								class="Form__radio m-3"
 								aria-checked="false"
 								tabindex="-1"
 								role="radio"
@@ -636,7 +623,7 @@ radiogroup.radios.forEach(radio => {
 							</div>
 
 							<div
-								class="Form__radio form-group m-3"
+								class="Form__radio m-3"
 								aria-checked="false"
 								tabindex="-1"
 								role="radio"
@@ -654,7 +641,7 @@ radiogroup.radios.forEach(radio => {
 							</div>
 
 							<div
-								class="Form__radio form-group m-3"
+								class="Form__radio m-3"
 								aria-checked="false"
 								tabindex="-1"
 								role="radio"
@@ -672,7 +659,7 @@ radiogroup.radios.forEach(radio => {
 							</div>
 
 							<div
-								class="Form__radio form-group m-3"
+								class="Form__radio m-3"
 								aria-checked="false"
 								tabindex="-1"
 								role="radio"
@@ -689,7 +676,7 @@ radiogroup.radios.forEach(radio => {
 								</div>
 							</div>
 							<div
-								class="Form__radio form-group m-3"
+								class="Form__radio m-3"
 								aria-checked="false"
 								tabindex="-1"
 								role="radio"
@@ -706,7 +693,7 @@ radiogroup.radios.forEach(radio => {
 								</div>
 							</div>
 							<div
-								class="Form__radio form-group m-3"
+								class="Form__radio m-3"
 								aria-checked="false"
 								tabindex="-1"
 								role="radio"
@@ -740,7 +727,7 @@ radiogroup.radios.forEach(radio => {
 							Star rating<sup class="js-radio-group-value">1</sup>
 						</h2>
 
-						<div class="d-flex">
+						<div class="Form__stars d-flex">
 							<div
 								class="Form__radio is-selected"
 								aria-checked="true"
@@ -848,8 +835,8 @@ radiogroup.radios.forEach(radio => {
 				</form>
 			</div>
 		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
 		<script type="module">
 			import RadioGroup from './radiogroup.js';
@@ -876,7 +863,7 @@ radiogroup.radios.forEach(radio => {
 
 			const elements = [...document.querySelectorAll('[role="radiogroup"]')];
 			const template = (label, value, selected, name) =>
-				'<div class="Form__radio form-group m-3' +
+				'<div class="Form__radio m-3' +
 				(selected ? ' is-selected' : '') +
 				'" aria-checked="' +
 				(selected ? 'true' : 'false') +
@@ -894,32 +881,24 @@ radiogroup.radios.forEach(radio => {
 				(selected ? 'checked' : '') +
 				'></div></div>';
 			const cheeses = [...document.querySelectorAll('.js-cheese')];
-			const alert = content => {
-				const div = document.createElement('div');
+			const alertRoot = document.querySelector('.js-alert');
+			const createToast = content => {
+				const toast = document.createElement('div');
 
-				div.className = 'toast fade show';
-				div.style = 'toast fade show';
-				div.innerHTML = `<div class="toast-body">${content}</div>`;
+				toast.className = 'toast show text-bg-dark border-0';
+				toast.setAttribute('role', 'status');
+				toast.setAttribute('aria-live', 'polite');
+				toast.setAttribute('aria-atomic', 'true');
+				toast.innerHTML = `<div class="toast-body">${content}</div>`;
 
-				div.setAttribute('role', 'alert');
-				div.setAttribute('aria-live', 'assertive');
-				div.setAttribute('aria-atomic', 'true');
-
-				return div;
+				return toast;
 			};
-			const $alert = document.querySelector('.js-alert');
 			const onRadioChange = content => {
-				const $el = alert(content);
+				const toast = createToast(content);
 
-				$alert.appendChild($el);
-
-				$el.addEventListener(
-					'click',
-					() => $el.style.setProperty('display', 'none'),
-					false,
-				);
-
-				setTimeout(() => $el.parentNode.removeChild($el), 2000);
+				alertRoot.append(toast);
+				toast.addEventListener('click', () => toast.remove(), { once: true });
+				setTimeout(() => toast.remove(), 2000);
 			};
 			const controls = [...document.querySelectorAll('.js-control')];
 
