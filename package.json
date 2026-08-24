@@ -2,46 +2,41 @@
 	"name": "@19h47/radiogroup",
 	"version": "7.0.4",
 	"description": "Custom radios elements with accessibility in mind",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"main": "./dist/radiogroup.umd.cjs",
+	"module": "./dist/radiogroup.js",
+	"exports": {
+		".": {
+			"import": "./dist/radiogroup.js",
+			"require": "./dist/radiogroup.umd.cjs"
+		}
+	},
+	"scripts": {
+		"release": "pnpm build && pnpm publish",
+		"dev": "vite",
+		"build": "vite build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/19h47/19h47-radiogroup.git"
+	},
 	"keywords": [
 		"radio",
 		"radios",
 		"radiogroup",
 		"ES6"
 	],
-	"homepage": "https://github.com/19h47/19h47-radiogroup#readme",
+	"author": "Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)",
+	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/19h47/19h47-radiogroup/issues"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/19h47/19h47-radiogroup.git"
-	},
-	"license": "ISC",
-	"author": "Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)",
-	"main": "dist/main.js",
-	"scripts": {
-		"deploy": "npm login && npm run build && npm publish",
-		"dev": "webpack --mode=development --config webpack/webpack.config.js",
-		"build": "webpack --mode=production --config webpack/webpack.config.js",
-		"serve": "webpack-dev-server --mode=development --hot --config webpack/webpack.config.js"
-	},
+	"homepage": "https://github.com/19h47/19h47-radiogroup#readme",
 	"devDependencies": {
-		"@19h47/prettier-config": "^2.0.0",
-		"clean-webpack-plugin": "^4.0.0",
-		"copy-webpack-plugin": "^12.0.2",
-		"eslint": "^8.57.0",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-import-resolver-webpack": "^0.13.8",
-		"eslint-plugin-import": "^2.29.1",
-		"eslint-webpack-plugin": "^4.1.0",
-		"html-webpack-plugin": "^5.6.0",
-		"ts-loader": "^9.5.1",
-		"typescript": "^5.4.3",
-		"webpack": "^5.91.0",
-		"webpack-cli": "^5.1.4",
-		"webpack-dev-server": "^5.0.4",
-		"webpack-merge": "^5.10.0",
-		"webpack-notifier": "^1.15.0"
-	}
+		"vite": "^8.1.5"
+	},
+	"packageManager": "pnpm@10.26.1+sha512.664074abc367d2c9324fdc18037097ce0a8f126034160f709928e9e9f95d98714347044e5c3164d65bd5da6c59c6be362b107546292a8eecb7999196e5ce58fa"
 }

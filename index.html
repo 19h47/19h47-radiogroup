@@ -851,8 +851,9 @@ radiogroup.radios.forEach(radio => {
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/prism.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
 
-		<script src="./main.js"></script>
-		<script>
+		<script type="module">
+			import RadioGroup from './lib/index.ts';
+
 			// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
 			const slugify = string => {
 				const a =
@@ -942,7 +943,7 @@ radiogroup.radios.forEach(radio => {
 				const $add = element.querySelector('.js-button');
 				const $input = element.querySelector('.js-input');
 
-				const radiogroup = new RadioGroup.default(element, { tagger, template, name });
+				const radiogroup = new RadioGroup(element, { tagger, template, name });
 
 				const setValue = item => {
 					const value = item.querySelector('.js-label').innerHTML;

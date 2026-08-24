@@ -3,8 +3,10 @@
 ## Install
 
 ```bash
-yarn add @19h47/radiogroup
+pnpm add @19h47/radiogroup
 ```
+
+Also works with `npm` / `yarn` / `bun`.
 
 ## Usage
 
@@ -34,7 +36,7 @@ yarn add @19h47/radiogroup
 ### JavaScript
 
 ```javascript
-import RadioGroup from '@19h47/radiogroup';
+import RadioGroup from "@19h47/radiogroup";
 
 const $element = document.querySelector('[role="radiogroup"]');
 const radiogroup = new RadioGroup($element);
@@ -69,24 +71,22 @@ radiogroup.init();
 | Radio.deactivate | Return an event object containing detail object (current element and current value) |
 
 ```javascript
-
-import RadioGroup from '@19h47/radiogroup';
+import RadioGroup from "@19h47/radiogroup";
 
 const $element = document.querySelector('[role="radiogroup"]');
 const radiogroup = new RadioGroup($element);
 
 radiogroup.init();
 
-radiogroup.radios.forEach(radio => {
-	radio.el.addEventListener('Radio.activate', ({ detail }) => {
+radiogroup.radios.forEach((radio) => {
+	radio.el.addEventListener("Radio.activate", ({ detail }) => {
 		console.log(detail.element, detail.value);
 	});
 
-	radio.el.addEventListener('Radio.deactivate', ({ detail }) => {
+	radio.el.addEventListener("Radio.deactivate", ({ detail }) => {
 		console.log(detail.element, detail.value);
 	});
 });
-
 ```
 
 ## Options
@@ -112,24 +112,18 @@ radiogroup.radios.forEach(radio => {
 | `deactivate()` |                        |                                                             |
 | `destroy()`    |                        |                                                             |
 
-## Build Setup
+## Development
 
 ```bash
-
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn serve
-
-# build for development
-$ yarn dev
-
-# build for production
-$ yarn build
-
+pnpm install
+pnpm dev
+pnpm build
 ```
+
+## Demo
+
+Live example: [19h47.github.io/19h47-radiogroup](https://19h47.github.io/19h47-radiogroup/) · [source](./docs/index.html)
 
 ## References
 
--   [Radio Group Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
+- [Radio Group Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
