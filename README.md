@@ -1,6 +1,8 @@
 # @19h47/radiogroup
 
-## Install
+Custom radio group with accessibility in mind. Markup is the source of truth; the script only enhances keyboard and exclusive selection, aligned with the [WAI-ARIA Radio Group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/).
+
+## Installation
 
 ```bash
 pnpm add @19h47/radiogroup
@@ -10,33 +12,19 @@ Also works with `npm` / `yarn` / `bun`.
 
 ## Usage
 
-### HTML
+The HTML declares the group, the checked radio, and the tab stop. JavaScript reads that state and keeps it in sync after interaction. A native `input[type="radio"]` is optional (forms); the [APG pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) does not require it.
 
 ```html
-<div role="radiogroup">
-	<div aria-checked="true" tabindex="0" role="radio">
-		<span>Option 1</span>
-		<input
-			id="option_1"
-			type="radio"
-			name="option"
-			value="option_1"
-			checked
-			style="display: none;"
-		/>
-	</div>
+<div role="radiogroup" aria-labelledby="option-label">
+	<h2 id="option-label">Options</h2>
 
-	<div aria-checked="false" tabindex="-1" role="radio">
-		<span>Option 2</span>
-		<input type="radio" id="option_2" name="option" value="option_2" style="display: none;" />
-	</div>
+	<div aria-checked="true" tabindex="0" role="radio">Option 1</div>
+	<div aria-checked="false" tabindex="-1" role="radio">Option 2</div>
 </div>
 ```
 
-### JavaScript
-
-```javascript
-import RadioGroup from "@19h47/radiogroup";
+```ts
+import RadioGroup from '@19h47/radiogroup';
 
 const $element = document.querySelector('[role="radiogroup"]');
 const radiogroup = new RadioGroup($element);
@@ -46,78 +34,98 @@ radiogroup.init();
 
 ## Keyboard Support
 
-| Key        | Function                                                                                                                                                                           |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tab        | <ul><li>Moves keyboard focus to the checked `radio` button in a radiogroup.</li><li>If no `radio` button is checked, focus moves to the first radio button in the group.</li></ul> |
-| Down arrow | <ul><li>Moves focus to next `radio` button in the group.</li><li>If focus is on the last `radio` button in the group, move focus to the first radio button.</li></ul>              |
-| Home       | Move to first input.                                                                                                                                                               |
-| Up arrow   | <ul><li>Moves focus to previous `radio` button in the group.</li><li>If focus is on the first `radio` button in the group, move focus to the last radio button.</li></ul>          |
-| End        | Move to last input.                                                                                                                                                                |
-| Space      | If the radio button with focus is unchecked, it's state will be changed to checked.                                                                                                |
+| Key | Function |
+| --- | --- |
+| Tab / Shift+Tab | Moves focus into or out of the group. Focus lands on the checked radio, or the first radio if none is checked. |
+| Space | Checks the focused radio if it is not already checked. |
+| Down / Right | Moves focus to the next radio, unchecks the previous one, and checks the newly focused radio. Wraps from last to first. |
+| Up / Left | Moves focus to the previous radio, unchecks the previous one, and checks the newly focused radio. Wraps from first to last. |
+| Home | Moves focus to the first enabled radio and checks it. |
+| End | Moves focus to the last enabled radio and checks it. |
+
+Tab order comes from the markup (`tabindex="0"` on one radio, `tabindex="-1"` on the others). The script updates those attributes when the selection changes.
 
 ## ARIA Roles, Properties and States
 
-| Role            | Property/State | Usage                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| --------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| radiogroup      |                | <ul><li>The `role="radiogroup"` attribute identifies the `div` element as a container for a group of `radio` buttons.</li><li>The descendent `radio` buttons are considered part of the group.</li><li>The accessible name comes the `aria-labelledby` attribute, which points to the element that contains the label text.</li><li>The `radiogroup` widget does not need a `tabindex` value, since the `ul[role"radiogroup"]` element never receives keyboard focus.</li></ul> |
-| radio           | aria-checked   | Indicate state of radio:<br><ul><li>Checked (e.g. aria-checked=true)</li><li>Unchecked (e.g. aria-checked=false)</li></ul>                                                                                                                                                                                                                                                                                                                                                      |
-| aria-labelledby |                | Used to identify radio group                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Role / attribute | Usage |
+| --- | --- |
+| `role="radiogroup"` | Container for the radios. Not focusable. Give it an accessible name with `aria-labelledby` or `aria-label`. |
+| `role="radio"` | Each option. Labelled by its content, `aria-labelledby`, or `aria-label`. |
+| `aria-checked` | `"true"` on the checked radio, `"false"` on the others. |
+| `tabindex` | `"0"` on the current radio, `"-1"` on the others (roving tabindex). |
+
+If you add a native `input[type="radio"]` for form submit, hide it from the accessibility tree (`display: none` or equivalent) so AT only sees the ARIA radios.
 
 ## Events
 
-| Event Name       | Description                                                                         |
-| ---------------- | ----------------------------------------------------------------------------------- |
-| Radio.activate   | Return an event object containing detail object (current element and current value) |
-| Radio.deactivate | Return an event object containing detail object (current element and current value) |
+| Event | Description |
+| --- | --- |
+| `Radio.activate` | Fired on the radio. `detail` has `element` (the `[role="radio"]`) and `value` (from the optional input). |
+| `Radio.deactivate` | Same shape, when a radio is unchecked. |
 
-```javascript
-import RadioGroup from "@19h47/radiogroup";
+```js
+import RadioGroup from '@19h47/radiogroup';
 
 const $element = document.querySelector('[role="radiogroup"]');
 const radiogroup = new RadioGroup($element);
 
 radiogroup.init();
 
-radiogroup.radios.forEach((radio) => {
-	radio.el.addEventListener("Radio.activate", ({ detail }) => {
+radiogroup.radios.forEach(radio => {
+	radio.$el.addEventListener('Radio.activate', ({ detail }) => {
 		console.log(detail.element, detail.value);
 	});
 
-	radio.el.addEventListener("Radio.deactivate", ({ detail }) => {
+	radio.$el.addEventListener('Radio.deactivate', ({ detail }) => {
 		console.log(detail.element, detail.value);
 	});
 });
 ```
 
+## Types
+
+The package ships declaration files. `RadioGroup` is the default export; `Radio`, `Options`, `Tag`, `Template`, and `RadioEventDetail` are named type exports.
+
+```ts
+import RadioGroup, { type Options, type Radio, type Tag } from '@19h47/radiogroup';
+```
+
 ## Options
 
-| Option   | Type     | Default    | description |
-| -------- | -------- | ---------- | ----------- |
-| tagger   | array    | `[]`       |             |
-| template | function | `() => {}` |             |
-| name     | string   | `''`       |             |
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `tagger` | `array` | `[]` | Optional list of `{ label, value, selected }` used to append radios via `template`. |
+| `template` | `function` | `() => ''` | `(label, value, selected, name) => html` |
+| `name` | `string` | `''` | Passed to `template` as the native input `name`. |
 
-## RadioGroup Methods
+## RadioGroup
 
-| Method      | Description | Arguments |
-| ----------- | ----------- | --------- |
-| `init()`    |             |           |
-| `destroy()` |             |           |
+| | Description |
+| --- | --- |
+| `$el` | Root `[role="radiogroup"]` |
+| `radios` | `Radio` instances |
+| `current` | Index of the current radio among the enabled ones |
+| `init()` | Bind radios and events |
+| `destroy()` | Remove listeners |
+| `deactivateAll()` | Uncheck every radio |
 
-## Radio Methods
+## Radio
 
-| Method         | Description            | Arguments                                                   |
-| -------------- | ---------------------- | ----------------------------------------------------------- |
-| `activate()`   | Active a given `radio` | <ul><li>`shouldFocus` (optional)</li>Default to `true`</ul> |
-| `deactivate()` |                        |                                                             |
-| `destroy()`    |                        |                                                             |
+| | Description |
+| --- | --- |
+| `$el` | The `[role="radio"]` element |
+| `$input` | Nested `input[type="radio"]`, or `null` |
+| `activate(shouldFocus = true)` | Check the radio |
+| `deactivate()` | Uncheck the radio |
+| `enable()` / `disable()` | Toggle `aria-disabled` and the native input |
+| `destroy()` | Remove listeners |
 
 ## Development
 
 ```bash
 pnpm install
-pnpm dev
-pnpm build
+pnpm dev      # Vite playground
+pnpm build    # library build → dist/ (JS + .d.ts)
 ```
 
 ## Demo

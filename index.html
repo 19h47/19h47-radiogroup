@@ -87,44 +87,56 @@
 			aria-atomic="true"
 		></div>
 
-		<div class="container">
-			<div class="col-12 my-5">
-				<h1 class="m-0">
-					<a href="https://github.com/19h47/19h47-radiogroup">RadioGroup </a>
+		<div class="container py-5">
+			<header class="mb-5">
+				<h1 class="mb-2">
+					<a href="https://github.com/19h47/19h47-radiogroup">@19h47/radiogroup</a>
 				</h1>
-			</div>
-			<div class="col-12 my-5">
-				<pre
-					class="p-3 m-0"
-				><code class="language-javascript">import RadioGroup from '@19h47/radiogroup';
+				<p class="lead mb-2">Exclusive radio groups with keyboard support</p>
+				<p class="text-secondary mb-0">
+					Markup is the source of truth
+					(<code>role="radiogroup"</code>, <code>role="radio"</code>,
+					<code>aria-checked</code>, <code>tabindex</code>). The script only enhances
+					selection and keeps attributes in sync, following the
+					<a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">WAI-ARIA Radio Group pattern</a>.
+				</p>
+			</header>
+
+			<section class="mb-5" aria-labelledby="usage-heading">
+				<h2 id="usage-heading" class="h4 mb-3">Usage</h2>
+				<pre class="p-3 mb-3 language-javascript"><code>import RadioGroup from '@19h47/radiogroup';
 
 const $element = document.querySelector('[role="radiogroup"]');
 const radiogroup = new RadioGroup($element);
 
 radiogroup.init();</code></pre>
-			</div>
-			<div class="col-12 my-5">
-				<form class="Form border p-3">
-					<div
-						role="radiogroup"
-						aria-labelledby="japan-condiments"
-						data-name="japan-condiments"
-						data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
-					>
-						<h2 id="japan-condiments" class="mb-3 h3">
-							Japan condiments<sup class="js-radio-group-value">Black vinegar</sup>
-						</h2>
-					</div>
-				</form>
-			</div>
+				<pre class="p-3 mb-0 language-html"><code>&lt;div role="radiogroup" aria-labelledby="crust-label"&gt;
+	&lt;h2 id="crust-label"&gt;Pizza crust&lt;/h2&gt;
+	&lt;div aria-checked="true" tabindex="0" role="radio"&gt;Regular&lt;/div&gt;
+	&lt;div aria-checked="false" tabindex="-1" role="radio"&gt;Deep dish&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+			</section>
 
-			<div class="col-12 my-5">
-				<form class="Form border p-3">
-					<div role="radiogroup" aria-labelledby="pizza-condiments">
-						<h2 id="pizza-condiments" class="mb-3 h3">
-							Pizza Condiments<sup class="js-radio-group-value">Black olives</sup>
-						</h2>
-
+			<section class="mb-5" aria-labelledby="markup-heading">
+				<div class="border rounded p-3">
+					<h2 id="markup-heading" class="h4 mb-2">
+						<a href="#markup-heading">Markup only</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						No native <code>input</code>. The group is already in the HTML.
+					</p>
+					<div role="radiogroup" aria-labelledby="crust-label">
+						<div class="d-flex gap-2 mb-3">
+							<button class="btn btn-outline-secondary js-destroy" type="button">
+								Destroy
+							</button>
+							<button class="btn btn-primary js-create" type="button">
+								Create
+							</button>
+						</div>
+						<h3 id="crust-label" class="h5 mb-3">
+							Pizza crust<sup class="js-radio-group-value">Regular</sup>
+						</h3>
 						<div
 							class="Form__radio is-selected m-3"
 							aria-checked="true"
@@ -132,144 +144,310 @@ radiogroup.init();</code></pre>
 							role="radio"
 						>
 							<span class="Form__radio__input"></span>
-							<span class="Form__radio__label js-label">Black olives</span>
-							<div class="d-none">
-								<input
-									type="radio"
-									id="black-olives"
-									name="pizza_condiments"
-									value="black-olives"
-									checked
-								/>
-							</div>
+							<span class="Form__radio__label js-label">Regular</span>
 						</div>
-
-						<div
-							class="Form__radio m-3"
-							aria-checked="false"
-							tabindex="-1"
-							role="radio"
-						>
+						<div class="Form__radio m-3" aria-checked="false" tabindex="-1" role="radio">
 							<span class="Form__radio__input"></span>
-							<span class="Form__radio__label js-label">Cheeses</span>
-							<div class="d-none">
-								<input
-									type="radio"
-									id="cheeses"
-									name="pizza_condiments"
-									value="cheeses"
-								/>
-							</div>
+							<span class="Form__radio__label js-label">Deep dish</span>
 						</div>
-
-						<fieldset class="border">
-							<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
-								<label class="form-label mb-0 text-nowrap" for="mozzarella">
-									Mozzarella
-								</label>
-								<div class="flex-grow-1">
-									<input
-										class="form-control"
-										id="mozzarella"
-										type="text"
-										name="mozzarella"
-										placeholder="ex. 1"
-										tabindex="-1"
-									/>
-								</div>
-							</div>
-							<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
-								<label class="form-label mb-0 text-nowrap" for="cheddar">
-									Cheddar
-								</label>
-								<div class="flex-grow-1">
-									<input
-										class="form-control"
-										id="cheddar"
-										name="cheddar"
-										type="text"
-										placeholder="ex. 1"
-										tabindex="-1"
-										disabled
-									/>
-								</div>
-							</div>
-
-							<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
-								<label class="form-label mb-0 text-nowrap" for="emmental">
-									Emmental
-								</label>
-								<div class="flex-grow-1">
-									<input
-										class="form-control"
-										id="emmental"
-										type="text"
-										name="emmental"
-										placeholder="ex. 1"
-										tabindex="-1"
-										disabled
-									/>
-								</div>
-							</div>
-						</fieldset>
-
-						<div
-							class="Form__radio m-3 is-off"
-							aria-checked="false"
-							aria-disabled="true"
-							tabindex="-1"
-							role="radio"
-						>
+						<div class="Form__radio m-3" aria-checked="false" tabindex="-1" role="radio">
 							<span class="Form__radio__input"></span>
-							<span class="Form__radio__label js-label">Spinach</span>
-							<div class="d-none">
-								<input
-									type="radio"
-									id="spinach"
-									name="pizza_condiments"
-									value="spinach"
-									disabled
-								/>
-							</div>
-						</div>
-
-						<div
-							class="Form__radio m-3"
-							aria-checked="false"
-							tabindex="-1"
-							role="radio"
-						>
-							<span class="Form__radio__input"></span>
-							<span class="Form__radio__label js-label">Kale</span>
-							<div class="d-none">
-								<input
-									type="radio"
-									id="kale"
-									name="pizza_condiments"
-									value="kale"
-								/>
-							</div>
+							<span class="Form__radio__label js-label">Thin crust</span>
 						</div>
 					</div>
-				</form>
-			</div>
+				</div>
+			</section>
 
-			<div class="col-12 my-5">
-				<fieldset class="border p-3">
-					<div id="control-radiogroup" role="radiogroup" aria-labelledby="control-label">
-						<h2 id="control-label" class="mb-3 h3">
-							Control&nbsp;<sup class="js-radio-group-value"
-								>Never gonna let you down</sup
+			<section class="mb-5" aria-labelledby="unchecked-heading">
+				<div class="border rounded p-3">
+					<h2 id="unchecked-heading" class="h4 mb-2">
+						<a href="#unchecked-heading">None checked</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						Tab lands on the first radio. Space or an arrow checks one.
+					</p>
+					<div role="radiogroup" aria-labelledby="delivery-label">
+						<h3 id="delivery-label" class="h5 mb-3">
+							Delivery<sup class="js-radio-group-value"></sup>
+						</h3>
+						<div class="Form__radio m-3" aria-checked="false" tabindex="0" role="radio">
+							<span class="Form__radio__input"></span>
+							<span class="Form__radio__label js-label">Pickup</span>
+						</div>
+						<div class="Form__radio m-3" aria-checked="false" tabindex="-1" role="radio">
+							<span class="Form__radio__input"></span>
+							<span class="Form__radio__label js-label">Home delivery</span>
+						</div>
+						<div class="Form__radio m-3" aria-checked="false" tabindex="-1" role="radio">
+							<span class="Form__radio__input"></span>
+							<span class="Form__radio__label js-label">Dine in</span>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="mb-5" aria-labelledby="input-heading">
+				<div class="border rounded p-3">
+					<h2 id="input-heading" class="h4 mb-2">
+						<a href="#input-heading">Optional native input</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						Hidden <code>input[type="radio"]</code> for form submit.
+						<code>detail.value</code> comes from that input.
+					</p>
+					<form>
+						<div role="radiogroup" aria-labelledby="size-label">
+							<h3 id="size-label" class="h5 mb-3">
+								Size<sup class="js-radio-group-value">Medium</sup>
+							</h3>
+							<div
+								class="Form__radio is-selected m-3"
+								aria-checked="true"
+								tabindex="0"
+								role="radio"
 							>
-						</h2>
-						<p>Disable or enable programmatically a radiogroup</p>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Medium</span>
+								<div class="d-none">
+									<input
+										type="radio"
+										name="size"
+										value="medium"
+										checked
+									/>
+								</div>
+							</div>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Large</span>
+								<div class="d-none">
+									<input type="radio" name="size" value="large" />
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section class="mb-5" aria-labelledby="tagger-heading">
+				<div class="border rounded p-3">
+					<h2 id="tagger-heading" class="h4 mb-2">
+						<a href="#tagger-heading">tagger + template</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						Radios are appended from <code>tagger</code> through
+						<code>template(label, value, selected, name)</code>.
+					</p>
+					<pre class="p-3 mb-3 language-javascript"><code>new RadioGroup($element, {
+	name: 'japan-condiments',
+	tagger: [
+		{ label: 'Black vinegar', value: 'black_vinegar', selected: true },
+		{ label: 'Chili oil', value: 'chili_oil', selected: false },
+	],
+	template,
+});</code></pre>
+					<form>
+						<div
+							role="radiogroup"
+							aria-labelledby="japan-condiments"
+							data-name="japan-condiments"
+							data-tagger='[{"label":"Black vinegar","value":"black_vinegar","selected":true},{"label":"Chili oil","value":"chili_oil"},{"label":"Dashi","value":"dashi"},{"label":"Fukujinzuke","value":"fukujinzuke"},{"label":"Furikake","value":"furikake"},{"label":"Gomashio","value":"gomashio"}]'
+						>
+							<h3 id="japan-condiments" class="h5 mb-3">
+								Japan condiments<sup class="js-radio-group-value">Black vinegar</sup>
+							</h3>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section class="mb-5" aria-labelledby="programmatic-heading">
+				<div class="border rounded p-3">
+					<h2 id="programmatic-heading" class="h4 mb-2">
+						<a href="#programmatic-heading">Programmatic selection</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						Same <code>tagger</code> / <code>template</code> options, plus
+						<code>deactivateAll()</code> and <code>activate()</code> driven by a select.
+					</p>
+					<form>
+						<div
+							role="radiogroup"
+							aria-labelledby="american-condiments"
+							data-name="american-condiments"
+							data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'
+						>
+							<h3 id="american-condiments" class="h5 mb-3">
+								American condiments<sup class="js-radio-group-value">Mayonnaise</sup>
+							</h3>
+							<select
+								class="form-select my-3 js-select"
+								aria-label="Select an american condiment"
+							>
+								<option value="mayonnaise" selected>Mayonnaise</option>
+								<option value="ketchup">Ketchup</option>
+								<option value="soy-sauce">Soy sauce</option>
+								<option value="salsa">Salsa</option>
+								<option value="mustard">Mustard</option>
+								<option value="hot-sauce">Hot sauce</option>
+							</select>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section class="mb-5" aria-labelledby="disabled-heading">
+				<div class="border rounded p-3">
+					<h2 id="disabled-heading" class="h4 mb-2">
+						<a href="#disabled-heading">Disabled and related fields</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						<code>aria-disabled="true"</code> on Spinach. Choosing Cheeses unlocks the
+						extra fields.
+					</p>
+					<form>
+						<div role="radiogroup" aria-labelledby="pizza-condiments">
+							<h3 id="pizza-condiments" class="h5 mb-3">
+								Pizza condiments<sup class="js-radio-group-value">Black olives</sup>
+							</h3>
+							<div
+								class="Form__radio is-selected m-3"
+								aria-checked="true"
+								tabindex="0"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Black olives</span>
+								<div class="d-none">
+									<input
+										type="radio"
+										name="pizza_condiments"
+										value="black-olives"
+										checked
+									/>
+								</div>
+							</div>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Cheeses</span>
+								<div class="d-none">
+									<input type="radio" name="pizza_condiments" value="cheeses" />
+								</div>
+							</div>
+							<fieldset class="border">
+								<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
+									<label class="form-label mb-0 text-nowrap" for="mozzarella">
+										Mozzarella
+									</label>
+									<div class="flex-grow-1">
+										<input
+											class="form-control"
+											id="mozzarella"
+											type="text"
+											name="mozzarella"
+											placeholder="ex. 1"
+											tabindex="-1"
+										/>
+									</div>
+								</div>
+								<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
+									<label class="form-label mb-0 text-nowrap" for="cheddar">
+										Cheddar
+									</label>
+									<div class="flex-grow-1">
+										<input
+											class="form-control"
+											id="cheddar"
+											name="cheddar"
+											type="text"
+											placeholder="ex. 1"
+											tabindex="-1"
+											disabled
+										/>
+									</div>
+								</div>
+								<div class="m-3 d-flex gap-3 align-items-center js-cheese is-off">
+									<label class="form-label mb-0 text-nowrap" for="emmental">
+										Emmental
+									</label>
+									<div class="flex-grow-1">
+										<input
+											class="form-control"
+											id="emmental"
+											type="text"
+											name="emmental"
+											placeholder="ex. 1"
+											tabindex="-1"
+											disabled
+										/>
+									</div>
+								</div>
+							</fieldset>
+							<div
+								class="Form__radio m-3 is-off"
+								aria-checked="false"
+								aria-disabled="true"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Spinach</span>
+								<div class="d-none">
+									<input
+										type="radio"
+										name="pizza_condiments"
+										value="spinach"
+										disabled
+									/>
+								</div>
+							</div>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Kale</span>
+								<div class="d-none">
+									<input type="radio" name="pizza_condiments" value="kale" />
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section class="mb-5" aria-labelledby="control-heading">
+				<div class="border rounded p-3">
+					<h2 id="control-heading" class="h4 mb-2">
+						<a href="#control-heading">enable() / disable()</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						Checkboxes call <code>radio.enable()</code> or
+						<code>radio.disable()</code>.
+					</p>
+					<div id="control-radiogroup" role="radiogroup" aria-labelledby="control-label">
+						<h3 id="control-label" class="h5 mb-3">
+							Control<sup class="js-radio-group-value">Never gonna let you down</sup>
+						</h3>
 						<div class="input-group my-3">
 							<div class="input-group-text">
-									<input
-										type="checkbox"
-										value="never-gonna-give-you-up"
-										class="js-control"
-									/>
+								<input
+									type="checkbox"
+									value="never-gonna-give-you-up"
+									class="js-control"
+								/>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -296,11 +474,11 @@ radiogroup.init();</code></pre>
 						</div>
 						<div class="input-group my-3">
 							<div class="input-group-text">
-									<input
-										type="checkbox"
-										value="never-gonna-let-you-down"
-										class="js-control"
-									/>
+								<input
+									type="checkbox"
+									value="never-gonna-let-you-down"
+									class="js-control"
+								/>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -328,11 +506,11 @@ radiogroup.init();</code></pre>
 						</div>
 						<div class="input-group my-3">
 							<div class="input-group-text">
-									<input
-										type="checkbox"
-										value="never-gonna-run-around-and-desert-you"
-										class="js-control"
-									/>
+								<input
+									type="checkbox"
+									value="never-gonna-run-around-and-desert-you"
+									class="js-control"
+								/>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -343,9 +521,9 @@ radiogroup.init();</code></pre>
 									aria-disabled="true"
 								>
 									<span class="Form__radio__input"></span>
-									<span class="Form__radio__label js-label"
-										>Never gonna run around and desert you</span
-									>
+									<span class="Form__radio__label js-label">
+										Never gonna run around and desert you
+									</span>
 									<div class="d-none">
 										<input
 											type="radio"
@@ -359,12 +537,12 @@ radiogroup.init();</code></pre>
 						</div>
 						<div class="input-group my-3">
 							<div class="input-group-text">
-									<input
-										type="checkbox"
-										value="never-gonna-make-you-cry"
-										checked
-										class="js-control"
-									/>
+								<input
+									type="checkbox"
+									value="never-gonna-make-you-cry"
+									checked
+									class="js-control"
+								/>
 							</div>
 							<div class="border flex-grow-1">
 								<div
@@ -387,202 +565,35 @@ radiogroup.init();</code></pre>
 								</div>
 							</div>
 						</div>
-						<div class="input-group my-3">
-							<div class="input-group-text">
-									<input
-										type="checkbox"
-										value="never-gonna-say-goodbye"
-										class="js-control"
-										checked
-									/>
-							</div>
-							<div class="border flex-grow-1">
-								<div
-									class="Form__radio p-3"
-									aria-checked="false"
-									tabindex="-1"
-									role="radio"
-								>
-									<span class="Form__radio__input"></span>
-									<span class="Form__radio__label js-label"
-										>Never gonna say goodbye</span
-									>
-									<div class="d-none">
-										<input
-											type="radio"
-											name="rickroll"
-											value="never-gonna-say-goodbye"
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="input-group my-3">
-							<div class="input-group-text">
-								<input
-									type="checkbox"
-									value="never-gonna-tell-a-lie-and-hurt-you"
-									class="js-control"
-									checked
-								/>
-							</div>
-							<div class="border flex-grow-1">
-								<div
-									class="Form__radio p-3"
-									aria-checked="false"
-									tabindex="-1"
-									role="radio"
-								>
-									<span class="Form__radio__input"></span>
-									<span class="Form__radio__label js-label"
-										>Never gonna tell a lie and hurt you</span
-									>
-									<div class="d-none">
-										<input
-											type="radio"
-											name="rickroll"
-											value="never-gonna-tell-a-lie-and-hurt-you"
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
-				</fieldset>
-			</div>
+				</div>
+			</section>
 
-			<div class="col-12 my-5">
-				<p>
-					Thanks to customs events we can programmatically change the current selected
-					radio.
-				</p>
-
-				<pre
-					class="p-3 m-0"
-				><code class="language-javascript">import RadioGroup from '@19h47/radiogroup';
-
-const $element = document.querySelector('[role="radiogroup"]');
-const $select = document.querySelector('select');
-const radiogroup = new RadioGroup($element);
-
-radiogroup.init();
-
-radiogroup.radios.forEach(radio => {
-	const { $input: { value } } = radio; // Grab the input value
-
-	radio.el.addEventListener('Radio.activate', () => {
-		[...$select.options].forEach(option => {
-
-			if (value === option.value) {
-				option.selected = true;
-			} else {
-				option.selected = false;
-			}
-		});
-	}
-});</code></pre>
-			</div>
-
-			<div class="col-12 my-5">
-				<form class="Form border p-3">
-					<div
-						role="radiogroup"
-						aria-labelledby="american-condiments"
-						data-name="american-condiments"
-						data-tagger='[{"label":"Mayonnaise","value":"mayonnaise","selected":true},{"label":"Ketchup","value":"ketchup"},{"label":"Soy sauce","value":"soy-sauce"},{"label":"Salsa","value":"salsa"},{"label":"Mustard","value":"mustard"},{"label":"Hot sauce","value":"hot-sauce"}]'
-					>
-						<h2 id="american-condiments" class="m-0 h3">
-							American condiments<sup class="js-radio-group-value">Mayonnaise</sup>
-						</h2>
-						<select
-							class="form-select my-3 js-select"
-							aria-label="Select an american condiments"
-						>
-							<option value="mayonnaise" selected>Mayonnaise</option>
-							<option value="ketchup">Ketchup</option>
-							<option value="soy-sauce">Soy sauce</option>
-							<option value="salsa">Salsa</option>
-							<option value="mustard">Mustard</option>
-							<option value="hot-sauce">Hot sauce</option>
-						</select>
-					</div>
-				</form>
-			</div>
-
-			<div class="col-12 my-5">
-				<form class="Form border p-3">
-					<div role="radiogroup" aria-labelledby="condiments">
-						<h2 id="condiments" class="mb-3 h3">
-							Condiments<sup class="js-radio-group-value">Savora</sup>
-						</h2>
-
-						<div class="input-group my-3">
-							<input
-								class="form-control js-input"
-								type="text"
-								name="condiments"
-								placeholder="ex. 1"
-								aria-label="Add a condiments"
-							/>
-							<button class="btn btn-outline-secondary js-button" type="button">
-								Add
-							</button>
-						</div>
-
-						<div
-							class="Form__radio is-selected m-3"
-							aria-checked="true"
-							tabindex="0"
-							role="radio"
-						>
-							<span class="Form__radio__input"></span>
-							<span class="Form__radio__label js-label">Savora</span>
-							<div class="d-none">
+			<section class="mb-5" aria-labelledby="add-heading">
+				<div class="border rounded p-3">
+					<h2 id="add-heading" class="h4 mb-2">
+						<a href="#add-heading">Add a radio</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						<code>destroy()</code>, insert markup, then <code>init()</code> again.
+					</p>
+					<form>
+						<div role="radiogroup" aria-labelledby="condiments">
+							<h3 id="condiments" class="h5 mb-3">
+								Condiments<sup class="js-radio-group-value">Savora</sup>
+							</h3>
+							<div class="input-group my-3">
 								<input
-									type="radio"
-									id="savora"
+									class="form-control js-input"
+									type="text"
 									name="condiments"
-									value="savora"
-									checked
+									placeholder="ex. Harissa"
+									aria-label="Add a condiment"
 								/>
+								<button class="btn btn-outline-secondary js-button" type="button">
+									Add
+								</button>
 							</div>
-						</div>
-
-						<div
-							class="Form__radio m-3"
-							aria-checked="false"
-							tabindex="-1"
-							role="radio"
-						>
-							<span class="Form__radio__input"></span>
-							<span class="Form__radio__label js-label">Tapenade</span>
-							<div class="d-none">
-								<input
-									type="radio"
-									id="tapenade"
-									name="condiments"
-									value="tapenade"
-								/>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-
-			<div class="col-12 my-5">
-				<form class="Form border p-3">
-					<div
-						role="radiogroup"
-						aria-labelledby="anise-spirits"
-						aria-orientation="horizontal"
-					>
-						<h2 id="anise-spirits" class="mb-3 h3">
-							Anise spirits<sup class="js-radio-group-value"
-								>French pastis and absinthe</sup
-							>
-						</h2>
-
-						<div class="row">
 							<div
 								class="Form__radio is-selected m-3"
 								aria-checked="true"
@@ -590,299 +601,218 @@ radiogroup.radios.forEach(radio => {
 								role="radio"
 							>
 								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label"
-									>French pastis and absinthe</span
-								>
+								<span class="Form__radio__label js-label">Savora</span>
 								<div class="d-none">
 									<input
 										type="radio"
-										id="french-pastis-and-absinthe"
 										name="condiments"
-										value="french-pastis-and-absinthe"
+										value="savora"
 										checked
 									/>
 								</div>
 							</div>
+							<div
+								class="Form__radio m-3"
+								aria-checked="false"
+								tabindex="-1"
+								role="radio"
+							>
+								<span class="Form__radio__input"></span>
+								<span class="Form__radio__label js-label">Tapenade</span>
+								<div class="d-none">
+									<input type="radio" name="condiments" value="tapenade" />
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
 
-							<div
-								class="Form__radio m-3"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label">Greek ouzo</span>
-								<div class="d-none">
-									<input
-										type="radio"
-										id="greek-ouzo"
-										name="condiments"
-										value="greek-ouzo"
-									/>
-								</div>
-							</div>
-
-							<div
-								class="Form__radio m-3"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label">Italian sambuca</span>
-								<div class="d-none">
-									<input
-										type="radio"
-										id="italian-sambuca"
-										name="condiments"
-										value="italian-sambuca"
-									/>
-								</div>
-							</div>
-
-							<div
-								class="Form__radio m-3"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label">Spanish anísado</span>
-								<div class="d-none">
-									<input
-										type="radio"
-										id="spanish-anisado"
-										name="condiments"
-										value="spanish-anisado"
-									/>
-								</div>
-							</div>
-
-							<div
-								class="Form__radio m-3"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label">Balkan rakı</span>
-								<div class="d-none">
-									<input
-										type="radio"
-										id="balkan-raki"
-										name="condiments"
-										value="balkan-raki"
-									/>
-								</div>
-							</div>
-							<div
-								class="Form__radio m-3"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label">Levantine arak</span>
-								<div class="d-none">
-									<input
-										type="radio"
-										id="levantine-arak"
-										name="condiments"
-										value="levantine-arak"
-									/>
-								</div>
-							</div>
-							<div
-								class="Form__radio m-3"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="Form__radio__input"></span>
-								<span class="Form__radio__label js-label"
-									>Algerian anisette cristal</span
+			<section class="mb-5" aria-labelledby="horizontal-heading">
+				<div class="border rounded p-3">
+					<h2 id="horizontal-heading" class="h4 mb-2">
+						<a href="#horizontal-heading">Horizontal</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						<code>aria-orientation="horizontal"</code>. Arrow keys still move through
+						the group.
+					</p>
+					<form>
+						<div
+							role="radiogroup"
+							aria-labelledby="anise-spirits"
+							aria-orientation="horizontal"
+						>
+							<h3 id="anise-spirits" class="h5 mb-3">
+								Anise spirits<sup class="js-radio-group-value">Pastis</sup>
+							</h3>
+							<div class="d-flex flex-wrap">
+								<div
+									class="Form__radio is-selected m-3"
+									aria-checked="true"
+									tabindex="0"
+									role="radio"
 								>
-								<div class="d-none">
-									<input
-										type="radio"
-										id="algerian-anisette-cristal"
-										name="condiments"
-										value="algerian-anisette-cristal"
-									/>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">Pastis</span>
+								</div>
+								<div
+									class="Form__radio m-3"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">Ouzo</span>
+								</div>
+								<div
+									class="Form__radio m-3"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">Sambuca</span>
+								</div>
+								<div
+									class="Form__radio m-3"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="Form__radio__input"></span>
+									<span class="Form__radio__label js-label">Arak</span>
 								</div>
 							</div>
 						</div>
-					</div>
-				</form>
-			</div>
+					</form>
+				</div>
+			</section>
 
-			<div class="col-12 my-5">
-				<form class="Form border p-3">
-					<div
-						role="radiogroup"
-						aria-labelledby="rating-star"
-						aria-orientation="horizontal"
-					>
-						<h2 id="rating-star" class="mb-3 h3">
-							Star rating<sup class="js-radio-group-value">1</sup>
-						</h2>
-
-						<div class="Form__stars d-flex">
-							<div
-								class="Form__radio is-selected"
-								aria-checked="true"
-								tabindex="0"
-								role="radio"
-							>
-								<span class="d-none js-label">1</span>
-								<svg role="img" viewBox="0 0 576 512" class="Form__star">
-									<path
-										d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-									></path>
-								</svg>
-								<input
-									id="star-1"
-									type="radio"
-									name="option"
-									value="1"
-									checked
-									style="display: none"
-								/>
-							</div>
-							<div
-								class="Form__radio"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="d-none js-label">2</span>
-								<svg role="img" viewBox="0 0 576 512" class="Form__star">
-									<path
-										d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-									></path>
-								</svg>
-								<input
-									id="star-2"
-									type="radio"
-									name="option"
-									value="2"
-									style="display: none"
-								/>
-							</div>
-							<div
-								class="Form__radio"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="d-none js-label">3</span>
-								<svg role="img" viewBox="0 0 576 512" class="Form__star">
-									<path
-										d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-									></path>
-								</svg>
-								<input
-									id="star-3"
-									type="radio"
-									name="option"
-									value="3"
-									style="display: none"
-								/>
-							</div>
-
-							<div
-								class="Form__radio"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="d-none js-label">4</span>
-								<svg role="img" viewBox="0 0 576 512" class="Form__star">
-									<path
-										d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-									></path>
-								</svg>
-								<input
-									id="star-4"
-									type="radio"
-									name="option"
-									value="4"
-									style="display: none"
-								/>
-							</div>
-							<div
-								class="Form__radio"
-								aria-checked="false"
-								tabindex="-1"
-								role="radio"
-							>
-								<span class="d-none js-label">5</span>
-								<svg role="img" viewBox="0 0 576 512" class="Form__star">
-									<path
-										d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
-									></path>
-								</svg>
-								<input
-									id="star-5"
-									type="radio"
-									name="option"
-									value="5"
-									style="display: none"
-								/>
+			<section class="mb-5" aria-labelledby="rating-heading">
+				<div class="border rounded p-3">
+					<h2 id="rating-heading" class="h4 mb-2">
+						<a href="#rating-heading">Star rating</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						Same widget, custom visuals. Hover fills stars to the left.
+					</p>
+					<form>
+						<div
+							role="radiogroup"
+							aria-labelledby="rating-star"
+							aria-orientation="horizontal"
+						>
+							<h3 id="rating-star" class="h5 mb-3">
+								Rating<sup class="js-radio-group-value">1</sup>
+							</h3>
+							<div class="Form__stars d-flex">
+								<div
+									class="Form__radio is-selected"
+									aria-checked="true"
+									tabindex="0"
+									role="radio"
+								>
+									<span class="d-none js-label">1</span>
+									<svg role="img" viewBox="0 0 576 512" class="Form__star">
+										<path
+											d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+										></path>
+									</svg>
+								</div>
+								<div
+									class="Form__radio"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="d-none js-label">2</span>
+									<svg role="img" viewBox="0 0 576 512" class="Form__star">
+										<path
+											d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+										></path>
+									</svg>
+								</div>
+								<div
+									class="Form__radio"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="d-none js-label">3</span>
+									<svg role="img" viewBox="0 0 576 512" class="Form__star">
+										<path
+											d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+										></path>
+									</svg>
+								</div>
+								<div
+									class="Form__radio"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="d-none js-label">4</span>
+									<svg role="img" viewBox="0 0 576 512" class="Form__star">
+										<path
+											d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+										></path>
+									</svg>
+								</div>
+								<div
+									class="Form__radio"
+									aria-checked="false"
+									tabindex="-1"
+									role="radio"
+								>
+									<span class="d-none js-label">5</span>
+									<svg role="img" viewBox="0 0 576 512" class="Form__star">
+										<path
+											d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"
+										></path>
+									</svg>
+								</div>
 							</div>
 						</div>
-					</div>
-				</form>
-			</div>
+					</form>
+				</div>
+			</section>
 		</div>
+
 		<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/plugins/autoloader/prism-autoloader.min.js"></script>
-
 		<script type="module">
 			import RadioGroup from './lib/index.ts';
 
-			// https://gist.github.com/hagemann/382adfc57adbd5af078dc93feef01fe1
-			const slugify = string => {
-				const a =
-					'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
-				const b =
-					'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
-				const p = new RegExp(a.split('').join('|'), 'g');
-
-				return string
+			const slugify = string =>
+				string
 					.toString()
 					.toLowerCase()
-					.replace(/\s+/g, '-') // Replace spaces with -
-					.replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-					.replace(/&/g, '-and-') // Replace & with 'and'
-					.replace(/[^\w\-]+/g, '') // Remove all non-word characters
-					.replace(/\-\-+/g, '-') // Replace multiple - with single -
-					.replace(/^-+/, '') // Trim - from start of text
-					.replace(/-+$/, ''); // Trim - from end of text
-			};
+					.normalize('NFD')
+					.replace(/[\u0300-\u036f]/g, '')
+					.replace(/\s+/g, '-')
+					.replace(/&/g, '-and-')
+					.replace(/[^\w-]+/g, '')
+					.replace(/-+/g, '-')
+					.replace(/^-|-$/g, '');
 
-			const elements = [...document.querySelectorAll('[role="radiogroup"]')];
 			const template = (label, value, selected, name) =>
-				'<div class="Form__radio m-3' +
-				(selected ? ' is-selected' : '') +
-				'" aria-checked="' +
-				(selected ? 'true' : 'false') +
-				'" tabindex="' +
-				(selected ? '0' : '-1') +
-				'" role="radio"><span class="Form__radio__input"></span><span class="Form__radio__label js-label">' +
-				label +
-				'</span><div class="d-none"><input type="radio" id="' +
-				slugify(value) +
-				'" name="' +
-				slugify(name) +
-				'" value="' +
-				slugify(value) +
-				'" ' +
-				(selected ? 'checked' : '') +
-				'></div></div>';
-			const cheeses = [...document.querySelectorAll('.js-cheese')];
+				`<div class="Form__radio m-3${selected ? ' is-selected' : ''}" aria-checked="${
+					selected ? 'true' : 'false'
+				}" tabindex="${selected ? '0' : '-1'}" role="radio"><span class="Form__radio__input"></span><span class="Form__radio__label js-label">${label}</span><div class="d-none"><input type="radio" id="${slugify(
+					value,
+				)}" name="${slugify(name)}" value="${slugify(value)}" ${
+					selected ? 'checked' : ''
+				}></div></div>`;
+
+			const radioLabel = $radio =>
+				$radio.querySelector('.js-label')?.textContent.trim() ||
+				$radio.textContent.trim();
+
 			const alertRoot = document.querySelector('.js-alert');
-			const createToast = content => {
+			const cheeses = [...document.querySelectorAll('.js-cheese')];
+
+			const notify = content => {
 				const toast = document.createElement('div');
 
 				toast.className = 'toast show text-bg-dark border-0';
@@ -890,230 +820,168 @@ radiogroup.radios.forEach(radio => {
 				toast.setAttribute('aria-live', 'polite');
 				toast.setAttribute('aria-atomic', 'true');
 				toast.innerHTML = `<div class="toast-body">${content}</div>`;
-
-				return toast;
-			};
-			const onRadioChange = content => {
-				const toast = createToast(content);
-
 				alertRoot.append(toast);
 				toast.addEventListener('click', () => toast.remove(), { once: true });
 				setTimeout(() => toast.remove(), 2000);
 			};
-			const controls = [...document.querySelectorAll('.js-control')];
 
-			controls.forEach($control => {
+			const labelOf = (radio, fallback) =>
+				radio.$input?.value || radioLabel(radio.$el) || fallback;
+
+			const demoHandlers = new WeakMap();
+
+			const bindRadioEvents = (radiogroup, $group) => {
+				const $value = $group.querySelector('.js-radio-group-value');
+				const $select = $group.querySelector('.js-select');
+
+				const setValue = $radio => {
+					if ($value) {
+						$value.textContent = radioLabel($radio);
+					}
+				};
+
+				radiogroup.radios.forEach(radio => {
+					const previous = demoHandlers.get(radio.$el);
+
+					if (previous) {
+						radio.$el.removeEventListener('Radio.activate', previous.activate);
+						radio.$el.removeEventListener('Radio.deactivate', previous.deactivate);
+					}
+
+					const activate = ({ detail }) => {
+						notify(`<strong>${labelOf(radio, detail.value)}</strong> has been activated!`);
+						setValue(detail.element);
+
+						if ($select && radio.$input) {
+							[...$select.options].forEach(option => {
+								option.selected = radio.$input.value === option.value;
+							});
+						}
+
+						if ('cheeses' === radio.$input?.value) {
+							cheeses.forEach($cheese => {
+								const $field = $cheese.querySelector('input');
+
+								$cheese.classList.remove('is-off');
+								$field.setAttribute('tabIndex', '0');
+								$field.removeAttribute('disabled');
+							});
+						}
+					};
+
+					const deactivate = ({ detail }) => {
+						notify(
+							`<strong>${labelOf(radio, detail.value)}</strong> has been deactivated!`,
+						);
+
+						if ('cheeses' === radio.$input?.value) {
+							cheeses.forEach($cheese => {
+								const $field = $cheese.querySelector('input');
+
+								$cheese.classList.add('is-off');
+								$field.setAttribute('tabIndex', '-1');
+								$field.setAttribute('disabled', 'true');
+							});
+						}
+					};
+
+					radio.$el.addEventListener('Radio.activate', activate);
+					radio.$el.addEventListener('Radio.deactivate', deactivate);
+					demoHandlers.set(radio.$el, { activate, deactivate });
+				});
+			};
+
+			document.querySelectorAll('.js-control').forEach($control => {
 				$control.addEventListener('input', ({ target }) => {
-					elements.forEach(element =>
-						element.dispatchEvent(
-							new CustomEvent('Control.input', {
-								detail: { checked: target.checked, value: target.value },
-							}),
-						),
+					document.querySelector('#control-radiogroup').dispatchEvent(
+						new CustomEvent('Control.input', {
+							detail: { checked: target.checked, value: target.value },
+						}),
 					);
 				});
 			});
 
-			elements.forEach(element => {
-				const $value = element.querySelector('.js-radio-group-value');
-				const $select = element.querySelector('.js-select');
-				const tagger = JSON.parse(element.getAttribute('data-tagger')) || [];
-				const name = element.getAttribute('data-name') || '';
-				const $add = element.querySelector('.js-button');
-				const $input = element.querySelector('.js-input');
-
-				const radiogroup = new RadioGroup(element, { tagger, template, name });
-
-				const setValue = item => {
-					const value = item.querySelector('.js-label').innerHTML;
-
-					$value.innerHTML = value;
-				};
+			document.querySelectorAll('[role="radiogroup"]').forEach($group => {
+				const tagger = JSON.parse($group.getAttribute('data-tagger') || 'null') || [];
+				const name = $group.getAttribute('data-name') || '';
+				const $select = $group.querySelector('.js-select');
+				const $add = $group.querySelector('.js-button');
+				const $input = $group.querySelector('.js-input');
+				const $destroy = $group.querySelector('.js-destroy');
+				const $create = $group.querySelector('.js-create');
+				const radiogroup = new RadioGroup($group, { tagger, template, name });
 
 				radiogroup.init();
+				bindRadioEvents(radiogroup, $group);
 
-				if ('control-radiogroup' === element.id) {
-					element.addEventListener('Control.input', ({ detail: { checked, value } }) => {
-						radiogroup.radios.forEach((radio, index) => {
-							if (radio.$input.value === value && checked) {
+				$destroy?.addEventListener('click', () => radiogroup.destroy());
+				$create?.addEventListener('click', () => {
+					radiogroup.destroy();
+					radiogroup.init();
+					bindRadioEvents(radiogroup, $group);
+				});
+
+				if ('control-radiogroup' === $group.id) {
+					$group.addEventListener('Control.input', ({ detail: { checked, value } }) => {
+						radiogroup.radios.forEach(radio => {
+							if (radio.$input?.value !== value) {
+								return;
+							}
+
+							if (checked) {
 								radio.enable();
-
-								radio.el.classList.remove('is-off');
-
-								radiogroup.destroy();
-								radiogroup.init();
-
-								radiogroup.radios.forEach(radio => {
-									radio.el.addEventListener('Radio.deactivate', ({ detail }) => {
-										const { value } = detail;
-
-										onRadioChange(
-											`<strong>${value}</strong> has been deactivated!`,
-										);
-									});
-
-									radio.el.addEventListener('Radio.activate', ({ detail }) => {
-										const { value } = detail;
-
-										onRadioChange(
-											`<strong>${value}</strong> has been activated!`,
-										);
-
-										setValue(radio.el);
-									});
-								});
-							}
-
-							if (radio.$input.value === value && !checked) {
+								radio.$el.classList.remove('is-off');
+							} else {
 								radio.disable();
-
-								radio.el.classList.add('is-off');
-
-								radiogroup.destroy();
-								radiogroup.init();
-
-								radiogroup.radios.forEach(radio => {
-									radio.el.addEventListener('Radio.deactivate', ({ detail }) => {
-										const { value } = detail;
-
-										onRadioChange(
-											`<strong>${value}</strong> has been deactivated!`,
-										);
-									});
-
-									radio.el.addEventListener('Radio.activate', ({ detail }) => {
-										const { value } = detail;
-
-										onRadioChange(
-											`<strong>${value}</strong> has been activated!`,
-										);
-
-										setValue(radio.el);
-									});
-								});
+								radio.$el.classList.add('is-off');
 							}
+
+							radiogroup.destroy();
+							radiogroup.init();
+							bindRadioEvents(radiogroup, $group);
 						});
 					});
 				}
 
-				radiogroup.radios.forEach(radio => {
-					radio.el.addEventListener('Radio.activate', ({ detail }) => {
-						const { element, value } = detail;
+				$select?.addEventListener('change', ({ target }) => {
+					const value = target.options[target.selectedIndex].value;
 
-						console.log({ element, value, event: 'activate' });
-
-						onRadioChange(`<strong>${value}</strong> has been activated!`);
-
-						if ($select) {
-							const {
-								$input: { value },
-							} = radio;
-
-							[...$select.options].forEach(option => {
-								if (value === option.value) {
-									option.selected = true;
-								} else {
-									option.selected = false;
-								}
-							});
-						}
-
-						if ('cheeses' === value) {
-							cheeses.forEach(cheese => {
-								const $input = cheese.querySelector('input');
-
-								cheese.classList.remove('is-off');
-
-								$input.setAttribute('tabIndex', 0);
-								$input.removeAttribute('disabled');
-							});
-						}
-
-						setValue(element);
-					});
-
-					radio.el.addEventListener('Radio.deactivate', ({ detail }) => {
-						const { element, value } = detail;
-						console.log({ element, value, event: 'deactivate' });
-
-						onRadioChange(`<strong>${value}</strong> has been deactivated!`);
-
-						if ('cheeses' === value) {
-							cheeses.forEach(cheese => {
-								const $input = cheese.querySelector('input');
-
-								cheese.classList.add('is-off');
-
-								$input.setAttribute('tabIndex', -1);
-								$input.setAttribute('disabled', true);
-							});
+					radiogroup.deactivateAll();
+					radiogroup.radios.forEach((radio, index) => {
+						if (radio.$input?.value === value) {
+							radio.activate();
+							radiogroup.current = index;
+							radio.$el.dispatchEvent(
+								new CustomEvent('Radio.activate', {
+									bubbles: false,
+									cancelable: true,
+									detail: {
+										element: radio.$el,
+										value: radio.$input?.value,
+									},
+								}),
+							);
 						}
 					});
 				});
 
-				if ($select) {
-					$select.addEventListener('change', ({ target }) => {
-						const value = target.options[target.selectedIndex].value;
+				$add?.addEventListener('click', () => {
+					const { value } = $input;
 
-						radiogroup.deactivateAll();
+					if (0 === value.length) {
+						return;
+					}
 
-						radiogroup.radios.forEach((radio, index) => {
-							if (radio.$input.value === value) {
-								radio.activate();
-
-								const event = new CustomEvent('Radio.activate', {
-									bubbles: false,
-									cancelable: true,
-									detail: {
-										element: radio.el,
-									value: radio.$input.value,
-									},
-								});
-
-								// Dispatch the event on target.
-								radio.el.dispatchEvent(event);
-
-								radiogroup.current = index;
-							}
-						});
-					});
-				}
-
-				if ($add && $input) {
-					$add.addEventListener('click', () => {
-						const { value } = $input;
-
-						if (0 !== value.length) {
-							radiogroup.destroy();
-
-							element.insertAdjacentHTML(
-								'beforeend',
-								template(value, value, false, 'condiments'),
-							);
-
-							radiogroup.init();
-							radiogroup.radios[radiogroup.current].activate();
-
-							radiogroup.radios.forEach(radio => {
-								radio.el.addEventListener('Radio.activate', ({ detail }) => {
-									const { value } = detail;
-									onRadioChange(`<strong>${value}</strong> has been activated!`);
-									setValue(element);
-								});
-							});
-
-							radiogroup.radios.forEach(radio => {
-								radio.el.addEventListener('Radio.deactivate', ({ detail }) => {
-									const { value } = detail;
-
-									onRadioChange(
-										`<strong>${value}</strong> has been deactivated!`,
-									);
-								});
-							});
-						}
-					});
-				}
+					radiogroup.destroy();
+					$group.insertAdjacentHTML(
+						'beforeend',
+						template(value, value, false, 'condiments'),
+					);
+					radiogroup.init();
+					radiogroup.radios[radiogroup.current].activate();
+					bindRadioEvents(radiogroup, $group);
+					$input.value = '';
+				});
 			});
 		</script>
 	</body>

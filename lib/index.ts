@@ -1,20 +1,27 @@
-import Radio from './Radio';
+import Radio from './Radio.js';
 
-type Template = (label: string, value: string, selected: boolean, name: string) => string
+export type { default as Radio } from './Radio.js';
 
-interface Options {
-	tagger: Tag[],
-	template: Template,
-	name: string
+export type Template = (label: string, value: string, selected: boolean, name: string) => string;
+
+export interface Tag {
+	label: string;
+	value: string;
+	selected?: boolean;
 }
 
-interface Tag {
-	label: string,
-	value: string,
-	selected: boolean
+export interface Options {
+	tagger: Tag[];
+	template: Template;
+	name: string;
 }
 
-const optionsDefault : Options = {
+export interface RadioEventDetail {
+	element: HTMLElement;
+	value?: string;
+}
+
+const optionsDefault: Options = {
 	tagger: [],
 	template: () => '',
 	name: '',
@@ -23,11 +30,11 @@ const optionsDefault : Options = {
 /**
  * Class Radios
  *
- * @param {obj} element DOM element.
+ * @param {HTMLElement} $el DOM element.
  * @author Jérémy Levron <jeremylevron@19h47.fr> (https://19h47.fr)
  */
 export default class RadioGroup {
-	el: HTMLElement;
+	$el: HTMLElement;
 	radios: Radio[] = [];
 	current: number = 0;
 	options: Options;
@@ -35,11 +42,11 @@ export default class RadioGroup {
 
 	/**
 	 *
-	 * @param {HTMLElement} el
+	 * @param {HTMLElement} $el
 	 * @param options
 	 */
-	constructor(el: HTMLElement, options = {} as Options) {
-		this.el = el;
+	constructor($el: HTMLElement, options: Partial<Options> = {}) {
+		this.$el = $el;
 
 		this.options = { ...optionsDefault, ...options };
 
@@ -47,7 +54,7 @@ export default class RadioGroup {
 	}
 
 	init() {
-		this.elements = [...this.el.querySelectorAll<HTMLElement>('[role=radio]')];
+		this.elements = [...this.$el.querySelectorAll<HTMLElement>('[role=radio]')];
 
 		this.elements.forEach($element => {
 			const radio = new Radio($element);
@@ -67,25 +74,51 @@ export default class RadioGroup {
 	initEvents() {
 		this.radios
 			.filter(radio => false === radio.disabled)
-			.forEach((radio, index) =>
-				radio.el.addEventListener('Radio.beforeActivate', () => {
-					this.setCurrent(index);
-					this.deactivateAll();
-					return radio.activate();
-				}),
+			.forEach(radio =>
+				radio.$el.addEventListener('Radio.beforeActivate', this.handleBeforeActivate),
 			);
 
-		this.el.addEventListener('keydown', this.handleKeydown);
+		this.$el.addEventListener('keydown', this.handleKeydown);
 	}
+
+	handleBeforeActivate = (event: Event) => {
+		const radios = this.radios.filter(radio => false === radio.disabled);
+		const index = radios.findIndex(radio => radio.$el === event.currentTarget);
+
+		if (-1 === index) {
+			return false;
+		}
+
+		this.setCurrent(index);
+		this.deactivateAll();
+
+		return radios[index].activate();
+	};
 
 	/**
 	 * Keydown event listener
 	 *
 	 * @param {KeyboardEvent} event Keyboard event.
 	 */
-	handleKeydown = (event: KeyboardEvent): any => {
-		const key = event.key || event.code;
+	handleKeydown = (event: KeyboardEvent): boolean | void => {
+		const $target = event.target as HTMLElement | null;
+		const $radio = $target?.closest('[role=radio]');
+
+		if (!$radio) {
+			return false;
+		}
+
+		const { key } = event;
 		const radios = this.radios.filter(radio => false === radio.disabled);
+		const index = radios.findIndex(radio => radio.$el === $radio);
+
+		if (0 === radios.length) {
+			return false;
+		}
+
+		if (-1 !== index) {
+			this.setCurrent(index);
+		}
 
 		const next = () => {
 			event.preventDefault();
@@ -119,7 +152,16 @@ export default class RadioGroup {
 			radios[radios.length - 1].toggle();
 		};
 
-		const codes : any = {
+		const toggle = () => {
+			event.preventDefault();
+
+			const focused = radios.find(radio => radio.$el === document.activeElement);
+
+			return (focused ?? radios[this.current]).toggle();
+		};
+
+		const codes: Record<string, () => boolean | void> = {
+			' ': toggle,
 			ArrowUp: previous,
 			ArrowRight: next,
 			ArrowDown: next,
@@ -129,36 +171,39 @@ export default class RadioGroup {
 			default: () => false,
 		};
 
-		return (codes[key] || codes.default)();
+		return (codes[key] ?? codes.default)();
 	}
 
 	/**
 	 * Deactivate all
 	 *
 	 */
-	deactivateAll = () : void => this.radios.forEach(radio => radio.deactivate());
+	deactivateAll = (): void => this.radios.forEach(radio => radio.deactivate());
 
 	render(): void {
 		const { template, name } = this.options;
 
 		this.options.tagger.forEach(tag => {
-			this.el.insertAdjacentHTML(
+			this.$el.insertAdjacentHTML(
 				'beforeend',
-				template(tag.label, tag.value, tag.selected, name),
+				template(tag.label, tag.value, tag.selected ?? false, name),
 			);
 		});
 	}
 
 	destroy(): void {
-		this.el.removeEventListener('keydown', this.handleKeydown);
+		this.$el.removeEventListener('keydown', this.handleKeydown);
 
-		this.radios.forEach(radio => radio.destroy());
+		this.radios.forEach(radio => {
+			radio.$el.removeEventListener('Radio.beforeActivate', this.handleBeforeActivate);
+			radio.destroy();
+		});
 
 		this.elements = [];
 		this.radios = [];
 	}
 
-	setCurrent = (index = 0) : void => {
+	setCurrent = (index = 0): void => {
 		this.current = index;
 	};
 }

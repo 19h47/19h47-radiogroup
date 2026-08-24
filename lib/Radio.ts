@@ -1,48 +1,42 @@
-import { select, deselect, blur, focus, dispatchEvent } from './utils';
+import { select, deselect, blur, focus, dispatchEvent } from './utils.js';
 
 const CHECKED = 'aria-checked';
 
 /**
  *
- * @param {HTMLElement} el HTML element.
+ * @param {HTMLElement} $el HTML element.
  */
 export default class Radio {
-	el: HTMLElement;
+	$el: HTMLElement;
 	$input: HTMLInputElement | null = null;
 	checked: boolean = false;
 	disabled: boolean = false;
 
 	/**
 	 *
-	 * @param {HTMLElement} el
+	 * @param {HTMLElement} $el
 	 */
-	constructor(el: HTMLElement) {
-		// Elements
-		this.el = el;
+	constructor($el: HTMLElement) {
+		this.$el = $el;
+		this.$input = this.$el.querySelector<HTMLInputElement>('input[type="radio"]');
 
-		const $input = this.el.querySelector<HTMLInputElement>('input[type="radio"]');
-
-		if ($input) {
-			// Element
-			this.$input = $input;
-
-			// Values
-			this.checked = JSON.parse(this.el.getAttribute(CHECKED) as string);
-			this.disabled = this.$input.disabled;
-		}
+		this.checked =
+			'true' === this.$el.getAttribute(CHECKED) || true === this.$input?.checked;
+		this.disabled =
+			'true' === this.$el.getAttribute('aria-disabled') || true === this.$input?.disabled;
 	}
 
 	init = () => this.initEvents();
 
 	initEvents(): void {
-		// console.info('Radio.initEvents');
-
-		this.el.addEventListener('click', this.handleClick);
-		this.el.addEventListener('focus', () => focus(this.el));
-		this.el.addEventListener('blur', () => blur(this.el));
+		this.$el.addEventListener('click', this.handleClick);
+		this.$el.addEventListener('focus', this.handleFocus);
+		this.$el.addEventListener('blur', this.handleBlur);
 	}
 
 	handleClick = () => this.toggle();
+	handleFocus = () => focus(this.$el);
+	handleBlur = () => blur(this.$el);
 
 	/**
 	 * Toggle
@@ -53,12 +47,16 @@ export default class Radio {
 		}
 
 		if (!this.checked) {
-			dispatchEvent(this.el, {}, 'beforeActivate');
-			// this.activate();
-			return dispatchEvent(this.el, {
-				element: this.el,
-				value: this.$input!.value
-			}, 'activate');
+			dispatchEvent(this.$el, {}, 'beforeActivate');
+
+			return dispatchEvent(
+				this.$el,
+				{
+					element: this.$el,
+					value: this.$input?.value,
+				},
+				'activate',
+			);
 		}
 
 		return false;
@@ -70,28 +68,30 @@ export default class Radio {
 	 * @return boolean
 	 */
 	deactivate(): boolean | undefined {
-		// console.info('Radio.deactivate', this.checked);
-
 		if (!this.checked) {
 			return false;
 		}
 
 		this.checked = false;
 
-		deselect(this.el);
-		this.el.setAttribute(CHECKED, 'false');
-		this.el.setAttribute('tabindex', '-1');
-		blur(this.el);
+		deselect(this.$el);
+		this.$el.setAttribute(CHECKED, 'false');
+		this.$el.setAttribute('tabindex', '-1');
+		blur(this.$el);
 
+		if (this.$input) {
+			this.$input.checked = false;
+			this.$input.removeAttribute('checked');
+		}
 
-		this.$input!.checked = false;
-		this.$input!.removeAttribute('checked');
-
-		return dispatchEvent(this.el, {
-			element: this.el,
-			value: this.$input!.value,
-		}, 'deactivate');
-
+		return dispatchEvent(
+			this.$el,
+			{
+				element: this.$el,
+				value: this.$input?.value,
+			},
+			'deactivate',
+		);
 	}
 
 	/**
@@ -102,49 +102,54 @@ export default class Radio {
 	 * @return {boolean}
 	 */
 	activate(shouldFocus: boolean = true): boolean {
-		// console.info('Radio.activate', this.checked);
-
 		if (this.checked) {
 			return false;
 		}
 
 		this.checked = true;
 
-		select(this.el);
-		this.el.setAttribute(CHECKED, 'true');
-		this.el.setAttribute('tabindex', '0');
+		select(this.$el);
+		this.$el.setAttribute(CHECKED, 'true');
+		this.$el.setAttribute('tabindex', '0');
 
 		if (shouldFocus) {
-			focus(this.el);
+			focus(this.$el);
 		}
 
-		this.$input!.checked = true;
-		this.$input!.setAttribute('checked', 'true');
+		if (this.$input) {
+			this.$input.checked = true;
+			this.$input.setAttribute('checked', 'true');
+		}
 
 		return true;
 	}
 
 	destroy(): void {
-		this.el.removeEventListener('click', this.handleClick);
-		this.el.removeEventListener('focus', () => focus(this.el));
-		this.el.removeEventListener('blur', () => blur(this.el));
+		this.$el.removeEventListener('click', this.handleClick);
+		this.$el.removeEventListener('focus', this.handleFocus);
+		this.$el.removeEventListener('blur', this.handleBlur);
 	}
 
 	disable(): void {
-		this.el.setAttribute('tabindex', '-1');
-		this.el.setAttribute('aria-disabled', 'true');
+		this.disabled = true;
+		this.$el.setAttribute('tabindex', '-1');
+		this.$el.setAttribute('aria-disabled', 'true');
 
-		// @see https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#non-null-assertion-operator-postfix-
-		this.$input!.disabled = true;
+		if (this.$input) {
+			this.$input.disabled = true;
+		}
 	}
 
 	enable(): void {
-		this.$input!.disabled = false;
+		this.disabled = false;
+		this.$el.setAttribute('aria-disabled', 'false');
 
-		this.el.setAttribute('aria-disabled', 'false');
+		if (this.$input) {
+			this.$input.disabled = false;
+		}
 
 		if (this.checked) {
-			this.el.setAttribute('tabindex', '0');
+			this.$el.setAttribute('tabindex', '0');
 		}
 	}
 }
