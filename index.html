@@ -135,6 +135,51 @@
 				font-size: 0.8rem;
 				color: #6c757d;
 			}
+
+			.Form__slots {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(7.25rem, 1fr));
+				gap: 0.5rem;
+			}
+
+			.Form__slot {
+				display: flex;
+				flex-direction: column;
+				gap: 0.15rem;
+				padding: 0.75rem;
+				border: 2px solid #dee2e6;
+				border-radius: 0.5rem;
+				background: #fff;
+				cursor: pointer;
+			}
+
+			.Form__slot.is-selected {
+				border-color: #212529;
+				background: #f8f9fa;
+			}
+
+			.Form__slot.is-focus {
+				outline: 2px solid #0d6efd;
+				outline-offset: 2px;
+			}
+
+			.Form__slot__day {
+				font-size: 0.75rem;
+				letter-spacing: 0.04em;
+				text-transform: uppercase;
+				color: #6c757d;
+			}
+
+			.Form__slot__time {
+				font-size: 1.25rem;
+				font-weight: 600;
+				line-height: 1.2;
+			}
+
+			.Form__slot__meta {
+				font-size: 0.8rem;
+				color: #6c757d;
+			}
 		</style>
 	</head>
 
@@ -150,18 +195,24 @@
 				<h1 class="mb-2">
 					<a href="https://github.com/19h47/19h47-radiogroup">@19h47/radiogroup</a>
 				</h1>
-				<p class="lead mb-2">Exclusive radio groups with keyboard support</p>
+				<p class="lead mb-2">
+					Enhance APG radio groups. Do not replace native radios.
+				</p>
 				<p class="text-secondary mb-0">
-					Markup is the source of truth
-					(<code>role="radiogroup"</code>, <code>role="radio"</code>,
-					<code>aria-checked</code>, <code>tabindex</code>). The script only enhances
-					selection and keeps attributes in sync, following the
-					<a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">WAI-ARIA Radio Group pattern</a>.
+					You write <code>role="radiogroup"</code> / <code>role="radio"</code>;
+					the script keeps exclusive selection, keyboard, and attributes in sync.
+					If a <code>fieldset</code> and <code>input type="radio"</code> are enough
+					— including cards or ratings with <code>:has()</code> — skip the library.
+					Pattern:
+					<a href="https://www.w3.org/WAI/ARIA/apg/patterns/radio/">WAI-ARIA Radio Group</a>.
 				</p>
 			</header>
 
 			<section class="mb-5" aria-labelledby="usage-heading">
 				<h2 id="usage-heading" class="h4 mb-3">Usage</h2>
+				<p class="text-secondary small mb-3">
+					Use this when the markup is already APG. For a form, prefer native radios.
+				</p>
 				<pre class="p-3 mb-3 language-javascript"><code>import RadioGroup from '@19h47/radiogroup';
 
 const $element = document.querySelector('[role="radiogroup"]');
@@ -175,13 +226,128 @@ radiogroup.init();</code></pre>
 &lt;/div&gt;</code></pre>
 			</section>
 
+			<section class="mb-5" aria-labelledby="slots-heading">
+				<div class="border rounded p-3">
+					<h2 id="slots-heading" class="h4 mb-2">
+						<a href="#slots-heading">Time slots</a>
+					</h2>
+					<p class="text-secondary small mb-3">
+						App chrome, not a form. Each option is a composite cell (day, time,
+						seats left). Full slots are skipped by the arrow keys. Party size
+						closes tables that are too small and clears an invalid selection.
+						A native radio list would not keep this layout or the live summary.
+					</p>
+					<div class="mb-3" style="max-width: 12rem">
+						<label class="form-label" for="party-size">Party size</label>
+						<select class="form-select js-party-size" id="party-size">
+							<option value="2" selected>2 guests</option>
+							<option value="4">4 guests</option>
+							<option value="6">6 guests</option>
+							<option value="8">8 guests</option>
+						</select>
+					</div>
+					<p
+						id="slots-summary"
+						class="small mb-3 js-slots-summary"
+						aria-live="polite"
+					>
+						Choose a time.
+					</p>
+					<div
+						id="slots-radiogroup"
+						role="radiogroup"
+						aria-labelledby="slots-label"
+						aria-describedby="slots-summary"
+						aria-orientation="horizontal"
+					>
+						<h3 id="slots-label" class="h5 mb-3">Available tables</h3>
+						<div class="Form__slots">
+							<div
+								class="Form__slot"
+								role="radio"
+								aria-checked="false"
+								tabindex="0"
+								data-seats="4"
+								data-label="Tuesday 12:00"
+							>
+								<span class="Form__slot__day">Tue</span>
+								<span class="Form__slot__time js-label">12:00</span>
+								<span class="Form__slot__meta">4 left</span>
+							</div>
+							<div
+								class="Form__slot is-off"
+								role="radio"
+								aria-checked="false"
+								aria-disabled="true"
+								tabindex="-1"
+								data-seats="0"
+								data-label="Tuesday 12:30"
+							>
+								<span class="Form__slot__day">Tue</span>
+								<span class="Form__slot__time js-label">12:30</span>
+								<span class="Form__slot__meta">Full</span>
+							</div>
+							<div
+								class="Form__slot"
+								role="radio"
+								aria-checked="false"
+								tabindex="-1"
+								data-seats="6"
+								data-label="Tuesday 13:00"
+							>
+								<span class="Form__slot__day">Tue</span>
+								<span class="Form__slot__time js-label">13:00</span>
+								<span class="Form__slot__meta">6 left</span>
+							</div>
+							<div
+								class="Form__slot"
+								role="radio"
+								aria-checked="false"
+								tabindex="-1"
+								data-seats="8"
+								data-label="Wednesday 19:00"
+							>
+								<span class="Form__slot__day">Wed</span>
+								<span class="Form__slot__time js-label">19:00</span>
+								<span class="Form__slot__meta">8 left</span>
+							</div>
+							<div
+								class="Form__slot"
+								role="radio"
+								aria-checked="false"
+								tabindex="-1"
+								data-seats="2"
+								data-label="Wednesday 19:30"
+							>
+								<span class="Form__slot__day">Wed</span>
+								<span class="Form__slot__time js-label">19:30</span>
+								<span class="Form__slot__meta">2 left</span>
+							</div>
+							<div
+								class="Form__slot"
+								role="radio"
+								aria-checked="false"
+								tabindex="-1"
+								data-seats="10"
+								data-label="Wednesday 21:00"
+							>
+								<span class="Form__slot__day">Wed</span>
+								<span class="Form__slot__time js-label">21:00</span>
+								<span class="Form__slot__meta">10 left</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
 			<section class="mb-5" aria-labelledby="markup-heading">
 				<div class="border rounded p-3">
 					<h2 id="markup-heading" class="h4 mb-2">
 						<a href="#markup-heading">Markup only</a>
 					</h2>
 					<p class="text-secondary small mb-3">
-						No native <code>input</code>. The group is already in the HTML.
+						The case this library is for: the group is already in the HTML, no
+						native <code>input</code>.
 					</p>
 					<div role="radiogroup" aria-labelledby="crust-label">
 						<div class="d-flex gap-2 mb-3">
@@ -250,9 +416,9 @@ radiogroup.init();</code></pre>
 						<a href="#input-heading">Optional native input</a>
 					</h2>
 					<p class="text-secondary small mb-3">
-						The custom radios are for the accessibility tree. Hidden
-						<code>input[type="radio"]</code> ride along in <code>FormData</code> on
-						submit — that is the only reason they exist.
+						Only if you already chose APG radios and still need to submit.
+						Hidden <code>input[type="radio"]</code> ride along in
+						<code>FormData</code>. For a normal form, skip the custom widget.
 					</p>
 					<form class="js-order-form">
 						<div class="mb-3">
@@ -401,9 +567,8 @@ radiogroup.init();</code></pre>
 						<a href="#tagger-heading">tagger + template</a>
 					</h2>
 					<p class="text-secondary small mb-3">
-						A native radio already covers the classic control. <code>template</code>
-						is for a widget that should not look like one, while still behaving as a
-						group: one checked, arrow keys, roving <code>tabindex</code>.
+						<code>template</code> only injects HTML. The same cards work as
+						<code>&lt;label&gt;</code> around a native radio, with CSS and no script.
 					</p>
 					<pre class="p-3 mb-3 language-javascript"><code>const template = (label, value, selected, name) =>
 	`&lt;div class="Form__card${selected ? ' is-selected' : ''}" role="radio"
@@ -861,7 +1026,8 @@ new RadioGroup($element, { name, tagger, template });</code></pre>
 						<a href="#rating-heading">Star rating</a>
 					</h2>
 					<p class="text-secondary small mb-3">
-						Same widget, custom visuals. Hover fills stars to the left.
+						Custom visuals on the APG widget. The same left-fill hover is doable
+						with native radios and CSS <code>:has()</code>.
 					</p>
 					<form>
 						<div
@@ -1046,6 +1212,16 @@ new RadioGroup($element, { name, tagger, template });</code></pre>
 						notify(`<strong>${labelOf(radio, detail.value)}</strong> has been activated!`);
 						setValue(detail.element);
 
+						if ('slots-radiogroup' === $group.id) {
+							const size =
+								document.querySelector('.js-party-size')?.value ?? '';
+							const $summary = document.querySelector('.js-slots-summary');
+
+							if ($summary) {
+								$summary.textContent = `${radio.$el.dataset.label} · ${size} guests`;
+							}
+						}
+
 						if ('true' === $group.getAttribute('aria-required')) {
 							$group.setAttribute('aria-invalid', 'false');
 							$group
@@ -1173,6 +1349,57 @@ new RadioGroup($element, { name, tagger, template });</code></pre>
 					radiogroup.init();
 					bindRadioEvents(radiogroup, $group);
 				});
+
+				if ('slots-radiogroup' === $group.id) {
+					const $party = document.querySelector('.js-party-size');
+					const $summary = document.querySelector('.js-slots-summary');
+
+					const syncSlots = () => {
+						const size = Number($party.value);
+
+						radiogroup.radios.forEach(radio => {
+							const seats = Number(radio.$el.dataset.seats);
+							const unavailable = 0 === seats || seats < size;
+
+							if (unavailable) {
+								if (radio.checked) {
+									radio.deactivate();
+								}
+
+								radio.disable();
+								radio.$el.classList.add('is-off');
+							} else {
+								radio.enable();
+								radio.$el.classList.remove('is-off');
+							}
+						});
+
+						const enabled = radiogroup.radios.filter(
+							radio => false === radio.disabled,
+						);
+						const tabStop =
+							enabled.find(radio => radio.checked) ?? enabled[0];
+
+						enabled.forEach(radio => {
+							radio.$el.setAttribute(
+								'tabindex',
+								radio === tabStop ? '0' : '-1',
+							);
+						});
+
+						radiogroup.destroy();
+						radiogroup.init();
+						bindRadioEvents(radiogroup, $group);
+
+						const selected = radiogroup.radios.find(radio => radio.checked);
+
+						$summary.textContent = selected
+							? `${selected.$el.dataset.label} · ${size} guests`
+							: 'Choose a time.';
+					};
+
+					$party.addEventListener('change', syncSlots);
+				}
 
 				if ('control-radiogroup' === $group.id) {
 					$group.addEventListener('Control.input', ({ detail: { checked, value } }) => {

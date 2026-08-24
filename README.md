@@ -1,6 +1,20 @@
 # @19h47/radiogroup
 
-Custom radio group with accessibility in mind. Markup is the source of truth; the script only enhances keyboard and exclusive selection, aligned with the [WAI-ARIA Radio Group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/).
+Vanilla enhancer for the [WAI-ARIA Radio Group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/). You write `role="radiogroup"` / `role="radio"`; the script keeps exclusive selection, keyboard support, and attributes in sync.
+
+Markup is the source of truth. If a native `<fieldset>` and `input type="radio"` cover the case — including cards or ratings styled with `:has()` and `appearance` — do not install this library.
+
+## When to use
+
+- The group is already APG markup, with no native input (CMS, existing HTML, widget outside a form).
+- The control is app chrome: composite cells, disabled options in the middle, live UI around the group. Native radios would break the layout or the keyboard path.
+- You want that pattern in vanilla JS, without a framework a11y kit.
+
+## When not to use
+
+- Exclusive choice in a form: use native radios. The browser already does arrows, tab, `required`, and `FormData`.
+- Custom look is not a reason to switch. A visually hidden radio inside a `<label>`, plus CSS, is enough.
+- `tagger` / `template` only inject HTML. They are not an accessibility feature.
 
 ## Installation
 
@@ -12,7 +26,7 @@ Also works with `npm` / `yarn` / `bun`.
 
 ## Usage
 
-The HTML declares the group, the checked radio, and the tab stop. JavaScript reads that state and keeps it in sync after interaction. A native `input[type="radio"]` is optional (forms); the [APG pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/) does not require it.
+The HTML declares the group, the checked radio, and the tab stop. JavaScript reads that state and keeps it in sync after interaction. A native `input[type="radio"]` is optional, and only useful when the APG radios must also submit with a form.
 
 ```html
 <div role="radiogroup" aria-labelledby="option-label">
@@ -92,9 +106,11 @@ import RadioGroup, { type Options, type Radio, type Tag } from '@19h47/radiogrou
 
 ## Options
 
+Optional helpers to append radios from data. They do not replace writing the markup yourself.
+
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `tagger` | `array` | `[]` | Optional list of `{ label, value, selected }` used to append radios via `template`. |
+| `tagger` | `array` | `[]` | List of `{ label, value, selected }` passed to `template`. |
 | `template` | `function` | `() => ''` | `(label, value, selected, name) => html` |
 | `name` | `string` | `''` | Passed to `template` as the native input `name`. |
 
